@@ -74,7 +74,7 @@ public class MainActivityazer extends AppCompatActivity {
                             }
                         }
                     });
-
+//iii
                     resend.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
