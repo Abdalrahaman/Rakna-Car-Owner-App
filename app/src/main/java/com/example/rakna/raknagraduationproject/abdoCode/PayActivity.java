@@ -1,7 +1,9 @@
-package com.example.rakna.raknagraduationproject;
+package com.example.rakna.raknagraduationproject.abdoCode;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.rakna.raknagraduationproject.R;
 
 public class PayActivity extends AppCompatActivity {
 

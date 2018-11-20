@@ -1,9 +1,11 @@
-package com.example.rakna.raknagraduationproject;
+package com.example.rakna.raknagraduationproject.abdoCode;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.example.rakna.raknagraduationproject.R;
 
 public class OwnerPreviewAdapter extends FragmentPagerAdapter {
 

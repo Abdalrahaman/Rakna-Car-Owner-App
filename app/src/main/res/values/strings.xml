@@ -25,4 +25,27 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+
+    <!--        AZER          -->
+
+    <string name="name">Name</string>
+    <string name="phone">Phone Number</string>
+    <string name="License">License Number</string>
+    <string name="DriverLicense">Driver's License</string>
+    <string name="CareType">Care Type</string>
+    <string name="E_mail">E_mail</string>
+    <string name="Password">Password</string>
+    <string name="ConfirmPassword">Confirm Password</string>
+
+
+    <!--Alart dialog-->
+
+    <string name="verificationcode">verification code</string>
+
+    <!-- Activity 2-->
+    <string name="Wellcom">Wellcom In Rakna App</string>
+
+    <!--        AZER          -->
+
+
 </resources>
