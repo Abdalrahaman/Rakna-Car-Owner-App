@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -29,6 +30,7 @@ public class Garag_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_garag_);
         init();
+        Toast.makeText(this, "teeeeeeeeeeeet", Toast.LENGTH_SHORT).show();
     }
     private void init() {
         for(int i=0;i<IMAGES.length;i++)
