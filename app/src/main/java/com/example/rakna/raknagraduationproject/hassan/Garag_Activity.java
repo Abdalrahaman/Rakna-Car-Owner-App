@@ -30,7 +30,7 @@ public class Garag_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_garag_);
         init();
-        Toast.makeText(this, "teeeeeeeeeeeet", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "teeeeeeeeeet", Toast.LENGTH_SHORT).show();
     }
     private void init() {
         for(int i=0;i<IMAGES.length;i++)
