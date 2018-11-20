@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="space_16dp">16dp</dimen>
+
+    <dimen name="text_size_16sp">16sp</dimen>
+
+    <dimen name="comment_Height">80dp</dimen>
+
+</resources>

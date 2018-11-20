@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imv_noti_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red_circle"
+                android:layout_gravity="center"
+                android:padding="5dp"/>
+
+            <TextView
+                android:id="@+id/tv_noti_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Danger"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-light"
+                android:padding="5dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_noti_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="There is one approaching your cars"
+            android:textSize="17sp"
+            android:fontFamily="sans-serif"
+            android:padding="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Good"
+                android:drawableLeft="@drawable/blue_circle"
+                android:drawablePadding="10dp"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Bad"
+                android:drawableLeft="@drawable/yellow_circle"
+                android:drawablePadding="10dp"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Danger"
+                android:drawableLeft="@drawable/red_circle"
+                android:drawablePadding="10dp"
+                android:padding="5dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>

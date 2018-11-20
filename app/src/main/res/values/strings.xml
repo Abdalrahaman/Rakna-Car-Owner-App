@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Rakna Graduation Project</string>
+
+    <!-- Category name for history [CHAR LIMIT=20] -->
+    <string name="category_Owner_preview">Live View</string>
+
+    <!-- Category name for restaurant [CHAR LIMIT=20] -->
+    <string name="category_owner_notification">Notification</string>
+
+    <string name="number_of_hours">Number of hours :</string>
+    <string name="hours_calculated">3 H</string>
+
+    <string name="service_price">Service Price :</string>
+    <string name="service_calculated">30 LE</string>
+
+    <string name="total_price">Total Price :</string>
+    <string name="total_calculated">15 LE</string>
+
+    <string name="rate">Rate</string>
+
+    <string name="hint_for_comment">Comment</string>
+
+    <string name="button_pay">Pay</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
