@@ -7,4 +7,6 @@
     <color name="colorbackground">#37acd4</color>
     <color name="textcolor">#000000</color>
     <color name="Etextcolor">#e12a2a</color>
+
+    <color name="Maincolor">##4d0d0d</color>
 </resources>
