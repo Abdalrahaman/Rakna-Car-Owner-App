@@ -19,7 +19,7 @@
                 android:id="@+id/imv_noti_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/red_circle"
+                android:src="@drawable/ic_red_circle_lg"
                 android:layout_gravity="center"
                 android:padding="5dp"/>
 
@@ -38,10 +38,11 @@
             android:id="@+id/tv_noti_msg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="There is one approaching your cars"
-            android:textSize="17sp"
+            android:text="@string/noti_message"
+            android:textSize="16sp"
             android:fontFamily="sans-serif"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:textColor="#929292"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Good"
-                android:drawableLeft="@drawable/blue_circle"
+                android:drawableLeft="@drawable/ic_blue_circle_sm"
                 android:drawablePadding="10dp"
                 android:padding="5dp"/>
 
@@ -62,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Bad"
-                android:drawableLeft="@drawable/yellow_circle"
+                android:drawableLeft="@drawable/ic_yellow_circle_sm"
                 android:drawablePadding="10dp"
                 android:padding="5dp"/>
 
@@ -71,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Danger"
-                android:drawableLeft="@drawable/red_circle"
+                android:drawableLeft="@drawable/ic_red_circle_sm"
                 android:drawablePadding="10dp"
                 android:padding="5dp"/>
 
