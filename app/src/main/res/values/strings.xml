@@ -33,13 +33,13 @@
     <string name="name">Name</string>
     <string name="phone">Phone Number</string>
     <string name="License">License Number</string>
-    <string name="DriverLicense">Driver's License</string>
+    <string name="DriverLicense">Driver\'s License</string>
     <string name="CareType">Care Type</string>
     <string name="E_mail">E_mail</string>
     <string name="Password">Password</string>
     <string name="ConfirmPassword">Confirm Password</string>
 
-
+    <string name="notifytext"><b>Hassan ElKhadrawy</b> recently made a rent request.</string>
     <!--Alart dialog-->
 
     <string name="verificationcode">verification code</string>
