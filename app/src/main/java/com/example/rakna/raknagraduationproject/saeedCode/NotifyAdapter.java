@@ -11,7 +11,7 @@ import android.widget.TextView;
 /**
  * Created by computer market on 10/4/2018.
  */
-//my notify adapter
+//my notify adapter //
 public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.ViewHolder> {
     private itemData[] itemData;
 
