@@ -112,9 +112,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
          */
         void bind(int listIndex) {
             if(listIndex == 1) {
-                listItemNotiColor.setImageResource(R.drawable.ic_blue_circle_lg);
-                listItemNotiState.setText("Good");
-                listItemNotiMessage.setText("Your car safely");
+                listItemNotiColor.setImageResource(R.drawable.noti_chatting);
+                listItemNotiState.setText("Chatting");
+                listItemNotiMessage.setText("The Garage Owner want to call you !");
             }
         }
     }
