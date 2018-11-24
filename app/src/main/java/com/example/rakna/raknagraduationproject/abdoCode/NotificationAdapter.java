@@ -108,7 +108,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         /**
          * A method we wrote for convenience. This method will take an integer as input and
          * use that integer to display the appropriate text within a list item.
-         * @param listIndex Position of the item in the list boooom2
+         * @param listIndex Position of the item in the list
          */
         void bind(int listIndex) {
             if(listIndex == 1) {
