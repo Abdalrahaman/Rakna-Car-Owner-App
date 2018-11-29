@@ -1,7 +1,9 @@
 package com.example.rakna.raknagraduationproject.azerCode;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -26,6 +28,7 @@ public class MainActivityazer extends AppCompatActivity {
         pass1 = (EditText) findViewById(R.id.Password);
         pass2 = (EditText) findViewById(R.id.ConfirmPassword);
         mShowDialog.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
 
