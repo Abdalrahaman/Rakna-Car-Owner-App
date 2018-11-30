@@ -1,164 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorbackground"
+    android:background="@drawable/main_background"
     android:orientation="vertical"
     android:padding="15dp"
     tools:context="com.example.rakna.raknagraduationproject.azerCode.MainActivityazer">
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:paddingBottom="5dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/projectimage" />
+
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:paddingBottom="30dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/projectimage" />
 
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/name"
-                android:textColor="@color/textcolor"
-                android:textSize="20sp"
-                android:textStyle="italic" />
 
             <EditText
                 android:id="@+id/name"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:background="@drawable/style"
+                android:layout_height="55dp"
+                android:background="@drawable/edit_text_background"
+                android:hint="@string/name"
+                android:layout_marginTop="40dp"
                 android:paddingLeft="10dp"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/phone"
-                android:textColor="@color/textcolor"
                 android:textSize="20sp"
-                android:textStyle="italic" />
+                />
+
 
             <EditText
                 android:id="@+id/PhoneNumber"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:background="@drawable/style"
+                android:layout_height="55dp"
+                android:background="@drawable/edit_text_background"                android:layout_marginTop="10dp"
+                android:hint="@string/number_of_hours"
                 android:inputType="number"
                 android:paddingLeft="10dp"
                 android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/License"
-                android:textColor="@color/textcolor"
-                android:textSize="20sp"
-                android:textStyle="italic" />
 
             <EditText
                 android:id="@+id/LicenseNumber"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:background="@drawable/style"
+                android:layout_height="55dp"
+                android:background="@drawable/edit_text_background"                android:layout_marginTop="10dp"
+                android:hint="@string/License"
                 android:inputType="number"
                 android:paddingLeft="10dp"
                 android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/DriverLicense"
-                android:textColor="@color/textcolor"
-                android:textSize="20sp"
-                android:textStyle="italic" />
 
             <EditText
                 android:id="@+id/DriverLicense"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:background="@drawable/style"
+                android:layout_height="55dp"
+                android:background="@drawable/edit_text_background"                android:layout_marginTop="10dp"
+                android:hint="@string/DriverLicense"
                 android:inputType="number"
                 android:paddingLeft="10dp"
                 android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/CareType"
-                android:textColor="@color/textcolor"
-                android:textSize="20sp"
-                android:textStyle="italic" />
 
             <EditText
                 android:id="@+id/CareType"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:background="@drawable/style"
+                android:layout_height="55dp"
+                android:background="@drawable/edit_text_background"                android:layout_marginTop="10dp"
+                android:hint="@string/CareType"
                 android:paddingLeft="10dp"
                 android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/E_mail"
-                android:textColor="@color/textcolor"
-                android:textSize="20sp"
-                android:textStyle="italic" />
 
             <EditText
                 android:id="@+id/E_mail"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:background="@drawable/style"
+                android:layout_height="55dp"
+                android:background="@drawable/edit_text_background"                android:layout_marginTop="10dp"
+                android:hint="@string/E_mail"
                 android:inputType="textEmailAddress"
                 android:paddingLeft="10dp"
                 android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Password"
-                android:textColor="@color/textcolor"
-                android:textSize="20sp"
-                android:textStyle="italic" />
 
             <EditText
                 android:id="@+id/Password"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:background="@drawable/style"
+                android:layout_height="55dp"
+                android:background="@drawable/edit_text_background"                android:layout_marginTop="10dp"
+                android:hint="@string/Password"
                 android:inputType="textPassword"
                 android:paddingLeft="10dp"
                 android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ConfirmPassword"
-                android:textColor="@color/textcolor"
-                android:textSize="20sp"
-                android:textStyle="italic" />
 
             <EditText
                 android:id="@+id/ConfirmPassword"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:background="@drawable/style"
+                android:layout_height="55dp"
+                android:background="@drawable/edit_text_background"                android:layout_marginTop="10dp"
+                android:hint="@string/ConfirmPassword"
                 android:inputType="textPassword"
                 android:paddingLeft="10dp"
                 android:textSize="20sp" />
@@ -169,11 +123,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/stylbuton"
+                android:background="@drawable/button_background"
                 android:gravity="center"
                 android:text="OK" />
         </LinearLayout>
 
 
     </ScrollView>
-</LinearLayout>
+</RelativeLayout>
