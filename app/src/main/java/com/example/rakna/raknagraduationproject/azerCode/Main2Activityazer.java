@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.rakna.raknagraduationproject.R;
+import com.example.rakna.raknagraduationproject.hassan.MapsActivity;
 
 public class Main2Activityazer extends AppCompatActivity {
 
@@ -18,11 +19,7 @@ public class Main2Activityazer extends AppCompatActivity {
 
 
     public void Gotomap(View view) {
-        Intent intent=null ,chooser=null;
-
-        intent=new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("geo:19.076,72.8777"));
-        chooser= Intent.createChooser(intent,"launch maps");
-        startActivity(intent);
+        Intent i=new Intent(getApplicationContext(), MapsActivity.class);
+        startActivity(i);
     }
 }
