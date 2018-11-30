@@ -17,7 +17,7 @@ public class Main2Activityazer extends AppCompatActivity {
         setContentView(R.layout.activity_main2azer);
     }
 
-
+//kkk
     public void Gotomap(View view) {
         Intent i=new Intent(getApplicationContext(), MapsActivity.class);
         startActivity(i);
