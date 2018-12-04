@@ -51,9 +51,7 @@ public class Garag_Activity extends AppCompatActivity {
 
         mPager = (ViewPager) findViewById(R.id.pager);
 
-
         mPager.setAdapter(new SlidingImage_Adapter(Garag_Activity.this,ImagesArray));
-
 
         CirclePageIndicator indicator = (CirclePageIndicator)
                 findViewById(R.id.indicator);

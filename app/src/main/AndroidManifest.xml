@@ -29,7 +29,6 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".abdoCode.MainActivity">
-
         </activity>
 
         <activity android:name=".abdoCode.PayActivity"/>
