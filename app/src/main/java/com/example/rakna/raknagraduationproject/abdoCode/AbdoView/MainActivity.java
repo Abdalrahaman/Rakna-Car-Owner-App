@@ -1,4 +1,4 @@
-package com.example.rakna.raknagraduationproject.abdoCode;
+package com.example.rakna.raknagraduationproject.abdoCode.AbdoView;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.rakna.raknagraduationproject.R;
+import com.example.rakna.raknagraduationproject.abdoCode.AbdoModel.OwnerPreviewAdapter;
 
 
 public class MainActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.example.rakna.raknagraduationproject.abdoCode;
+package com.example.rakna.raknagraduationproject.abdoCode.AbdoView;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

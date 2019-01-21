@@ -6,15 +6,13 @@ import android.os.Bundle;
 import com.example.rakna.raknagraduationproject.R;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.rakna.raknagraduationproject.abdoCode.MainActivity;
+import com.example.rakna.raknagraduationproject.abdoCode.AbdoView.MainActivity;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.ArrayList;

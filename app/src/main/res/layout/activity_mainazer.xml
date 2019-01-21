@@ -26,8 +26,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:paddingBottom="30dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/projectimage"/>
+                android:scaleType="fitCenter" />
 
 
             <EditText

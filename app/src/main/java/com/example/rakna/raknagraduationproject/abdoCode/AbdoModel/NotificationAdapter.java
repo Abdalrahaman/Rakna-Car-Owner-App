@@ -1,4 +1,4 @@
-package com.example.rakna.raknagraduationproject.abdoCode;
+package com.example.rakna.raknagraduationproject.abdoCode.AbdoModel;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

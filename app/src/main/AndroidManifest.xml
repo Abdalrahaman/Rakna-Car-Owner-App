@@ -28,10 +28,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".abdoCode.MainActivity">
+        <activity android:name=".abdoCode.AbdoView.MainActivity">
         </activity>
 
-        <activity android:name=".abdoCode.PayActivity"/>
+        <activity android:name=".abdoCode.AbdoView.PayActivity"/>
 
     </application>
 
