@@ -12,4 +12,6 @@
     <color name="black">#1b1b1b</color>
     <color name="customblue">#FFD8DBD4</color>
     <color name="white">#FFFFFF</color>
+    <color name="color_time_ago">#6226f4</color>
+    <color name="color_noti_background">#e6e8f4</color>
 </resources>

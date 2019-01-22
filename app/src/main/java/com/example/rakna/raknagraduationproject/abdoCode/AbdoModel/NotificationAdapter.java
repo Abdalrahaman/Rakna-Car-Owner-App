@@ -2,6 +2,7 @@ package com.example.rakna.raknagraduationproject.abdoCode.AbdoModel;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.rakna.raknagraduationproject.R;
+import com.example.rakna.raknagraduationproject.abdoCode.AbdoPresenter.MainPresenter;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NumberViewHolder> {
 
@@ -24,7 +26,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
      * @param numberOfItems Number of items to display in list
      */
     public NotificationAdapter(int numberOfItems) {
+
         mNumberItems = numberOfItems;
+
     }
 
     /**
@@ -83,11 +87,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     /**
      * Cache of the children views for a list item.
      */
-    class NumberViewHolder extends RecyclerView.ViewHolder {
+    class NumberViewHolder extends RecyclerView.ViewHolder implements AbdoContent.ProView {
+
+        MainPresenter presenter ;
 
         // Will display the position in the list, ie 0 through getItemCount() - 1
         ImageView listItemNotiColor;
-        TextView listItemNotiState;
         TextView listItemNotiMessage;
 
         /**
@@ -101,8 +106,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             super(itemView);
 
             listItemNotiColor = (ImageView)itemView.findViewById(R.id.imv_noti_color);
-            listItemNotiState = (TextView) itemView.findViewById(R.id.tv_noti_state);
             listItemNotiMessage = (TextView)itemView.findViewById(R.id.tv_noti_msg);
+
+            presenter = new MainPresenter(this);
         }
 
         /**
@@ -113,9 +119,20 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         void bind(int listIndex) {
             if(listIndex == 1) {
                 listItemNotiColor.setImageResource(R.drawable.noti_chatting);
-                listItemNotiState.setText("Chatting");
-                listItemNotiMessage.setText("The Garage Owner want to call you !");
+                presenter.changeMessageStyle(1);
+
+            }else{
+
+                presenter.changeMessageStyle(0);
+
             }
+        }
+
+        @Override
+        public void getUpdateMessage(SpannableString newMsg) {
+
+            listItemNotiMessage.setText(newMsg);
+
         }
     }
 }
