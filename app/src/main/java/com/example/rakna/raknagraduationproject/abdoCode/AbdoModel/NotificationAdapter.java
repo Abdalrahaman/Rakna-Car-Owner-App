@@ -119,11 +119,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         void bind(int listIndex) {
             if(listIndex == 1) {
                 listItemNotiColor.setImageResource(R.drawable.noti_chatting);
-                presenter.changeMessageStyle(1);
+                presenter.changeMessageStyle(1);  // Chatting
 
             }else{
 
-                presenter.changeMessageStyle(0);
+                presenter.changeMessageStyle(0);  // Warning
 
             }
         }
