@@ -1,4 +1,4 @@
-package com.example.rakna.raknagraduationproject.hassan;
+package com.example.rakna.raknagraduationproject.View.hassan;
 
 
 import com.example.rakna.raknagraduationproject.R;

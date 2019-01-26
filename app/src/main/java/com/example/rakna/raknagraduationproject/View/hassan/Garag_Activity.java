@@ -1,8 +1,10 @@
-package com.example.rakna.raknagraduationproject.hassan;
+package com.example.rakna.raknagraduationproject.View.hassan;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.rakna.raknagraduationproject.Presenter.hassanPresenter.GaragePresenter;
+import com.example.rakna.raknagraduationproject.Presenter.hassanPresenter.IGaragePresenter;
 import com.example.rakna.raknagraduationproject.R;
 
 import android.content.Intent;
@@ -12,28 +14,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.rakna.raknagraduationproject.abdoCode.AbdoView.MainActivity;
+import com.example.rakna.raknagraduationproject.View.abdoCode.AbdoView.MainActivity;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Garag_Activity extends AppCompatActivity {
+public class Garag_Activity extends AppCompatActivity implements IGarageActivity{
     private static ViewPager mPager;
     private static int currentPage = 0;
     private static int NUM_PAGES = 0;
-    private static final Integer[] IMAGES= {R.drawable.one,R.drawable.two,R.drawable.three,R.drawable.four};
     private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
 
     private Button reservation ;
+    IGaragePresenter iGaragePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_garag_);
-        init();
-        Toast.makeText(this, "teeeeeet", Toast.LENGTH_SHORT).show();
+
+        iGaragePresenter=new GaragePresenter(this);
+        iGaragePresenter.Send_Images();
 
         reservation = (Button)findViewById(R.id.reserve);
         reservation.setOnClickListener(new View.OnClickListener() {
@@ -42,10 +45,27 @@ public class Garag_Activity extends AppCompatActivity {
                 startActivity(new Intent(Garag_Activity.this, MainActivity.class));
             }
         });
+
+
+
+
+
     }
-    private void init() {
-        for(int i=0;i<IMAGES.length;i++)
-            ImagesArray.add(IMAGES[i]);
+
+
+
+
+    public void Location(View view) {
+        startActivity(new Intent(Garag_Activity.this,MapsActivity.class));
+    }
+
+
+    @Override
+    public void init(Integer[] imgList) {
+
+
+        for(int i=0;i<imgList.length;i++)
+            ImagesArray.add(imgList[i]);
 
         mPager = (ViewPager) findViewById(R.id.pager);
 
@@ -61,7 +81,7 @@ public class Garag_Activity extends AppCompatActivity {
 //Set circle indicator radius
         indicator.setRadius(5 * density);
 
-        NUM_PAGES =IMAGES.length;
+        NUM_PAGES =imgList.length;
 
         // Auto start of viewpager
         final Handler handler = new Handler();
@@ -101,10 +121,7 @@ public class Garag_Activity extends AppCompatActivity {
             }
         });
 
-    }
 
-    public void Location(View view) {
-        startActivity(new Intent(Garag_Activity.this,MapsActivity.class));
     }
 
 

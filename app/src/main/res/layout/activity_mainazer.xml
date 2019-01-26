@@ -7,7 +7,7 @@
     android:background="@drawable/main_background"
     android:orientation="vertical"
     android:padding="15dp"
-    tools:context="com.example.rakna.raknagraduationproject.azerCode.MainActivityazer">
+    tools:context=".View.azerCode.MainActivityazer">
 
 
 

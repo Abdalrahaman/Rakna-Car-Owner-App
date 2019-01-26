@@ -1,4 +1,4 @@
-package com.example.rakna.raknagraduationproject.azerCode;
+package com.example.rakna.raknagraduationproject.View.azerCode;
 
 import android.content.Intent;
 import android.os.Build;

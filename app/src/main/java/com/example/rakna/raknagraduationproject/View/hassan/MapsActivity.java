@@ -1,4 +1,4 @@
-package com.example.rakna.raknagraduationproject.hassan;
+package com.example.rakna.raknagraduationproject.View.hassan;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;

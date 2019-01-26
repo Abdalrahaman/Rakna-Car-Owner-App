@@ -1,9 +1,9 @@
-package com.example.rakna.raknagraduationproject.abdoCode.AbdoPresenter;
+package com.example.rakna.raknagraduationproject.View.abdoCode.AbdoPresenter;
 
 import android.text.SpannableString;
 
-import com.example.rakna.raknagraduationproject.abdoCode.AbdoModel.AbdoContent;
-import com.example.rakna.raknagraduationproject.abdoCode.AbdoModel.MainModel;
+import com.example.rakna.raknagraduationproject.View.abdoCode.AbdoModel.AbdoContent;
+import com.example.rakna.raknagraduationproject.View.abdoCode.AbdoModel.MainModel;
 
 public class MainPresenter implements AbdoContent.ProPresenter {
 

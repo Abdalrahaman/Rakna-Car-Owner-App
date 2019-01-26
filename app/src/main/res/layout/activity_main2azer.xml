@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorbackground"
-    tools:context="com.example.rakna.raknagraduationproject.azerCode.Main2Activityazer">
+    tools:context=".View.azerCode.Main2Activityazer">
 
     <TextView
         android:id="@+id/textView"
