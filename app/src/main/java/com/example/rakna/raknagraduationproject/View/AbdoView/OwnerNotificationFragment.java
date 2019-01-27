@@ -1,4 +1,4 @@
-package com.example.rakna.raknagraduationproject.View.abdoCode.AbdoView;
+package com.example.rakna.raknagraduationproject.View.AbdoView.AbdoView;
 
 
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.rakna.raknagraduationproject.R;
-import com.example.rakna.raknagraduationproject.View.abdoCode.AbdoModel.NotificationAdapter;
+import com.example.rakna.raknagraduationproject.Model.AbdoModel.NotificationAdapter;
 
 
 /**

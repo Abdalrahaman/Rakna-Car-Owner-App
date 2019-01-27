@@ -1,4 +1,4 @@
-package com.example.rakna.raknagraduationproject.View.abdoCode.AbdoModel;
+package com.example.rakna.raknagraduationproject.Model.AbdoModel;
 
 import android.graphics.Typeface;
 import android.text.SpannableString;

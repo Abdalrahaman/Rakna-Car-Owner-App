@@ -1,4 +1,4 @@
-package com.example.rakna.raknagraduationproject.View.abdoCode.AbdoView;
+package com.example.rakna.raknagraduationproject.View.AbdoView.AbdoView;
 
 
 import android.content.Intent;

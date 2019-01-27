@@ -1,4 +1,4 @@
-package com.example.rakna.raknagraduationproject.View.abdoCode.AbdoModel;
+package com.example.rakna.raknagraduationproject.Model.AbdoModel;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.rakna.raknagraduationproject.R;
-import com.example.rakna.raknagraduationproject.View.abdoCode.AbdoPresenter.MainPresenter;
+import com.example.rakna.raknagraduationproject.Presenter.AbdoPresenter.MainPresenter;
+import com.example.rakna.raknagraduationproject.View.AbdoView.ViewContent;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NumberViewHolder> {
 
@@ -87,7 +88,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     /**
      * Cache of the children views for a list item.
      */
-    class NumberViewHolder extends RecyclerView.ViewHolder implements AbdoContent.ProView {
+    class NumberViewHolder extends RecyclerView.ViewHolder implements ViewContent {
 
         MainPresenter presenter ;
 

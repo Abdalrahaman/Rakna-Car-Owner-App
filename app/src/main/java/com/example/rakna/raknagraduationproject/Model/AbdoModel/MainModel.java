@@ -1,8 +1,8 @@
-package com.example.rakna.raknagraduationproject.View.abdoCode.AbdoModel;
+package com.example.rakna.raknagraduationproject.Model.AbdoModel;
 
 import android.text.SpannableString;
 
-public class MainModel implements AbdoContent.ProModel {
+public class MainModel implements ModelContent {
 
     NotiMessageStyles msgSty ;
     SpannableString msgUpdate;

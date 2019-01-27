@@ -1,4 +1,4 @@
-package com.example.rakna.raknagraduationproject.View.abdoCode.AbdoModel;
+package com.example.rakna.raknagraduationproject.Model.AbdoModel;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.rakna.raknagraduationproject.R;
-import com.example.rakna.raknagraduationproject.View.abdoCode.AbdoView.OwnerNotificationFragment;
-import com.example.rakna.raknagraduationproject.View.abdoCode.AbdoView.OwnerPreviewFragment;
+import com.example.rakna.raknagraduationproject.View.AbdoView.AbdoView.OwnerNotificationFragment;
+import com.example.rakna.raknagraduationproject.View.AbdoView.AbdoView.OwnerPreviewFragment;
 
 public class OwnerPreviewAdapter extends FragmentPagerAdapter {
 
