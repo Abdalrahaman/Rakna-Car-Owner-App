@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.rakna.raknagraduationproject.R;
-import com.example.rakna.raknagraduationproject.View.AbdoView.AbdoView.OwnerNotificationFragment;
-import com.example.rakna.raknagraduationproject.View.AbdoView.AbdoView.OwnerPreviewFragment;
+import com.example.rakna.raknagraduationproject.View.AbdoView.OwnerNotificationFragment;
+import com.example.rakna.raknagraduationproject.View.AbdoView.OwnerPreviewFragment;
 
 public class OwnerPreviewAdapter extends FragmentPagerAdapter {
 

@@ -7,7 +7,7 @@
     <!-- Category name for restaurant [CHAR LIMIT=20] -->
     <string name="category_owner_notification">Notification</string>
 
-    <string name="number_of_hours">Number of hours :</string>
+    <string name="number_of_hours">PhonezNumber :</string>
     <string name="hours_calculated">3 H</string>
 
     <string name="service_price">Service Price :</string>
@@ -25,7 +25,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
-
 
 
     <!--        AZER          -->

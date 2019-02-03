@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.rakna.raknagraduationproject">
-<uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -13,26 +14,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".View.azerCode.MainActivityazer"/>
-        <activity android:name=".View.azerCode.Main2Activityazer"/>
+        <activity android:name=".View.azerCode.Main2Activityazer" />
+        <activity android:name=".View.hassan.Garag_Activity"/>
 
-        <activity android:name=".View.hassan.Garag_Activity">
+        <activity android:name=".View.hassan.MapsActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity android:name=".View.AbdoView.MainActivity" />
+        <activity android:name=".View.AbdoView.PayActivity" />
+        <activity android:name=".View.azerCode.RegestrationActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.hassan.MapsActivity"/>
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
-        <activity android:name=".View.AbdoView.AbdoView.MainActivity">
-        </activity>
-
-        <activity android:name=".View.AbdoView.AbdoView.PayActivity"/>
-
     </application>
 
 </manifest>
