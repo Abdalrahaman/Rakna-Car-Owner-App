@@ -6,28 +6,23 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
+
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.rakna.raknagraduationproject.R;
+import com.android.volley.Response;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 public class RegestrationActivity extends AppCompatActivity {
 
@@ -46,7 +41,6 @@ public class RegestrationActivity extends AppCompatActivity {
     EditText pass1;
     EditText pass2;
     private ProgressBar loding;
-    private static String URL_REGIST="https://rakna-app.000webhostapp.com/car_owner.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +53,6 @@ public class RegestrationActivity extends AppCompatActivity {
     Signin.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
-
 
             final AlertDialog.Builder mBuilder = new AlertDialog.Builder(RegestrationActivity.this);
             mBuilder.setTitle("Sign In");
@@ -84,11 +76,25 @@ public class RegestrationActivity extends AppCompatActivity {
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 boolean success = jsonObject.getBoolean("success");
+                                JSONArray jsonArray = jsonObject.getJSONArray("login");
+
+                                Log.d("success", "onResponse: success is " + success
+                                +" ,JSON : " + jsonArray);
 
                                 if (success) {
-                                    Toast.makeText(RegestrationActivity.this,
-                                            "LOGIN successful",
-                                            Toast.LENGTH_LONG).show();
+
+                                    for (int i=0 ; i<jsonArray.length() ; i++){
+
+                                        JSONObject object=jsonArray.getJSONObject(i);
+                                        String name=object.getString("name").trim();
+                                        String email=object.getString("email").trim();
+
+                                        Toast.makeText(RegestrationActivity.this,
+                                                "login successful" +
+                                                "YourName : " + name + "\n ,Email : " + email,
+                                                Toast.LENGTH_LONG).show();
+                                    }
+
                                 } else {
                                     Toast.makeText(RegestrationActivity.this,
                                             "LOGIN failed",
@@ -98,7 +104,7 @@ public class RegestrationActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 Toast.makeText(RegestrationActivity.this,
-                                        "LOGIN ERROR" + e.toString(),
+                                        "LOGIN ERROR vvvvvvv" + e.toString(),
                                         Toast.LENGTH_LONG).show();
                             }
                         }
@@ -317,73 +323,73 @@ public class RegestrationActivity extends AppCompatActivity {
 
 
 
-    public void SignIn(String Email, String Password){
-
-        final String signEmail=emailsign.getText().toString();
-        final String signPassword=passwordsign.getText().toString();
-
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL_REGIST,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject=new JSONObject(response);
-                            boolean success=jsonObject.getBoolean("success");
-                            JSONArray  jsonArray=jsonObject.getJSONArray("login");
-
-                            if(success){
-                                for (int i=0 ;i<jsonArray.length();i++){
-                                    JSONObject object=jsonArray.getJSONObject(i);
-                                    String email=object.getString("email").trim();
-                                    String password=object.getString("password").trim();
-                                    Toast.makeText(RegestrationActivity.this,
-                                            "login successful",
-                                            Toast.LENGTH_LONG).show();
-                                }
-
-                            }else {
-                                Toast.makeText(RegestrationActivity.this,
-                                        "login failed",
-                                        Toast.LENGTH_LONG).show();
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(RegestrationActivity.this,
-                                    "Login ERROR"+e.toString(),
-                                    Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                        Toast.makeText(RegestrationActivity.this,
-                                "Login ERROR"+error,
-                                Toast.LENGTH_LONG).show();
-                    }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params=new HashMap<>();
-
-
-
-
-                params.put("email",signEmail);
-                params.put("password",signPassword);
-
-
-                return params;
-            }
-        };
-        RequestQueue requestQueue= Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-
-
-    }
+//    public void SignIn(String Email, String Password){
+//
+//        final String signEmail=emailsign.getText().toString();
+//        final String signPassword=passwordsign.getText().toString();
+//
+//        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL_REGIST,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        try {
+//                            JSONObject jsonObject=new JSONObject(response);
+//                            boolean success=jsonObject.getBoolean("success");
+//                            JSONArray  jsonArray=jsonObject.getJSONArray("login");
+//
+//                            if(success){
+//                                for (int i=0 ;i<jsonArray.length();i++){
+//                                    JSONObject object=jsonArray.getJSONObject(i);
+//                                    String email=object.getString("email").trim();
+//                                    String password=object.getString("password").trim();
+//                                    Toast.makeText(RegestrationActivity.this,
+//                                            "login successful",
+//                                            Toast.LENGTH_LONG).show();
+//                                }
+//
+//                            }else {
+//                                Toast.makeText(RegestrationActivity.this,
+//                                        "login failed",
+//                                        Toast.LENGTH_LONG).show();
+//                            }
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                            Toast.makeText(RegestrationActivity.this,
+//                                    "Login ERROR"+e.toString(),
+//                                    Toast.LENGTH_LONG).show();
+//                        }
+//
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//
+//                        Toast.makeText(RegestrationActivity.this,
+//                                "Login ERROR"+error,
+//                                Toast.LENGTH_LONG).show();
+//                    }
+//                })
+//        {
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String, String> params=new HashMap<>();
+//
+//
+//
+//
+//                params.put("email",signEmail);
+//                params.put("password",signPassword);
+//
+//
+//                return params;
+//            }
+//        };
+//        RequestQueue requestQueue= Volley.newRequestQueue(this);
+//        requestQueue.add(stringRequest);
+//
+//
+//    }
 
 }

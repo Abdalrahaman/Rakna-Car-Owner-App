@@ -1,8 +1,6 @@
 package com.example.rakna.raknagraduationproject.View.azerCode;
 
-import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
