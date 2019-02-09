@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+    android:background="@color/color_login_background"
+tools:context=".View.azerCode.Login">
+
+        <ImageView
+            android:layout_width="190dp"
+            android:layout_height="190dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/login" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RAKNA APP"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/emaill" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/E_mail_signinn"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/edit_text_background"
+                    android:hint="@string/E_mail"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="10dp"
+                    android:textSize="20sp" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/password" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/Password_signinn"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_text_background"
+                    android:hint="@string/Password"
+                    android:inputType="textPassword"
+                    android:paddingLeft="10dp"
+                    android:textSize="20sp" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="35dp"
+    >
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:layout_marginTop="20dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/progresslogin"
+        android:visibility="gone"
+        style="@style/SpinKitView.Large.Wave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:SpinKit_Color="@color/white"
+        />
+    <Button
+        android:id="@+id/SignInn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="35dp"
+        android:background="@drawable/stylbutonlogin"
+       android:layout_gravity="center"
+        android:text="sign in"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/forgot_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:text="@string/forgot_password"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/createaccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:text="@string/creat_acount"
+        android:textColor="#ffffff"
+        android:textSize="25dp" />
+</LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

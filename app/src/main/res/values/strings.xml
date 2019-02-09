@@ -46,6 +46,10 @@
     <!-- Activity 2-->
     <string name="Wellcom">Wellcom In Rakna App</string>
     <string name="noti_message">There is one approaching your car, please see it in Garage Owner garage.</string>
+    <string name="forgot_password">Forgot Password ?</string>
+    <string name="creat_acount">Create Account</string>
+    <string name="signup">SIGN UP</string>
+    <string name="regester">Regester</string>
 
     <!--        AZER          -->
 

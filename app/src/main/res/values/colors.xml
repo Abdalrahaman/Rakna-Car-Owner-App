@@ -12,9 +12,13 @@
     <color name="black">#1b1b1b</color>
     <color name="customblue">#FFD8DBD4</color>
     <color name="white">#FFFFFF</color>
+    <color name="color_login_background">#34495e </color>
 
     <color name="greencolor">#FF0D8964</color>
     <color name="bluecolor">#41dad3</color>
     <color name="color_noti_background">#e6e8f4</color>
     <color name="color_time_ago">#6226f4</color>
+
+    <color name="butsginup">#417598</color>
+
 </resources>
