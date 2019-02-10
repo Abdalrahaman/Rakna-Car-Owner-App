@@ -1,0 +1,3326 @@
+Index: app/src/main/java/com/example/rakna/raknagraduationproject/View/azerCode/RegestrationActivity.java
+===================================================================
+--- app/src/main/java/com/example/rakna/raknagraduationproject/View/azerCode/RegestrationActivity.java	(revision 4ff45fa69b40fc4bd6bdf4bdb716527e1c435401)
++++ app/src/main/java/com/example/rakna/raknagraduationproject/View/azerCode/RegestrationActivity.java	(revision 4ff45fa69b40fc4bd6bdf4bdb716527e1c435401)
+@@ -1,395 +0,0 @@
+-package com.example.rakna.raknagraduationproject.View.azerCode;
+-
+-import android.content.DialogInterface;
+-import android.os.Build;
+-import android.support.annotation.RequiresApi;
+-import android.support.v7.app.AlertDialog;
+-import android.support.v7.app.AppCompatActivity;
+-import android.os.Bundle;
+-import android.util.Log;
+-import android.view.View;
+-import android.widget.Button;
+-import android.widget.EditText;
+-import android.widget.ProgressBar;
+-import android.widget.Toast;
+-
+-
+-import com.android.volley.RequestQueue;
+-import com.android.volley.toolbox.Volley;
+-import com.example.rakna.raknagraduationproject.R;
+-import com.android.volley.Response;
+-
+-import org.json.JSONArray;
+-import org.json.JSONException;
+-import org.json.JSONObject;
+-
+-
+-public class RegestrationActivity extends AppCompatActivity {
+-
+-    Button Signin;
+-    Button Regester;
+-
+-    EditText emailsign;
+-    EditText passwordsign;
+-
+-    EditText name;
+-    EditText phoneNum;
+-    EditText licenseNumber;
+-    EditText driverLicense;
+-    EditText carType;
+-    EditText email;
+-    EditText pass1;
+-    EditText pass2;
+-    private ProgressBar loding;
+-
+-    @Override
+-    protected void onCreate(Bundle savedInstanceState) {
+-        super.onCreate(savedInstanceState);
+-        setContentView(R.layout.activity_regestration);
+-
+-        Signin=(Button) findViewById(R.id.SignIn);
+-        Regester=(Button)findViewById(R.id.REgestre);
+-
+-    Signin.setOnClickListener(new View.OnClickListener() {
+-        @Override
+-        public void onClick(View v) {
+-
+-            final AlertDialog.Builder mBuilder = new AlertDialog.Builder(RegestrationActivity.this);
+-            mBuilder.setTitle("Sign In");
+-            View mView = getLayoutInflater().inflate(R.layout.alertdialog_signin, null);
+-            emailsign = (EditText) mView.findViewById(R.id.E_mail_signin);
+-            passwordsign = (EditText) mView.findViewById(R.id.Password_signin);
+-            mBuilder.setView(mView);
+-
+-            mBuilder.setPositiveButton("Sign In", new DialogInterface.OnClickListener() {
+-                @Override
+-                public void onClick(DialogInterface dialog, int which) {
+-
+-                     String signEmail=emailsign.getText().toString().trim();
+-                     String signPassword=passwordsign.getText().toString().trim();
+-
+-                    Response.Listener<String> responselistner = new Response.Listener<String>() {
+-
+-                        @Override
+-                        public void onResponse(String response) {
+-
+-                            try {
+-                                JSONObject jsonObject = new JSONObject(response);
+-                                boolean success = jsonObject.getBoolean("success");
+-                                JSONArray jsonArray = jsonObject.getJSONArray("login");
+-
+-                                Log.d("success", "onResponse: success is " + success
+-                                +" ,JSON : " + jsonArray);
+-
+-                                if (success) {
+-
+-                                    for (int i=0 ; i<jsonArray.length() ; i++){
+-
+-                                        JSONObject object=jsonArray.getJSONObject(i);
+-                                        String name=object.getString("name").trim();
+-                                        String email=object.getString("email").trim();
+-
+-                                        Toast.makeText(RegestrationActivity.this,
+-                                                "login successful" +
+-                                                "YourName : " + name + "\n ,Email : " + email,
+-                                                Toast.LENGTH_LONG).show();
+-                                    }
+-
+-                                } else {
+-                                    Toast.makeText(RegestrationActivity.this,
+-                                            "LOGIN failed",
+-                                            Toast.LENGTH_LONG).show();
+-                                }
+-
+-                            } catch (JSONException e) {
+-                                e.printStackTrace();
+-                                Toast.makeText(RegestrationActivity.this,
+-                                        "LOGIN ERROR vvvvvvv" + e.toString(),
+-                                        Toast.LENGTH_LONG).show();
+-                            }
+-                        }
+-                    };
+-
+-                  SendDataLogin sendDataLogin=new SendDataLogin(signEmail,signPassword,responselistner);
+-
+-                    RequestQueue requestQueue= Volley.newRequestQueue(RegestrationActivity.this);
+-                    requestQueue.add(sendDataLogin);
+-
+-
+-                }
+-            });
+-
+-
+-            final AlertDialog dialog = mBuilder.create();
+-            dialog.show();
+-        }
+-    });
+-
+-    //******************************************************************
+-    //******************************************************************
+-
+-    Regester.setOnClickListener(new View.OnClickListener() {
+-        @Override
+-        public void onClick(View v) {
+-
+-            final AlertDialog.Builder mBuilder = new AlertDialog.Builder(RegestrationActivity.this);
+-            mBuilder.setTitle("Regestratoin");
+-            View mView = getLayoutInflater().inflate(R.layout.alertdialog_regester, null);
+-            name = (EditText)mView.findViewById(R.id.Name);
+-            phoneNum = (EditText) mView.findViewById(R.id.PhoneNumber);
+-            licenseNumber = (EditText) mView.findViewById(R.id.LicenseNumber);
+-            driverLicense = (EditText) mView.findViewById(R.id.DriverLicense);
+-            carType = (EditText) mView.findViewById(R.id.CareType);
+-            email = (EditText) mView.findViewById(R.id.E_mail);
+-            pass1 = (EditText) mView.findViewById(R.id.Password);
+-            pass2 = (EditText) mView.findViewById(R.id.ConfirmPassword);
+-            mBuilder.setView(mView);
+-
+-            mBuilder.setPositiveButton("regester", new DialogInterface.OnClickListener() {
+-                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+-                @Override
+-                public void onClick(DialogInterface dialog, int which) {
+-
+-
+-
+-//                    if (name.getText().toString().isEmpty()) {
+-//
+-//                        Toast.makeText(RegestrationActivity.this,
+-//                                "Please enter the name",
+-//                                Toast.LENGTH_SHORT).show();
+-//                        return ;
+-//                    }
+-//                    if (phoneNum.getText().toString().isEmpty()) {
+-//
+-//                        Toast.makeText(RegestrationActivity.this,
+-//                                "Please enter the phone Number",
+-//                                Toast.LENGTH_SHORT).show();
+-//                        return;
+-//                    }
+-//                    if (licenseNumber.getText().toString().isEmpty()) {
+-//
+-//                        Toast.makeText(RegestrationActivity.this,
+-//                                "Please enter the license Number",
+-//                                Toast.LENGTH_SHORT).show();
+-//                        return;
+-//                    }
+-//                    if (driverLicense.getText().toString().isEmpty()) {
+-//
+-//                        Toast.makeText(RegestrationActivity.this,
+-//                                "Please enter the driver License Number",
+-//                                Toast.LENGTH_SHORT).show();
+-//                        return;
+-//                    }
+-//                    if (carType.getText().toString().isEmpty()) {
+-//
+-//                        Toast.makeText(RegestrationActivity.this,
+-//                                "Please enter the car Type",
+-//                                Toast.LENGTH_SHORT).show();
+-//                        return;
+-//                    }
+-//                    if (email.getText().toString().isEmpty()) {
+-//
+-//                        Toast.makeText(RegestrationActivity.this,
+-//                                "Please enter the E_mail",
+-//                                Toast.LENGTH_SHORT).show();
+-//                        return;
+-//                    }
+-//                    if (pass1.getText().toString().isEmpty()) {
+-//
+-//                        Toast.makeText(RegestrationActivity.this,
+-//                                "Please enter the password",
+-//                                Toast.LENGTH_SHORT).show();
+-//                        return;
+-//                    }
+-//                    if (pass1.getText().length() < 6) {
+-//
+-//                        Toast.makeText(RegestrationActivity.this,
+-//                                "Please password Must be more than 6 character",
+-//                                Toast.LENGTH_SHORT).show();
+-//                        return;
+-//                    }
+-//                    if (!Objects.equals(pass1.getText().toString(), pass2.getText().toString())) {
+-//                        Toast.makeText(RegestrationActivity.this,
+-//                                "Please enter the correct password",
+-//                                Toast.LENGTH_SHORT).show();
+-//                        return;
+-//
+-//                }
+-                    Regester();
+-                }
+-
+-            });
+-
+-            mBuilder.setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+-                @Override
+-                public void onClick(DialogInterface dialog, int which) {
+-
+-                }
+-            });
+-            final AlertDialog dialog = mBuilder.create();
+-            dialog.show();
+-
+-        }
+-    });
+-
+-    }
+-
+-
+-    public void Regester() {
+-        final String r_name = name.getText().toString().trim();
+-        final String r_phonenumber = phoneNum.getText().toString().trim();
+-        final int r_licenseNumber = Integer.parseInt(licenseNumber.getText().toString().trim());
+-        final int r_driverLicense = Integer.parseInt(driverLicense.getText().toString().trim());
+-        final int r_carType = Integer.parseInt(carType.getText().toString().trim());
+-        final String r_email = email.getText().toString().trim();
+-        final String r_pass1 = pass1.getText().toString().trim();
+-
+-
+-        Response.Listener<String> responselistner = new Response.Listener<String>() {
+-
+-            @Override
+-            public void onResponse(String response) {
+-
+-                try {
+-                    JSONObject jsonObject = new JSONObject(response);
+-                   boolean success = jsonObject.getBoolean("success");
+-
+-                    if (success) {
+-                        Toast.makeText(RegestrationActivity.this,
+-                                "Regestration successful",
+-                                Toast.LENGTH_LONG).show();
+-                    } else {
+-                        Toast.makeText(RegestrationActivity.this,
+-                                "Regestration failed",
+-                                Toast.LENGTH_LONG).show();
+-                    }
+-
+-                } catch (JSONException e) {
+-                    e.printStackTrace();
+-                    Toast.makeText(RegestrationActivity.this,
+-                            "Regestration ERROR" + e.toString(),
+-                            Toast.LENGTH_LONG).show();
+-                }
+-            }
+-        };
+-
+-        SendDataRegesteration sendDataRegesteration=new SendDataRegesteration(r_driverLicense,r_name,
+-                r_phonenumber,r_licenseNumber,r_email,r_pass1,r_carType,responselistner);
+-
+-        RequestQueue requestQueue= Volley.newRequestQueue(RegestrationActivity.this);
+-        requestQueue.add(sendDataRegesteration);
+-
+-    }
+-
+-//                    @Override
+-//                    public void onResponse(String response) {
+-//                        try {
+-//                            JSONObject jsonObject=new JSONObject(response);
+-//                            String success=jsonObject.getString("success");
+-//
+-//                           if(success.equals("1")){
+-//                                Toast.makeText(RegestrationActivity.this,
+-//                                        "Regestration successful",
+-//                                        Toast.LENGTH_LONG).show();
+-//                            }else {
+-//                               Toast.makeText(RegestrationActivity.this,
+-//                                       "Regestration failed",
+-//                                       Toast.LENGTH_LONG).show();
+-//                           }
+-//
+-//                        } catch (JSONException e) {
+-//                            e.printStackTrace();
+-//                            Toast.makeText(RegestrationActivity.this,
+-//                                    "Regestration ERROR"+e.toString(),
+-//                                    Toast.LENGTH_LONG).show();
+-//                        }
+-//
+-//                    }
+-//                },
+-//                new Response.ErrorListener() {
+-//                    @Override
+-//                    public void onErrorResponse(VolleyError error) {
+-//
+-//                        Toast.makeText(RegestrationActivity.this,
+-//                                "Regestration ERROR"+error,
+-//                                Toast.LENGTH_LONG).show();
+-//                    }
+-//                });
+-//        RequestQueue requestQueue= Volley.newRequestQueue(RegestrationActivity.this);
+-//        requestQueue.add(stringRequest);
+-//
+-//    }
+-
+-
+-
+-
+-//    public void SignIn(String Email, String Password){
+-//
+-//        final String signEmail=emailsign.getText().toString();
+-//        final String signPassword=passwordsign.getText().toString();
+-//
+-//        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL_REGIST,
+-//                new Response.Listener<String>() {
+-//                    @Override
+-//                    public void onResponse(String response) {
+-//                        try {
+-//                            JSONObject jsonObject=new JSONObject(response);
+-//                            boolean success=jsonObject.getBoolean("success");
+-//                            JSONArray  jsonArray=jsonObject.getJSONArray("login");
+-//
+-//                            if(success){
+-//                                for (int i=0 ;i<jsonArray.length();i++){
+-//                                    JSONObject object=jsonArray.getJSONObject(i);
+-//                                    String email=object.getString("email").trim();
+-//                                    String password=object.getString("password").trim();
+-//                                    Toast.makeText(RegestrationActivity.this,
+-//                                            "login successful",
+-//                                            Toast.LENGTH_LONG).show();
+-//                                }
+-//
+-//                            }else {
+-//                                Toast.makeText(RegestrationActivity.this,
+-//                                        "login failed",
+-//                                        Toast.LENGTH_LONG).show();
+-//                            }
+-//
+-//                        } catch (JSONException e) {
+-//                            e.printStackTrace();
+-//                            Toast.makeText(RegestrationActivity.this,
+-//                                    "Login ERROR"+e.toString(),
+-//                                    Toast.LENGTH_LONG).show();
+-//                        }
+-//
+-//                    }
+-//                },
+-//                new Response.ErrorListener() {
+-//                    @Override
+-//                    public void onErrorResponse(VolleyError error) {
+-//
+-//                        Toast.makeText(RegestrationActivity.this,
+-//                                "Login ERROR"+error,
+-//                                Toast.LENGTH_LONG).show();
+-//                    }
+-//                })
+-//        {
+-//            @Override
+-//            protected Map<String, String> getParams() throws AuthFailureError {
+-//                Map<String, String> params=new HashMap<>();
+-//
+-//
+-//
+-//
+-//                params.put("email",signEmail);
+-//                params.put("password",signPassword);
+-//
+-//
+-//                return params;
+-//            }
+-//        };
+-//        RequestQueue requestQueue= Volley.newRequestQueue(this);
+-//        requestQueue.add(stringRequest);
+-//
+-//
+-//    }
+-
+-}
+Index: app/src/main/res/layout/activity_regestration.xml
+===================================================================
+--- app/src/main/res/layout/activity_regestration.xml	(revision 4ff45fa69b40fc4bd6bdf4bdb716527e1c435401)
++++ app/src/main/res/layout/activity_regestration.xml	(revision 4ff45fa69b40fc4bd6bdf4bdb716527e1c435401)
+@@ -1,54 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".View.azerCode.RegestrationActivity">
+-
+-    <ImageView
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:layout_marginBottom="80dp"
+-        android:layout_marginTop="20dp"
+-        android:layout_marginRight="5dp"
+-        android:layout_marginLeft="5dp"
+-        android:id="@+id/im1"
+-        android:src="@drawable/car"
+-        android:layout_gravity="center"
+-
+-        />
+-
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:orientation="horizontal"
+-        android:layout_marginBottom="8dp"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-
+-
+-       >
+-
+-        <Button
+-            android:id="@+id/SignIn"
+-            android:layout_width="0dp"
+-            android:layout_weight="1"
+-            android:layout_height="wrap_content"
+-            android:text="sign in"
+-            android:layout_margin="10dp"
+-            android:textSize="20dp"
+-            android:background="@drawable/styleregester"/>
+-
+-        <Button
+-            android:id="@+id/REgestre"
+-            android:layout_width="0dp"
+-            android:layout_weight="1"
+-            android:layout_height="wrap_content"
+-            android:text="Regestre"
+-            android:layout_margin="10dp"
+-            android:textSize="20dp"
+-            android:background="@drawable/styleregester"
+-            />
+-    </LinearLayout>
+-</android.support.constraint.ConstraintLayout>
+Index: app/src/main/res/layout/alertdialog_regester.xml
+===================================================================
+--- app/src/main/res/layout/alertdialog_regester.xml	(revision 4ff45fa69b40fc4bd6bdf4bdb716527e1c435401)
++++ app/src/main/res/layout/alertdialog_regester.xml	(revision 4ff45fa69b40fc4bd6bdf4bdb716527e1c435401)
+@@ -1,167 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:background="@drawable/main_background"
+-    android:padding="10dp">
+-
+-
+-    <!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+-        <!--xmlns:tools="http://schemas.android.com/tools"-->
+-        <!--android:layout_width="match_parent"-->
+-        <!--android:layout_height="match_parent">-->
+-
+-        <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:gravity="center"
+-            android:orientation="vertical">
+-
+-
+-            <android.support.design.widget.TextInputLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                >
+-            <EditText
+-                android:id="@+id/Name"
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:background="@drawable/edit_text_background"
+-                android:hint="@string/name"
+-                android:paddingLeft="10dp"
+-                android:textSize="20sp" />
+-            </android.support.design.widget.TextInputLayout>
+-
+-
+-
+-            <android.support.design.widget.TextInputLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                >
+-            <EditText
+-                android:id="@+id/PhoneNumber"
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:layout_marginTop="10dp"
+-                android:background="@drawable/edit_text_background"
+-                android:hint="@string/phone"
+-                android:inputType="number"
+-                android:paddingLeft="10dp"
+-                android:textSize="20sp" />
+-            </android.support.design.widget.TextInputLayout>
+-
+-
+-
+-            <android.support.design.widget.TextInputLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                >
+-            <EditText
+-                android:id="@+id/LicenseNumber"
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:layout_marginTop="10dp"
+-                android:background="@drawable/edit_text_background"
+-                android:hint="@string/License"
+-                android:inputType="number"
+-                android:paddingLeft="10dp"
+-                android:textSize="20sp" />
+-            </android.support.design.widget.TextInputLayout>
+-
+-
+-
+-            <android.support.design.widget.TextInputLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                >
+-            <EditText
+-                android:id="@+id/DriverLicense"
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:layout_marginTop="10dp"
+-                android:background="@drawable/edit_text_background"
+-                android:hint="@string/DriverLicense"
+-                android:inputType="number"
+-                android:paddingLeft="10dp"
+-                android:textSize="20sp" />
+-            </android.support.design.widget.TextInputLayout>
+-
+-
+-
+-            <android.support.design.widget.TextInputLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                >
+-            <EditText
+-                android:id="@+id/CareType"
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:layout_marginTop="10dp"
+-                android:background="@drawable/edit_text_background"
+-                android:hint="@string/CareType"
+-                android:paddingLeft="10dp"
+-                android:textSize="20sp" />
+-            </android.support.design.widget.TextInputLayout>
+-
+-
+-            <android.support.design.widget.TextInputLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                >
+-            <EditText
+-                android:id="@+id/E_mail"
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:layout_marginTop="10dp"
+-                android:background="@drawable/edit_text_background"
+-                android:hint="@string/E_mail"
+-                android:inputType="textEmailAddress"
+-                android:paddingLeft="10dp"
+-                android:textSize="20sp" />
+-
+-            </android.support.design.widget.TextInputLayout>
+-            <android.support.design.widget.TextInputLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                app:passwordToggleEnabled="true">
+-                <EditText
+-                    android:id="@+id/Password"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="40dp"
+-                    android:layout_marginTop="10dp"
+-                    android:background="@drawable/edit_text_background"
+-                    android:hint="@string/Password"
+-                    android:inputType="textPassword"
+-                    android:paddingLeft="10dp"
+-                    android:textSize="20sp"
+-                    />
+-            </android.support.design.widget.TextInputLayout>
+-
+-            <android.support.design.widget.TextInputLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                app:passwordToggleEnabled="true">
+-
+-                <EditText
+-                    android:id="@+id/ConfirmPassword"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="40dp"
+-                    android:layout_marginTop="10dp"
+-                    android:background="@drawable/edit_text_background"
+-                    android:hint="@string/ConfirmPassword"
+-                    android:inputType="textPassword"
+-                    android:paddingLeft="10dp"
+-                    android:textSize="20sp" />
+-
+-
+-            </android.support.design.widget.TextInputLayout>
+-
+-
+-
+-        </LinearLayout>
+-
+-
+-    <!--</ScrollView>-->
+-</RelativeLayout>
+Index: app/src/main/res/layout/alertdialog_signin.xml
+===================================================================
+--- app/src/main/res/layout/alertdialog_signin.xml	(revision 4ff45fa69b40fc4bd6bdf4bdb716527e1c435401)
++++ app/src/main/res/layout/alertdialog_signin.xml	(revision 4ff45fa69b40fc4bd6bdf4bdb716527e1c435401)
+@@ -1,54 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    android:background="@drawable/main_background"
+-    android:padding="10dp">
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:gravity="center"
+-        android:orientation="vertical">
+-
+-        <android.support.design.widget.TextInputLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            >
+-        <EditText
+-            android:id="@+id/E_mail_signin"
+-            android:layout_width="match_parent"
+-            android:layout_height="40dp"
+-            android:layout_marginTop="10dp"
+-            android:background="@drawable/edit_text_background"
+-            android:hint="@string/E_mail"
+-            android:inputType="textEmailAddress"
+-            android:paddingLeft="10dp"
+-            android:textSize="20sp" />
+-        </android.support.design.widget.TextInputLayout>
+-
+-
+-
+-        <android.support.design.widget.TextInputLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            app:passwordToggleEnabled="true">
+-        <EditText
+-            android:id="@+id/Password_signin"
+-            android:layout_width="match_parent"
+-            android:layout_height="40dp"
+-            android:layout_marginTop="10dp"
+-            android:background="@drawable/edit_text_background"
+-            android:hint="@string/Password"
+-            android:inputType="textPassword"
+-            android:paddingLeft="10dp"
+-            android:textSize="20sp" />
+-        </android.support.design.widget.TextInputLayout>
+-
+-
+-
+-
+-    </LinearLayout>
+-
+-</RelativeLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_welcome.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_welcome.xml	(date 1549748521771)
++++ app/src/main/res/layout/activity_welcome.xml	(date 1549748521771)
+@@ -0,0 +1,46 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".View.azerCode.WelcomeActivity"
++    android:orientation="vertical"
++    android:background="@color/color_login_background">
++
++    <TextView
++        android:layout_marginTop="150dp"
++        android:id="@+id/textView12"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="Welcome"
++        android:textColor="@color/white"
++        android:textSize="30dp"
++        android:layout_gravity="center"
++        tools:layout_editor_absoluteX="142dp"
++        tools:layout_editor_absoluteY="207dp" />
++
++
++    <ImageView
++        android:id="@+id/imageView"
++        android:layout_width="200dp"
++        android:layout_height="200dp"
++        app:srcCompat="@drawable/login"
++        android:layout_gravity="center"
++        tools:layout_editor_absoluteX="105dp"
++        tools:layout_editor_absoluteY="265dp" />
++
++    <TextView
++        android:id="@+id/textView13"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="In Rakna App"
++        android:textColor="@color/white"
++        android:textSize="30dp"
++        android:layout_gravity="center"
++        tools:layout_editor_absoluteX="117dp"
++        tools:layout_editor_absoluteY="491dp" />
++
++
++
++</LinearLayout>
+\ No newline at end of file
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- build.gradle	(revision 4ff45fa69b40fc4bd6bdf4bdb716527e1c435401)
++++ build.gradle	(date 1549492269461)
+@@ -7,7 +7,7 @@
+         jcenter()
+     }
+     dependencies {
+-        classpath 'com.android.tools.build:gradle:3.2.1'
++        classpath 'com.android.tools.build:gradle:3.3.0'
+         
+ 
+         // NOTE: Do not place your application dependencies here; they belong
+@@ -20,6 +20,8 @@
+         google()
+         jcenter()
+         mavenCentral()
++        maven { url "http://jitpack.io"}
++
+     }
+ }
+ 
+Index: app/src/main/java/com/example/rakna/raknagraduationproject/View/azerCode/WelcomeActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/rakna/raknagraduationproject/View/azerCode/WelcomeActivity.java	(date 1549744418133)
++++ app/src/main/java/com/example/rakna/raknagraduationproject/View/azerCode/WelcomeActivity.java	(date 1549744418133)
+@@ -0,0 +1,15 @@
++package com.example.rakna.raknagraduationproject.View.azerCode;
++
++import android.support.v7.app.AppCompatActivity;
++import android.os.Bundle;
++import com.example.rakna.raknagraduationproject.R;
++
++
++public class WelcomeActivity extends AppCompatActivity {
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_welcome);
++    }
++}
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision 4ff45fa69b40fc4bd6bdf4bdb716527e1c435401)
++++ .idea/gradle.xml	(date 1549474107401)
+@@ -3,8 +3,12 @@
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
+-        <option name="distributionType" value="DEFAULT_WRAPPED" />
++        <compositeConfiguration>
++          <compositeBuild compositeDefinitionSource="SCRIPT" />
++        </compositeConfiguration>
++        <option name="distributionType" value="LOCAL" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
++        <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-4.10.1" />
+         <option name="modules">
+           <set>
+             <option value="$PROJECT_DIR$" />
+Index: gradle/wrapper/gradle-wrapper.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- gradle/wrapper/gradle-wrapper.properties	(revision 4ff45fa69b40fc4bd6bdf4bdb716527e1c435401)
++++ gradle/wrapper/gradle-wrapper.properties	(date 1549474106839)
+@@ -1,6 +1,6 @@
+-#Thu Nov 22 17:15:12 EET 2018
++#Wed Feb 06 19:28:26 EET 2019
+ distributionBase=GRADLE_USER_HOME
+ distributionPath=wrapper/dists
+ zipStoreBase=GRADLE_USER_HOME
+ zipStorePath=wrapper/dists
+-distributionUrl=https\://services.gradle.org/distributions/gradle-4.6-all.zip
++distributionUrl=https\://services.gradle.org/distributions/gradle-4.10.1-all.zip
+Index: app/src/main/res/drawable-anydpi/stylbutonlogin.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable-anydpi/stylbutonlogin.xml	(date 1549749415779)
++++ app/src/main/res/drawable-anydpi/stylbutonlogin.xml	(date 1549749415779)
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="UTF-8"?>
++
++<shape android:shape="rectangle"
++
++    xmlns:android="http://schemas.android.com/apk/res/android">
++    <stroke android:width="0dp" android:color="#C4DCE6" ></stroke>
++    <corners android:bottomRightRadius="10dp" android:topRightRadius="10dp"
++        android:topLeftRadius="10dp" android:bottomLeftRadius="10dp" ></corners>
++
++    <gradient android:endColor="#A9CCE4" android:startColor="#E5EFF3"> </gradient>
++
++
++</shape>
+\ No newline at end of file
+Index: app/src/main/java/com/example/rakna/raknagraduationproject/View/azerCode/Login.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/rakna/raknagraduationproject/View/azerCode/Login.java	(date 1549747260214)
++++ app/src/main/java/com/example/rakna/raknagraduationproject/View/azerCode/Login.java	(date 1549747260214)
+@@ -0,0 +1,130 @@
++package com.example.rakna.raknagraduationproject.View.azerCode;
++
++import android.content.Intent;
++import android.support.v7.app.AppCompatActivity;
++import android.os.Bundle;
++import android.util.Log;
++import android.view.View;
++import android.widget.Button;
++import android.widget.EditText;
++import android.widget.ProgressBar;
++import android.widget.TextView;
++import android.widget.Toast;
++
++import com.android.volley.RequestQueue;
++import com.android.volley.Response;
++import com.android.volley.toolbox.Volley;
++import com.example.rakna.raknagraduationproject.R;
++import com.example.rakna.raknagraduationproject.View.hassan.MapsActivity;
++
++import org.json.JSONArray;
++import org.json.JSONException;
++import org.json.JSONObject;
++
++
++public class Login extends AppCompatActivity {
++    Button Signin;
++    EditText emailsign;
++    EditText passwordsign;
++    ProgressBar lodin;
++
++    TextView signup;
++    TextView forgot;
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_login);
++
++        lodin=findViewById(R.id.progresslogin);
++        Signin=(Button) findViewById(R.id.SignInn);
++        emailsign = (EditText) findViewById(R.id.E_mail_signinn);
++        passwordsign = (EditText) findViewById(R.id.Password_signinn);
++
++        signup =findViewById(R.id.createaccount);
++        forgot=findViewById(R.id.forgot_password);
++
++        Signin.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(final View view) {
++
++               lodin.setVisibility(View.VISIBLE);
++                Signin.setVisibility(view.GONE);
++
++                String signEmail=emailsign.getText().toString().trim();
++                String signPassword=passwordsign.getText().toString().trim();
++
++
++                Response.Listener<String> responselistner = new Response.Listener<String>() {
++
++                    @Override
++                    public void onResponse(String response) {
++
++                        try {
++                            JSONObject jsonObject = new JSONObject(response);
++                            boolean success = jsonObject.getBoolean("success");
++                            JSONArray jsonArray = jsonObject.getJSONArray("login");
++
++                            Log.d("success", "onResponse: success is " + success
++                                    +" ,JSON : " + jsonArray);
++
++                            if (success) {
++
++                                for (int i=0 ; i<jsonArray.length() ; i++){
++
++                                    JSONObject object=jsonArray.getJSONObject(i);
++                                    String name=object.getString("name").trim();
++                                    String email=object.getString("email").trim();
++
++//                                    Toast.makeText(Login.this,
++//                                            "login successful" +
++//                                                    "YourName : " + name + "\n ,Email : " + email,
++//                                            Toast.LENGTH_LONG).show();
++                                    Intent intent=new Intent(Login.this, WelcomeActivity.class);
++                                    startActivity(intent);
++
++
++                                    lodin.setVisibility(view.GONE);
++
++                                }
++
++                            } else {
++                                Toast.makeText(Login.this,
++                                        "LOGIN failed",
++                                        Toast.LENGTH_LONG).show();
++                            }
++
++                        } catch (JSONException e) {
++                            e.printStackTrace();
++                            Toast.makeText(Login.this,
++                                    "LOGIN ERROR vvvvvvv" + e.toString(),
++                                    Toast.LENGTH_LONG).show();
++
++                        }
++                    }
++                };
++                SendDataLogin sendDataLogin=new SendDataLogin(signEmail,signPassword,responselistner);
++
++                RequestQueue requestQueue= Volley.newRequestQueue(Login.this);
++                requestQueue.add(sendDataLogin);
++
++
++            }
++        });
++
++        forgot.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View view) {
++
++            }
++        });
++
++        signup.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View view) {
++
++                startActivity(new Intent(Login.this,SignUp.class));
++            }
++        });
++    }
++}
+Index: app/src/main/res/drawable-xxhdpi/edit_text_background.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable-xxhdpi/edit_text_background.xml	(revision 4ff45fa69b40fc4bd6bdf4bdb716527e1c435401)
++++ app/src/main/res/drawable-xxhdpi/edit_text_background.xml	(date 1549641393403)
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <shape xmlns:android="http://schemas.android.com/apk/res/android"
+     android:shape="rectangle">
+-<corners android:radius="10dp"/>
++<corners android:topRightRadius="10dp" android:bottomRightRadius="10dp"/>
+     <stroke android:color="#ffffff"
+         android:width="3dp"/>
+     <solid android:color="@android:color/white"/>
+Index: app/src/main/res/layout/activity_login.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_login.xml	(date 1549748832498)
++++ app/src/main/res/layout/activity_login.xml	(date 1549748832498)
+@@ -0,0 +1,149 @@
++<?xml version="1.0" encoding="utf-8"?>
++
++
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++xmlns:app="http://schemas.android.com/apk/res-auto"
++xmlns:tools="http://schemas.android.com/tools"
++android:layout_width="match_parent"
++android:layout_height="match_parent"
++android:orientation="vertical"
++    android:background="@color/color_login_background"
++tools:context=".View.azerCode.Login">
++
++        <ImageView
++            android:layout_width="190dp"
++            android:layout_height="190dp"
++            android:layout_marginTop="10dp"
++            android:layout_gravity="center"
++            app:srcCompat="@drawable/login" />
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="RAKNA APP"
++            android:textSize="20dp"
++            android:textColor="@color/white"
++            android:layout_gravity="center"
++            />
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="30dp"
++        android:gravity="center"
++        android:orientation="vertical"
++        android:padding="20dp">
++
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:orientation="horizontal">
++
++            <ImageView
++                android:layout_width="50dp"
++                android:layout_height="30dp"
++                android:layout_gravity="center"
++                android:layout_marginTop="5dp"
++                android:src="@drawable/emaill" />
++
++            <android.support.design.widget.TextInputLayout
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content">
++
++                <EditText
++                    android:id="@+id/E_mail_signinn"
++                    android:layout_width="match_parent"
++                    android:layout_height="30dp"
++                    android:background="@drawable/edit_text_background"
++                    android:hint="@string/E_mail"
++                    android:inputType="textEmailAddress"
++                    android:paddingLeft="10dp"
++                    android:textSize="20sp" />
++            </android.support.design.widget.TextInputLayout>
++        </LinearLayout>
++
++
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="5dp"
++            android:orientation="horizontal">
++
++            <ImageView
++                android:layout_width="50dp"
++                android:layout_height="30dp"
++                android:layout_gravity="center"
++                android:layout_marginTop="5dp"
++                android:src="@drawable/password" />
++
++            <android.support.design.widget.TextInputLayout
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                app:passwordToggleEnabled="true">
++
++                <EditText
++                    android:id="@+id/Password_signinn"
++                    android:layout_width="match_parent"
++                    android:layout_height="30dp"
++                    android:layout_marginTop="10dp"
++                    android:background="@drawable/edit_text_background"
++                    android:hint="@string/Password"
++                    android:inputType="textPassword"
++                    android:paddingLeft="10dp"
++                    android:textSize="20sp" />
++            </android.support.design.widget.TextInputLayout>
++        </LinearLayout>
++<LinearLayout
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    android:orientation="vertical"
++    android:paddingLeft="35dp"
++    >
++
++    <com.github.ybq.android.spinkit.SpinKitView
++        android:layout_marginTop="20dp"
++        xmlns:app="http://schemas.android.com/apk/res-auto"
++        android:id="@+id/progresslogin"
++        android:visibility="gone"
++        style="@style/SpinKitView.Large.Wave"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_gravity="center"
++        app:SpinKit_Color="@color/white"
++        />
++    <Button
++        android:id="@+id/SignInn"
++        android:layout_width="match_parent"
++        android:layout_height="40dp"
++        android:layout_margin="35dp"
++        android:background="@drawable/stylbutonlogin"
++       android:layout_gravity="center"
++        android:text="sign in"
++        android:textSize="20dp" />
++
++    <TextView
++        android:id="@+id/forgot_password"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_gravity="center_horizontal"
++        android:gravity="center"
++        android:textSize="15dp"
++        android:text="@string/forgot_password"
++        android:textColor="#ffffff" />
++
++    <TextView
++        android:id="@+id/createaccount"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_gravity="center_horizontal"
++        android:layout_marginTop="50dp"
++        android:text="@string/creat_acount"
++        android:textColor="#ffffff"
++        android:textSize="25dp" />
++</LinearLayout>
++
++
++
++    </LinearLayout>
++
++
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/drawable-anydpi/edit_text_background_signup.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable-anydpi/edit_text_background_signup.xml	(date 1549641445815)
++++ app/src/main/res/drawable-anydpi/edit_text_background_signup.xml	(date 1549641445815)
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape xmlns:android="http://schemas.android.com/apk/res/android"
++    android:shape="rectangle">
++<corners android:radius="10dp"/>
++    <stroke android:color="#ffffff"
++        android:width="3dp"/>
++    <solid android:color="@android:color/white"/>
++
++</shape>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_first_screen.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_first_screen.xml	(date 1549751732043)
++++ app/src/main/res/layout/activity_first_screen.xml	(date 1549751732043)
+@@ -0,0 +1,45 @@
++<?xml version="1.0" encoding="utf-8"?>
++
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++xmlns:app="http://schemas.android.com/apk/res-auto"
++xmlns:tools="http://schemas.android.com/tools"
++android:layout_width="match_parent"
++android:layout_height="match_parent"
++android:orientation="vertical"
++android:padding="15dp"
++tools:context=".View.azerCode.FirstScreen"
++    android:background="@color/color_login_background"
++    >
++    <TextView
++        android:layout_marginTop="50dp"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:textColor="@color/white"
++        android:textSize="30dp"
++       android:text="RAKNA  APP"
++        android:textStyle="bold"
++        android:layout_gravity="center"/>
++
++    <ImageView
++        android:layout_marginTop="40dp"
++        android:layout_width="300dp"
++        android:layout_height="300dp"
++        android:src="@drawable/car"
++        android:layout_gravity="center"/>
++
++
++
++
++<com.github.ybq.android.spinkit.SpinKitView
++    android:layout_marginTop="20dp"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:id="@+id/spin_kit"
++    style="@style/SpinKitView.Large.ThreeBounce"
++    android:layout_width="wrap_content"
++    android:layout_height="wrap_content"
++    android:layout_gravity="center"
++    app:SpinKit_Color="@color/white"
++    />
++
++
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/rakna/raknagraduationproject/View/azerCode/FirstScreen.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/rakna/raknagraduationproject/View/azerCode/FirstScreen.java	(date 1549494625307)
++++ app/src/main/java/com/example/rakna/raknagraduationproject/View/azerCode/FirstScreen.java	(date 1549494625307)
+@@ -0,0 +1,27 @@
++package com.example.rakna.raknagraduationproject.View.azerCode;
++
++import android.content.Intent;
++import android.os.Handler;
++import android.support.v7.app.AppCompatActivity;
++import android.os.Bundle;
++import com.example.rakna.raknagraduationproject.R;
++
++public class FirstScreen extends AppCompatActivity {
++    private  static int SPLASH_TIME=3000;
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_first_screen);
++
++        new Handler().postDelayed(new Runnable() {
++            @Override
++            public void run() {
++                Intent i=new Intent(FirstScreen.this,Login.class);
++                startActivity(i);
++
++                finish();
++            }
++        },SPLASH_TIME);
++    }
++}
+Index: app/src/main/res/drawable-anydpi/login.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable-anydpi/login.xml	(date 1549750129298)
++++ app/src/main/res/drawable-anydpi/login.xml	(date 1549750129298)
+@@ -0,0 +1,18 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="22dp"
++    android:height="22dp"
++    android:viewportWidth="29"
++    android:viewportHeight="29"
++    android:tint="#FFFF"
++    >
++  <group android:translateX="2"
++      android:translateY="5">
++      <path
++          android:fillColor="#FFFF"
++          android:pathData="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,
++          -4.48 10,-10S17.52,2 12,2zM12,5c1.66,0 3,1.34 3,3s-1.34,3 -3,
++          3 -3,-1.34 -3,-3 1.34,-3 3,-3zM12,19.2c-2.5,0 -4.71,-1.28 -6,
++          -3.22 0.03,-1.99 4,-3.08 6,-3.08 1.99,0 5.97,1.09 6,3.08 -1.29,
++          1.94 -3.5,3.22 -6,3.22z"/>
++  </group>
++</vector>
+Index: app/src/main/res/drawable-anydpi/pass.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable-anydpi/pass.xml	(date 1549554556480)
++++ app/src/main/res/drawable-anydpi/pass.xml	(date 1549554556480)
+@@ -0,0 +1,13 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="40dp"
++    android:height="40dp"
++    android:viewportWidth="29.4"
++    android:viewportHeight="29.4"
++    android:tint="#FFFFFF">
++  <group android:translateX="3.7"
++      android:translateY="3.3125">
++      <path
++          android:fillColor="#5dade2"
++          android:pathData="M18,8h-1L17,6c0,-2.76 -2.24,-5 -5,-5S7,3.24 7,6v2L6,8c-1.1,0 -2,0.9 -2,2v10c0,1.1 0.9,2 2,2h12c1.1,0 2,-0.9 2,-2L20,10c0,-1.1 -0.9,-2 -2,-2zM12,17c-1.1,0 -2,-0.9 -2,-2s0.9,-2 2,-2 2,0.9 2,2 -0.9,2 -2,2zM15.1,8L8.9,8L8.9,6c0,-1.71 1.39,-3.1 3.1,-3.1 1.71,0 3.1,1.39 3.1,3.1v2z"/>
++  </group>
++</vector>
+Index: .idea/assetWizardSettings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/assetWizardSettings.xml	(date 1549665983033)
++++ .idea/assetWizardSettings.xml	(date 1549665983033)
+@@ -0,0 +1,280 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="WizardSettings">
++    <option name="children">
++      <map>
++        <entry key="imageWizard">
++          <value>
++            <PersistentState>
++              <option name="children">
++                <map>
++                  <entry key="imageAssetPanel">
++                    <value>
++                      <PersistentState>
++                        <option name="children">
++                          <map>
++                            <entry key="actionbar">
++                              <value>
++                                <PersistentState>
++                                  <option name="children">
++                                    <map>
++                                      <entry key="clipArt">
++                                        <value>
++                                          <PersistentState>
++                                            <option name="values">
++                                              <map>
++                                                <entry key="color" value="000000" />
++                                                <entry key="paddingPercent" value="5" />
++                                                <entry key="trimmed" value="true" />
++                                              </map>
++                                            </option>
++                                          </PersistentState>
++                                        </value>
++                                      </entry>
++                                      <entry key="clipartAsset">
++                                        <value>
++                                          <PersistentState>
++                                            <option name="values">
++                                              <map>
++                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_https_black_24dp.xml" />
++                                              </map>
++                                            </option>
++                                          </PersistentState>
++                                        </value>
++                                      </entry>
++                                      <entry key="image">
++                                        <value>
++                                          <PersistentState>
++                                            <option name="values">
++                                              <map>
++                                                <entry key="color" value="000000" />
++                                                <entry key="trimmed" value="true" />
++                                              </map>
++                                            </option>
++                                          </PersistentState>
++                                        </value>
++                                      </entry>
++                                      <entry key="text">
++                                        <value>
++                                          <PersistentState>
++                                            <option name="values">
++                                              <map>
++                                                <entry key="color" value="000000" />
++                                                <entry key="trimmed" value="true" />
++                                              </map>
++                                            </option>
++                                          </PersistentState>
++                                        </value>
++                                      </entry>
++                                      <entry key="textAsset">
++                                        <value>
++                                          <PersistentState>
++                                            <option name="values">
++                                              <map>
++                                                <entry key="text" value="Rakna App" />
++                                              </map>
++                                            </option>
++                                          </PersistentState>
++                                        </value>
++                                      </entry>
++                                    </map>
++                                  </option>
++                                  <option name="values">
++                                    <map>
++                                      <entry key="assetType" value="TEXT" />
++                                      <entry key="outputName" value="password" />
++                                      <entry key="theme" value="CUSTOM" />
++                                      <entry key="themeColor" value="ffffff" />
++                                    </map>
++                                  </option>
++                                </PersistentState>
++                              </value>
++                            </entry>
++                            <entry key="launcher">
++                              <value>
++                                <PersistentState>
++                                  <option name="children">
++                                    <map>
++                                      <entry key="foregroundClipArt">
++                                        <value>
++                                          <PersistentState>
++                                            <option name="values">
++                                              <map>
++                                                <entry key="color" value="000000" />
++                                              </map>
++                                            </option>
++                                          </PersistentState>
++                                        </value>
++                                      </entry>
++                                      <entry key="foregroundImage">
++                                        <value>
++                                          <PersistentState>
++                                            <option name="values">
++                                              <map>
++                                                <entry key="color" value="000000" />
++                                              </map>
++                                            </option>
++                                          </PersistentState>
++                                        </value>
++                                      </entry>
++                                      <entry key="foregroundText">
++                                        <value>
++                                          <PersistentState>
++                                            <option name="values">
++                                              <map>
++                                                <entry key="color" value="000000" />
++                                                <entry key="scalingPercent" value="125" />
++                                              </map>
++                                            </option>
++                                          </PersistentState>
++                                        </value>
++                                      </entry>
++                                      <entry key="foregroundTextAsset">
++                                        <value>
++                                          <PersistentState>
++                                            <option name="values">
++                                              <map>
++                                                <entry key="fontFamily" value="Bodoni MT Poster Compressed" />
++                                                <entry key="text" value="Rakna App" />
++                                              </map>
++                                            </option>
++                                          </PersistentState>
++                                        </value>
++                                      </entry>
++                                    </map>
++                                  </option>
++                                  <option name="values">
++                                    <map>
++                                      <entry key="backgroundLayerName" value="ic_launcher_background" />
++                                      <entry key="foregroundAssetType" value="TEXT" />
++                                      <entry key="foregroundLayerName" value="ic_launcher_foreground" />
++                                      <entry key="outputName" value="rakna" />
++                                    </map>
++                                  </option>
++                                </PersistentState>
++                              </value>
++                            </entry>
++                            <entry key="launcherLegacy">
++                              <value>
++                                <PersistentState>
++                                  <option name="children">
++                                    <map>
++                                      <entry key="clipArt">
++                                        <value>
++                                          <PersistentState>
++                                            <option name="values">
++                                              <map>
++                                                <entry key="color" value="000000" />
++                                              </map>
++                                            </option>
++                                          </PersistentState>
++                                        </value>
++                                      </entry>
++                                      <entry key="text">
++                                        <value>
++                                          <PersistentState>
++                                            <option name="values">
++                                              <map>
++                                                <entry key="color" value="000000" />
++                                              </map>
++                                            </option>
++                                          </PersistentState>
++                                        </value>
++                                      </entry>
++                                      <entry key="textAsset">
++                                        <value>
++                                          <PersistentState>
++                                            <option name="values">
++                                              <map>
++                                                <entry key="fontFamily" value="Bernard MT Condensed" />
++                                                <entry key="text" value="Rakna App" />
++                                              </map>
++                                            </option>
++                                          </PersistentState>
++                                        </value>
++                                      </entry>
++                                    </map>
++                                  </option>
++                                  <option name="values">
++                                    <map>
++                                      <entry key="assetType" value="TEXT" />
++                                      <entry key="iconShape" value="NONE" />
++                                      <entry key="outputName" value="textstyle" />
++                                    </map>
++                                  </option>
++                                </PersistentState>
++                              </value>
++                            </entry>
++                            <entry key="notification">
++                              <value>
++                                <PersistentState>
++                                  <option name="children">
++                                    <map>
++                                      <entry key="clipArt">
++                                        <value>
++                                          <PersistentState>
++                                            <option name="values">
++                                              <map>
++                                                <entry key="color" value="000000" />
++                                              </map>
++                                            </option>
++                                          </PersistentState>
++                                        </value>
++                                      </entry>
++                                    </map>
++                                  </option>
++                                </PersistentState>
++                              </value>
++                            </entry>
++                          </map>
++                        </option>
++                      </PersistentState>
++                    </value>
++                  </entry>
++                </map>
++              </option>
++            </PersistentState>
++          </value>
++        </entry>
++        <entry key="vectorWizard">
++          <value>
++            <PersistentState>
++              <option name="children">
++                <map>
++                  <entry key="vectorAssetStep">
++                    <value>
++                      <PersistentState>
++                        <option name="children">
++                          <map>
++                            <entry key="clipartAsset">
++                              <value>
++                                <PersistentState>
++                                  <option name="values">
++                                    <map>
++                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_account_circle_black_24dp.xml" />
++                                    </map>
++                                  </option>
++                                </PersistentState>
++                              </value>
++                            </entry>
++                          </map>
++                        </option>
++                        <option name="values">
++                          <map>
++                            <entry key="color" value="5dade2" />
++                            <entry key="outputName" value="loginimage" />
++                            <entry key="sourceFile" value="C:\Users\Azer" />
++                          </map>
++                        </option>
++                      </PersistentState>
++                    </value>
++                  </entry>
++                </map>
++              </option>
++            </PersistentState>
++          </value>
++        </entry>
++      </map>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision 4ff45fa69b40fc4bd6bdf4bdb716527e1c435401)
++++ app/build.gradle	(date 1549492244370)
+@@ -29,6 +29,8 @@
+     testImplementation 'junit:junit:4.12'
+     androidTestImplementation 'com.android.support.test:runner:1.0.2'
+     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
++    implementation 'com.github.ybq:Android-SpinKit:1.2.0'
++
+     implementation 'com.android.support:design:27.1.1'
+     implementation 'com.android.volley:volley:1.1.0'
+     implementation 'de.hdodenhof:circleimageview:3.0.0'
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 4ff45fa69b40fc4bd6bdf4bdb716527e1c435401)
++++ app/src/main/AndroidManifest.xml	(date 1549742867522)
+@@ -14,9 +14,12 @@
+         android:supportsRtl="true"
+         android:theme="@style/AppTheme"
+         tools:ignore="GoogleAppIndexingWarning">
++        <activity android:name=".View.azerCode.WelcomeActivity"></activity>
++        <activity android:name=".View.azerCode.SignUp" />
++        <activity android:name=".View.azerCode.Login" />
++        <activity android:name=".View.azerCode.RegestrationActivity" />
+         <activity android:name=".View.azerCode.Main2Activityazer" />
+-        <activity android:name=".View.hassan.Garag_Activity"/>
+-
++        <activity android:name=".View.hassan.Garag_Activity" />
+         <activity android:name=".View.hassan.MapsActivity" />
+ 
+         <meta-data
+@@ -25,7 +28,7 @@
+ 
+         <activity android:name=".View.AbdoView.MainActivity" />
+         <activity android:name=".View.AbdoView.PayActivity" />
+-        <activity android:name=".View.azerCode.RegestrationActivity" >
++        <activity android:name=".View.azerCode.FirstScreen">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+ 
+Index: app/src/main/java/com/example/rakna/raknagraduationproject/View/azerCode/SignUp.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/rakna/raknagraduationproject/View/azerCode/SignUp.java	(date 1549747374602)
++++ app/src/main/java/com/example/rakna/raknagraduationproject/View/azerCode/SignUp.java	(date 1549747374602)
+@@ -0,0 +1,180 @@
++package com.example.rakna.raknagraduationproject.View.azerCode;
++
++import android.content.Intent;
++import android.support.v7.app.AppCompatActivity;
++import android.os.Bundle;
++import android.view.View;
++import android.widget.Button;
++import android.widget.EditText;
++import android.widget.ProgressBar;
++import android.widget.Toast;
++
++import com.android.volley.RequestQueue;
++import com.android.volley.Response;
++import com.android.volley.toolbox.Volley;
++import com.example.rakna.raknagraduationproject.R;
++
++import org.json.JSONException;
++import org.json.JSONObject;
++
++
++public class SignUp extends AppCompatActivity {
++
++    EditText name;
++    EditText phoneNum;
++    EditText licenseNumber;
++    EditText driverLicense;
++    EditText carType;
++    EditText email;
++    EditText pass1;
++    EditText pass2;
++    private ProgressBar loding;
++
++    Button signup_butt;
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_sign_up);
++
++        signup_butt=findViewById(R.id.SignUp);
++
++        name = findViewById(R.id.Name);
++        phoneNum = findViewById(R.id.PhoneNumber);
++        licenseNumber = findViewById(R.id.LicenseNumber);
++        driverLicense = findViewById(R.id.DriverLicense);
++        carType = findViewById(R.id.CareType);
++        email = findViewById(R.id.E_mail);
++        pass1 = findViewById(R.id.Password);
++        pass2 = findViewById(R.id.ConfirmPassword);
++        loding=findViewById(R.id.progress1);
++
++        signup_butt.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View view) {
++//                if (name.getText().toString().isEmpty()) {
++//
++//                    Toast.makeText(SignUp.this,
++//                            "Please enter the name",
++//                            Toast.LENGTH_SHORT).show();
++//                    return ;
++//                }
++//                if (phoneNum.getText().toString().isEmpty()) {
++//
++//                    Toast.makeText(SignUp.this,
++//                            "Please enter the phone Number",
++//                            Toast.LENGTH_SHORT).show();
++//                    return;
++//                }
++//                if (licenseNumber.getText().toString().isEmpty()) {
++//
++//                    Toast.makeText(SignUp.this,
++//                            "Please enter the license Number",
++//                            Toast.LENGTH_SHORT).show();
++//                    return;
++//                }
++//                if (driverLicense.getText().toString().isEmpty()) {
++//
++//                    Toast.makeText(SignUp.this,
++//                            "Please enter the driver License Number",
++//                            Toast.LENGTH_SHORT).show();
++//                    return;
++//                }
++//                if (carType.getText().toString().isEmpty()) {
++//
++//                    Toast.makeText(SignUp.this,
++//                            "Please enter the car Type",
++//                            Toast.LENGTH_SHORT).show();
++//                    return;
++//                }
++//                if (email.getText().toString().isEmpty()) {
++//
++//                    Toast.makeText(SignUp.this,
++//                            "Please enter the E_mail",
++//                            Toast.LENGTH_SHORT).show();
++//                    return;
++//                }
++//                if (pass1.getText().toString().isEmpty()) {
++//
++//                    Toast.makeText(SignUp.this,
++//                            "Please enter the password",
++//                            Toast.LENGTH_SHORT).show();
++//                    return;
++//                }
++//                if (pass1.getText().length() < 4) {
++//
++//                    Toast.makeText(SignUp.this,
++//                            "Please password Must be more than 6 character",
++//                            Toast.LENGTH_SHORT).show();
++//                    return;
++//                }
++//        if (!Objects.equals(pass1.getText().toString(), pass2.getText().toString())) {
++//            Toast.makeText(SignUp.this,
++//                    "Please enter the correct password",
++//                    Toast.LENGTH_SHORT).show();
++//            return;
++//
++//        }
++
++                Regester();
++            }
++        });
++
++
++    }
++
++    public void Regester() {
++        loding.setVisibility(View.VISIBLE);
++        signup_butt.setVisibility(View.GONE);
++
++        final String r_name = name.getText().toString().trim();
++        final String r_phonenumber = phoneNum.getText().toString().trim();
++        final int r_licenseNumber = Integer.parseInt(licenseNumber.getText().toString().trim());
++        final int r_driverLicense = Integer.parseInt(driverLicense.getText().toString().trim());
++        final int r_carType = Integer.parseInt(carType.getText().toString().trim());
++        final String r_email = email.getText().toString().trim();
++        final String r_pass1 = pass1.getText().toString().trim();
++
++
++        Response.Listener<String> responselistner = new Response.Listener<String>() {
++
++            @Override
++            public void onResponse(String response) {
++
++                try {
++                    JSONObject jsonObject = new JSONObject(response);
++                    boolean success = jsonObject.getBoolean("success");
++
++                    if (success) {
++                        Toast.makeText(SignUp.this,
++                                "Regestration successful",
++                                Toast.LENGTH_LONG).show();
++                        Intent intent=new Intent(SignUp.this, WelcomeActivity.class);
++                        startActivity(intent);
++
++                    } else {
++                        Toast.makeText(SignUp.this,
++                                "Regestration failed",
++                                Toast.LENGTH_LONG).show();
++                    }
++
++                } catch (JSONException e) {
++                    e.printStackTrace();
++                    Toast.makeText(SignUp.this,
++                            "Regestration ERROR" + e.toString(),
++                            Toast.LENGTH_LONG).show();
++
++                    loding.setVisibility(View.GONE);
++                    signup_butt.setVisibility(View.VISIBLE);
++                }
++            }
++        };
++
++        SendDataRegesteration sendDataRegesteration=new SendDataRegesteration(r_driverLicense,r_name,
++                r_phonenumber,r_licenseNumber,r_email,r_pass1,r_carType,responselistner);
++
++        RequestQueue requestQueue= Volley.newRequestQueue(SignUp.this);
++        requestQueue.add(sendDataRegesteration);
++
++    }
++}
+Index: app/src/main/res/layout/activity_sign_up.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_sign_up.xml	(date 1549737156914)
++++ app/src/main/res/layout/activity_sign_up.xml	(date 1549737156914)
+@@ -0,0 +1,197 @@
++<?xml version="1.0" encoding="utf-8"?>
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:background="@drawable/main_background"
++    android:padding="10dp">
++
++
++    <!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
++    <!--xmlns:tools="http://schemas.android.com/tools"-->
++    <!--android:layout_width="match_parent"-->
++    <!--android:layout_height="match_parent">-->
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:gravity="center"
++        android:padding="20dp"
++        android:orientation="vertical">
++
++
++        <TextView
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:textSize="30dp"
++            android:gravity="center"
++            android:padding="10dp"
++            android:textColor="@color/white"
++            android:text="@string/signup"
++
++            />
++        <android.support.design.widget.TextInputLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            >
++            <EditText
++                android:id="@+id/Name"
++                android:layout_width="match_parent"
++                android:layout_height="40dp"
++                android:background="@drawable/edit_text_background_signup"
++                android:hint="@string/name"
++                android:paddingLeft="10dp"
++                android:textSize="20sp" />
++        </android.support.design.widget.TextInputLayout>
++
++
++
++        <android.support.design.widget.TextInputLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            >
++            <EditText
++                android:id="@+id/PhoneNumber"
++                android:layout_width="match_parent"
++                android:layout_height="40dp"
++                android:layout_marginTop="10dp"
++                android:background="@drawable/edit_text_background_signup"
++                android:hint="@string/phone"
++                android:inputType="number"
++                android:paddingLeft="10dp"
++                android:textSize="20sp" />
++        </android.support.design.widget.TextInputLayout>
++
++
++
++        <android.support.design.widget.TextInputLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            >
++            <EditText
++                android:id="@+id/LicenseNumber"
++                android:layout_width="match_parent"
++                android:layout_height="40dp"
++                android:layout_marginTop="10dp"
++                android:background="@drawable/edit_text_background_signup"
++                android:hint="@string/License"
++                android:inputType="number"
++                android:paddingLeft="10dp"
++                android:textSize="20sp" />
++        </android.support.design.widget.TextInputLayout>
++
++
++
++        <android.support.design.widget.TextInputLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            >
++            <EditText
++                android:id="@+id/DriverLicense"
++                android:layout_width="match_parent"
++                android:layout_height="40dp"
++                android:layout_marginTop="10dp"
++                android:background="@drawable/edit_text_background_signup"
++                android:hint="@string/DriverLicense"
++                android:inputType="number"
++                android:paddingLeft="10dp"
++                android:textSize="20sp" />
++        </android.support.design.widget.TextInputLayout>
++
++
++
++        <android.support.design.widget.TextInputLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            >
++            <EditText
++                android:id="@+id/CareType"
++                android:layout_width="match_parent"
++                android:layout_height="40dp"
++                android:layout_marginTop="10dp"
++                android:background="@drawable/edit_text_background_signup"
++                android:hint="@string/CareType"
++                android:paddingLeft="10dp"
++                android:textSize="20sp" />
++        </android.support.design.widget.TextInputLayout>
++
++
++        <android.support.design.widget.TextInputLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            >
++            <EditText
++                android:id="@+id/E_mail"
++                android:layout_width="match_parent"
++                android:layout_height="40dp"
++                android:layout_marginTop="10dp"
++                android:background="@drawable/edit_text_background_signup"
++                android:hint="@string/E_mail"
++                android:inputType="textEmailAddress"
++                android:paddingLeft="10dp"
++                android:textSize="20sp" />
++
++        </android.support.design.widget.TextInputLayout>
++        <android.support.design.widget.TextInputLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            app:passwordToggleEnabled="true">
++            <EditText
++                android:id="@+id/Password"
++                android:layout_width="match_parent"
++                android:layout_height="40dp"
++                android:layout_marginTop="10dp"
++                android:background="@drawable/edit_text_background_signup"
++                android:hint="@string/Password"
++                android:inputType="textPassword"
++                android:paddingLeft="10dp"
++                android:textSize="20sp"
++                />
++        </android.support.design.widget.TextInputLayout>
++
++        <android.support.design.widget.TextInputLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            app:passwordToggleEnabled="true">
++
++            <EditText
++                android:id="@+id/ConfirmPassword"
++                android:layout_width="match_parent"
++                android:layout_height="40dp"
++                android:layout_marginTop="10dp"
++                android:background="@drawable/edit_text_background_signup"
++                android:hint="@string/ConfirmPassword"
++                android:inputType="textPassword"
++                android:paddingLeft="10dp"
++                android:textSize="20sp" />
++
++
++        </android.support.design.widget.TextInputLayout>
++
++        <com.github.ybq.android.spinkit.SpinKitView
++            android:layout_marginTop="20dp"
++            xmlns:app="http://schemas.android.com/apk/res-auto"
++            android:id="@+id/progress1"
++            android:visibility="gone"
++            style="@style/SpinKitView.Large.Wave"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_gravity="center"
++            app:SpinKit_Color="@color/color_login_background"
++            />
++        <Button
++            android:id="@+id/SignUp"
++            android:layout_width="200dp"
++            android:layout_height="40dp"
++            android:layout_margin="30dp"
++            android:background="@drawable/stylbutonlogin"
++            android:layout_gravity="center"
++            android:text="@string/regester"
++            android:textSize="20dp" />
++
++    </LinearLayout>
++
++
++    <!--</ScrollView>-->
++</RelativeLayout>
+Index: app/src/main/res/drawable/loginimage.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/loginimage.xml	(date 1549638908354)
++++ app/src/main/res/drawable/loginimage.xml	(date 1549638908354)
+@@ -0,0 +1,5 @@
++<vector android:height="24dp" android:tint="#5DADE2"
++    android:viewportHeight="24.0" android:viewportWidth="24.0"
++    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="#FF000000" android:pathData="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2zM12,5c1.66,0 3,1.34 3,3s-1.34,3 -3,3 -3,-1.34 -3,-3 1.34,-3 3,-3zM12,19.2c-2.5,0 -4.71,-1.28 -6,-3.22 0.03,-1.99 4,-3.08 6,-3.08 1.99,0 5.97,1.09 6,3.08 -1.29,1.94 -3.5,3.22 -6,3.22z"/>
++</vector>
+Index: app/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/colors.xml	(revision 4ff45fa69b40fc4bd6bdf4bdb716527e1c435401)
++++ app/src/main/res/values/colors.xml	(date 1549642279252)
+@@ -12,9 +12,13 @@
+     <color name="black">#1b1b1b</color>
+     <color name="customblue">#FFD8DBD4</color>
+     <color name="white">#FFFFFF</color>
++    <color name="color_login_background">#34495e </color>
+ 
+     <color name="greencolor">#FF0D8964</color>
+     <color name="bluecolor">#41dad3</color>
+     <color name="color_noti_background">#e6e8f4</color>
+     <color name="color_time_ago">#6226f4</color>
++
++    <color name="butsginup">#417598</color>
++
+ </resources>
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision 4ff45fa69b40fc4bd6bdf4bdb716527e1c435401)
++++ app/src/main/res/values/strings.xml	(date 1549642051535)
+@@ -46,6 +46,10 @@
+     <!-- Activity 2-->
+     <string name="Wellcom">Wellcom In Rakna App</string>
+     <string name="noti_message">There is one approaching your car, please see it in Garage Owner garage.</string>
++    <string name="forgot_password">Forgot Password ?</string>
++    <string name="creat_acount">Create Account</string>
++    <string name="signup">SIGN UP</string>
++    <string name="regester">Regester</string>
+ 
+     <!--        AZER          -->
+ 
+Index: app/src/main/res/drawable-anydpi/emaill.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable-anydpi/emaill.xml	(date 1549554467053)
++++ app/src/main/res/drawable-anydpi/emaill.xml	(date 1549554467053)
+@@ -0,0 +1,13 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp"
++    android:height="24dp"
++    android:viewportWidth="22"
++    android:viewportHeight="22"
++    android:tint="#FFFFFF">
++  <group android:translateX="-1"
++      android:translateY="-0.5416667">
++      <path
++          android:fillColor="#FFFFFF"
++          android:pathData="M10,20v-6h4v6h5v-8h3L12,3 2,12h3v8z"/>
++  </group>
++</vector>
+Index: app/src/main/res/drawable-anydpi/password.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable-anydpi/password.xml	(date 1549554753321)
++++ app/src/main/res/drawable-anydpi/password.xml	(date 1549554753321)
+@@ -0,0 +1,13 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp"
++    android:height="24dp"
++    android:viewportWidth="23.1"
++    android:viewportHeight="23.1"
++    android:tint="#FFFFFF">
++  <group android:translateX="-0.45"
++      android:translateY="0.03125">
++      <path
++          android:fillColor="#FF000000"
++          android:pathData="M18,8h-1L17,6c0,-2.76 -2.24,-5 -5,-5S7,3.24 7,6v2L6,8c-1.1,0 -2,0.9 -2,2v10c0,1.1 0.9,2 2,2h12c1.1,0 2,-0.9 2,-2L20,10c0,-1.1 -0.9,-2 -2,-2zM12,17c-1.1,0 -2,-0.9 -2,-2s0.9,-2 2,-2 2,0.9 2,2 -0.9,2 -2,2zM15.1,8L8.9,8L8.9,6c0,-1.71 1.39,-3.1 3.1,-3.1 1.71,0 3.1,1.39 3.1,3.1v2z"/>
++  </group>
++</vector>
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision 4ff45fa69b40fc4bd6bdf4bdb716527e1c435401)
++++ .idea/misc.xml	(date 1549744236127)
+@@ -5,7 +5,7 @@
+     <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />
+     <option name="myNullables">
+       <value>
+-        <list size="7">
++        <list size="10">
+           <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.Nullable" />
+           <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nullable" />
+           <item index="2" class="java.lang.String" itemvalue="javax.annotation.CheckForNull" />
+@@ -13,23 +13,29 @@
+           <item index="4" class="java.lang.String" itemvalue="android.support.annotation.Nullable" />
+           <item index="5" class="java.lang.String" itemvalue="androidx.annotation.Nullable" />
+           <item index="6" class="java.lang.String" itemvalue="androidx.annotation.RecentlyNullable" />
++          <item index="7" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.Nullable" />
++          <item index="8" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableDecl" />
++          <item index="9" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableType" />
+         </list>
+       </value>
+     </option>
+     <option name="myNotNulls">
+       <value>
+-        <list size="6">
++        <list size="9">
+           <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.NotNull" />
+           <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nonnull" />
+           <item index="2" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.NonNull" />
+           <item index="3" class="java.lang.String" itemvalue="android.support.annotation.NonNull" />
+           <item index="4" class="java.lang.String" itemvalue="androidx.annotation.NonNull" />
+           <item index="5" class="java.lang.String" itemvalue="androidx.annotation.RecentlyNonNull" />
++          <item index="6" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.NonNull" />
++          <item index="7" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullDecl" />
++          <item index="8" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullType" />
+         </list>
+       </value>
+     </option>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8 (1)" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">
+diff --git app/src/main/res/drawable-hdpi/rakna.png app/src/main/res/drawable-hdpi/rakna.png
+deleted file mode 100644
+index 133bedca3fa7d9d43908a34c6f2920eb52ba7bf8..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git app/src/main/res/drawable-v24/raknadriver.jpg app/src/main/res/drawable-v24/raknadriver.jpg
+deleted file mode 100644
+index c7fc67b7db17bd65ef5c82ba3ddb2cd5ba80831e..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git app/src/main/res/drawable-mdpi/login.png app/src/main/res/drawable-mdpi/login.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..bf053249c18f927662839f9c9bdb2470fec056f2
+GIT binary patch
+literal 449
+zc$@*j0Y3hTP)<h;3K|Lk000e1NJLTq000;O000;W1^@s6;CDUv0004qNkl<Zc-muN
+z7)TJxpv~sWFXrYVC_d9wKzu(C--F`)U@@Q^NDavbH!v_Txd@2G0S$Tp#QzE42OzZ|
+zJwzGqCnCZN)U<^NgVFI8kY2oodkP8h0To`rVZccjez6h|2C;Fdxd1W)Pq2t@#;Q?J
+zd<Jq5fY=~0Y-&MfU=1#4m}ArM$x=p!6J0$>3?zqLk60XLY7r2Bh}HG{;>U3XDM$`S
+zP(4IRUCu(H9(W?}8BPm;a=7$?%!Dg+<CmC*FNL@WNF-tgsYD_^Js>lYTq1UmKob1r
+z#xLIDDj;eA!VtFjFZ_DM4kCN?HW}%j5WY=M3vdJxzxa2c+-f%giFg-&aV1#tbmkRN
+z1Brp;AZiE%5%x$HTkXs(CQhhm0jU96wgzt`V@ak5h%UTfIUA@4XEMdeX#C>KNiBgv
+zdT?emY()jAP$SlGXaR`3sK8a&0mF8oi=ZGsPJ@ARAT>l4c6f^G&yd<nBGj2r!W4u-
+rY-la_ndsu0E)@=4s!Y06`qTsf>P4iWy9Az500000NkvXXu0mjfG=Z`Y
+
+diff --git app/src/main/res/drawable-xxhdpi/login.png app/src/main/res/drawable-xxhdpi/login.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..3eefdfcf3bf395c3c87c42a69b56bb5d0a3b6a8c
+GIT binary patch
+literal 1294
+zc$@(a1@ZccP)<h;3K|Lk000e1NJLTq002k;002k`1^@s6RqeA!000ElNkl<Zc-rk;
+zJ7^U_6kWgg&CWjaW;QWsEVL1AY>eMvb~l11f)cC(#>T?JLM+t6fS{caZH&K%jUav+
+zKiDW@A=;$Ks|AsWibw<rev+v7&Pyal-R#cZ+1+Pm;KKXt+&y!5KKGuvvzBFwDW?2y
+zrDgHbC0;?S517~=*y6O$cu9)mK9Dl@9sk2?@LH_%-x{R3v2kADh&E{KS)YkA$PYy+
+zqYl)CI;-9=zQZ>{qb`DcOkk9M$w#Rh?ooY)VWQo4#4`;>`MXr^)t-C91O>jqXKr6=
+zhWSI>KE#mANf!WK0r{StaefJ6xRRSm9iG}&0Q5QshM6p{5nHCl@f>j+fDGr*IO8&m
+z7}H<2Eo*kgSIMnmCJ8Sg=2VQ+)X*^BW8zNr7^fnL8L?~cIn>7S7=Hp!_^`*^X7HR>
+zpy21qZ}=ark+k+C(qRR@OOz#9x(=j16))+Wkg1GwKF*Vra~{+o>q*oT_t;WCLIm(q
+z0uTKn5rz>m7od4@eJv;)pz?G(tkrW>v0z<7PkjK}mV9V2aha@Z+rmqX2Xqil+LtM!
+zajNj4pD-BiCksmwumLkD15bEbC&?BJ&_x;GVq4=!=8kA1_IGyE8Hn$u#D;BE7+$n|
+zPD_C|k+BD$i<(c0>GKpfQM>xBPTgiI1EDVRPz2f>XLwzp1^^+%UNT}1bdlqOHb*Ad
+zp~9esfU$>g73<M}Z!pqE0IU$ZG)2@eyDe*GQsbZw)TJrn-<8$V84naY2?FL$jkHKl
+z6a$qt0(jM0(@;>JoS`o2(1@=b1%Phi{oy*xniJPJSO@FsCj3JmU}f7T6^8F|oIr6b
+zV1Aqiwos1BV{TVk6euj!Z+x2{2;+q$4+Pi9Yg40U-L8MnKejlP0bl$fVD44laSwVn
+z--Cjm<!|s`>Uh8gVXR?qwUP1k9<}HV>p|D1yMfRKVNT+mY2Smu2F5_D1~Nlzsv%}3
+z=_x1aG?w{q;MY8bu6#!NIN+FVXKv%fK(@oOX5nv=6NhW?TC9^wqD1I2ug_6@EAta=
+z9t1)xRNjIr78iLnycP7F19_LaqevWTKuqV}!UkcF(2*z5QYdbR``o6CA45Y8qF@#3
+z^BXXh*QA!==J2)PdEcbKJ|)|bknVUv$vwxWVp-i5#GsAtNJ5ywMEYolz0AovB@i(n
+z7Hx!?BIWwLt-gLiUXn@?3u4kjxhjzMU;Ucm%KT;C)~=G+s7d?S+dhuCp4)_Wz(&69
+zqp)#!D7OXzY+5!BV{JX#{JzrWzy2}<v1!?Qj-9;Vh+{b%UdOa1FT_lL8G)PZ%!_dl
+zOZ1dM#q^ih2~@WD9N65?+&F*%v80herILa-q}pAHdJawtL#d_UDJF4_W^q1ZEKPYd
+z^(4;9a;cC8Y>Ru_Slx2nhQWK_y)sJ!p7ey`h9I8;+dZP=e5pJK3%c<hnJ1D@$gEI3
+zitrBRhojAmvBZV}9jHs4Fw=AtVVtB&xbyJ^<SumYeSU3iedGrN*UCDwuGEpw!z@^c
+zk3+q$c)Pq5Ft^)d`~(Vqmc6y&3BRwJ<50gP6_^8cktc3*Br}2wU=H<$lT+qccr;hv
+zyjUPIQDt6D5rYjdFE@!47MR!L#GBO33zkeV#S|z%0sIL9A7^=xSO5S307*qoM6N<$
+Eg2@GJ^#A|>
+
+diff --git app/src/main/res/drawable-hdpi/login.png app/src/main/res/drawable-hdpi/login.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..9739a82e3054ba454cf10fadca5119d6ae0b133e
+GIT binary patch
+literal 676
+zc$@*G0$crwP)<h;3K|Lk000e1NJLTq001Na001Ni1^@s6;Q*MJ0007ONkl<Zc-q}q
+zy-FQH6kbBWK;qrmjn2%y{uU|n049Pq{@fk45!0DGL3%-p1d>L<LJ*4-7B+&Gd4N>*
+zV&NkwDx{Db1rZVTd>ey_-n(;V?jlPT4m-@u`R3a*=bSmSLGV94Bcj}6N~+%oIh6{v
+z(f4QsCfnLttC9MUgleNI)JY=Lbv;SPFo)(sCwC$f!K;=e)N{1haU&8LatvKy<U(dN
+zZXYMmJr5%HWe-?Qkx7J{A)w0~$o!E@V0w`;q5j5PWZOh)6@oTL2iQKAu>l{92|avY
+z7kwDB>oYBN>oc}(IyEmVuNzvI#xTdWeO8|u>g|2Ta^O(STdhoUIF61rGeGn##|K7B
+z`i<4nG>7Gbv}XNW6UQZPo-uKy%Ni6khnuIc_CtV3O>@K7#B#t+NDi>^XzhA?zUh!p
+zmhF+Mmf3i;_P@>?1W#$8=0NB?%a3mT=iC9W1`dDuPe-Rm)~zLxdjG&O)aUqdser>>
+zGArq~{>Opbr_=pA1Z`g&aJX|os%3IKue<~tic83I%TA3@KS)-pLVlr0S)jgk+O{ov
+z|7vQ>9Gv=RS_OpCWEEUrgWw6u*+l3i=r}tyBkV7z9Q|aJdhT4tkPcb#Gced;Z%K@2
+zoXl)Zl#v_+7ArAk9UZVtUbQ)}*hfd>!&Sb^ix9Bbhijwq!-VRn8dbWRw@#%SSnTq{
+zQlRZlywL65*C^5jhI4^tDPa#0?#|mpI;pNt3Ck$*uSnLCu-s=SQtnIV{?_p?^7+>w
+zy+fhANb(V1np&3HX&=V&yapBWqFBhQbRmB>6!LdWVSiXX#&ZMV$&@;es|)P_0000<
+KMNUMnLSTZS%{`F-
+
+diff --git app/src/main/res/drawable-xhdpi/login.png app/src/main/res/drawable-xhdpi/login.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..60161cf09bf386bba7c14ff68940db9fa6591187
+GIT binary patch
+literal 868
+zc$@)b1DpJbP)<h;3K|Lk000e1NJLTq001xm001xu1^@s6R|5Hm0009kNkl<Zc-rk+
+zy>HV%6n6m$Bnm#ejqjTBQ3(b%Mg#+jn%IzmjSqnY{V!l(K>^VX)-LP_iKP-q9V#SX
+z%1}x(fyBhb(1k2b5rOw}f`p7y-@CITYSq${BHz3BerKP5@8jY)dsj)W`r$xEuDTkz
+z@=@r?7om`ELZRLbgnrXKj6nyw{{`r9db%3A>K*}HC;7#c^>{AX7(4KJH#pT0@)?2X
+z830d854K>laNxDMxkI!iTI6&q2jEHBf^GOH1bj4AJwr}53ILvz4fx9U1NAGH$#8cJ
+z;QvS$KJ$6<uDn48w+%pSlDr?vrosGe__hP@sU{bELj-RdLe-MCa1UebMGyv?J>TVl
+zmrouz&c0DLF$Nv(c4B`M1GbSJo+I^AJARNZa}gaDJJC~m$mVjddP3Vi>2hNTFlh%V
+zHqU!<g&oCd4mVC{1-oH{WibY^#i9YbEpq(;TXt?^K$#6s-sdg=b4;jp$J~jMtGh;l
+z$CFD2TWHD17hxRzT7~>*7&*Vt^a%$33CuC^1&ry`S*a*e=o^QBS6$P7`lM@-X7qve
+z-#zK7>z4V;w|OyhGLz*<2f8-CfHf_+wCt0x;A`Xu7e;PT8iS6#AJs}@h37eDlgp7%
+z3z3+)I1sgfdwJOh)|59OSI3wx+sbO%0@}N10qs&QV0UjJ%a54ihgw6f4~n}ag0sZc
+zlYhmSN!-I21)`^<|Dk}7*n~#aCxrH<KYNUw%=y*h!=BRTd}x#v$iU^nZ3?~nZEJ4W
+zpi=V=CqASGGVN5tm9OeYW~Xv*O_I&f4PG0k5}L_eyXl-hSXAQ-wzJr9WHP6dPS^e5
+zeBn)E@?o4#XB0HOBA<TZE%b~En#_{Ym5&SWc#{v~l2W6n|4AHtt0?fW4IfrTy+&K*
+z2bF_2bAR$=Gq!EpR?%#1^>Nx#bDRU#Eqk&NpX%&P;T?9{U9YvM)}o{GoN@1!=E6qq
+ztwnZo*OM!eC$H$R6m+1g+1N5~?wYjMX`g<Nt1%qrp$bFsP7+sVgKe@r)EQ5Ey%Yx=
+ur8r_L#UWoQj#*1{&|R9p8th#;T)zPXOH99^`Viv)0000<MNUMnLSTZ?s+ykw
+
+diff --git app/src/main/res/drawable-mdpi/pass.png app/src/main/res/drawable-mdpi/pass.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..ffc63a07d5f82b4e6ecd3f7f8caa46b8ca0fd621
+GIT binary patch
+literal 312
+zc$@(^0muG{P)<h;3K|Lk000e1NJLTq000;O000;W1^@s6;CDUv00030Nkl<Zc-muN
+z7zNY<u6&}Zt^yJXU<_na(`-gpL9tF(0r5XT{2z+{fW$y@6r1iMD3%E^RBVBZptvpw
+zgV-Q3kR0VfBOrd;jbHp2nrj(BVjww+40jL}<pCP<4;b!^m=;Skg5*GI$hN?fM?w@F
+zJp2;n7#0A<Kyn~8Bpd82CB+3aU^>u%BhW~_3&i`;@Lj0f5s+Gt9^xZbK)e7c#Sn!-
+zdWg0F7=i7iS^&~BxGew%!6#t)F9u-<o7xr#idQ2tpLjLZEdYwOAj!ATA`X54Ggl7;
+zgV;kYlBsF|uqe(T)dG+nqAf6HU|<C%$66qsPb97d=^3q-$pQd8w((V^dw}Ku0000<
+KMNUMnLSTa3&vPdL
+
+diff --git app/src/main/res/drawable-xxhdpi/pass.png app/src/main/res/drawable-xxhdpi/pass.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..33f255860ff3ab28fc3272ade8dadc19c979f413
+GIT binary patch
+literal 760
+zc$@+F0tfwxP)<h;3K|Lk000e1NJLTq002k;002k`1^@s6RqeA!0008NNkl<Zc-rlo
+zziSjh6vqct#3Hw|XEHOI6GZJS1Bz7+-Mwg`kitq3yFd^U%hZC6+Spi_zrg$hLW(qE
+z=bw-(ViP2gQca=0?}d|Oe|VccW#@LkUwE+W&U^djlf9WYvm2!-ilQirq9}@*P%X6G
+z^{8bQV(p&5aEx<}hH|ex+YuPAVr~0kzjCaPHfY-%FzVXbIIu6ozWoKvaYI}2fp4wh
+zbZ2H<FR-5qgGm^C5u=uH?o7>|mrib%g>%HV5vx{k=9D@k9ox$3@Q*mO@8iHMMcQ>?
+zI3AqCwQQd)#H<aVp0>|2I~uwVQDCp+`QaMcWd7VFW<ACot+jM$FQb$19x8Qelt0>_
+zZHE6IVoyAvD0ELVI`^@w)ak;Ir7e7taS*!>Kd;S1$A0#L3v(xqBR=p={LD7%FgPC^
+z`>Sj7x%AU0z6sa|6Fpe>+7~aS2G`KNEFDjLQ}N^;le@-hxf`i*L)+EzPmo<r#=|`(
+z7Lcr?=F`gtvs5}B>Z8<v@8$`JfCz|yhE*>H%|B}@ZC5fn^m=&xqz2!NqH|?<9rrF$
+zomW#aYx7u=-Teov^>J+%xp)RAJ^fZ~<CGKsqZs_|8zAK5MG@)a)8o}sBn!qjz5+sS
+z)lcPtd+RG8<VHXQL_h>YKm<fU6$3IGM|TDfcOuOO0S)%3?OOgGv|Vd7pdznrGF}@s
+z=?OB6qc`2mVq*c_4$Re2@zJKSfQo!(hc?X}gF?4l;AP=*lV`F1gX!t1yx6!l;v2>W
+zO!G2JMPV4EHsa*mSTk77D(SD0w$G*RxevoJ&aqJBQiFg9h=2%)fC$KIK!^Xa<0l}=
+zt@<~sp?T!(n^noJazM8_opX}Rj)#DDkeeT0c(m+INoe0AIQz&+`J}trU6#bwV{N`v
+q2WD{Zb>yNbilQirq9}^0P`?2eNhkyDxlvjG0000<MNUMnLSTYGXlr)>
+
+diff --git app/src/main/res/drawable-xhdpi/pass.png app/src/main/res/drawable-xhdpi/pass.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..72af6ac11234260d26255d0cc8fd014f2edfdb96
+GIT binary patch
+literal 565
+zc$@(>0?Pe~P)<h;3K|Lk000e1NJLTq001xm001xu1^@s6R|5Hm0005}Nkl<Zc-rk)
+z%SyvQ6de>r@R3QRGf}%}SK<Ri+=+{#Noqf!D;F;O5Z(9#Qrx@LPjDlp8#h96*{#rR
+zK?*{P);YC}v5)j&$0RZb4h(nhy>m}8WNwBK1qB5Kg)rfGadq9+_@zbJlTCRUY>tHu
+zbD=FfOSWbm%CAJhb-_j-*5L!+P!*p_B<5_&@;-%kkmV5*8UYS9Z#s&6b~Juw(bz7C
+zF>GER#Dt=FOOGA=C`>c2vxH1{Z!t2BIj=8b0~cWH{LWL<!v!Hz{d_S8AJ<>R23kA{
+zvM7K3e){}y;C2%}?i&!XeuAarXr6J;(|_M1WM)tdeBj%TLyq9~|MJR)M?huhZ6|!)
+zw;*x^_XZ4e^S1(!LkSoK>7}^w^^Ire;y}u|0yO>x+c1Q$=TOVRhMdSP_rTKmcB{W>
+zNMadl$ouAx)GmxmmY3G7i3Mu%1@M}bW-mo4{e$A0#9B&#67UZMR0Z!_tVT<K&L1<z
+zTD%>LF>Fy0P#33avPT=89Pqy!8UaP09;g@v0VN*+r6>saa16HJwS|NYa}oIpu@_6@
+zmiyx)#;`^49H@AEe|3;40ZKrC0&q1rYELsJtG%u!Cv}Z@D_wwCL)t%aX2Fcv)GWvo
+zU>2~3^!v~>Wjl_}P8@2UPJ|*Cat3-&s-U2tFcv-mE3URu-$ILR00000NkvXXu0mjf
+DD-QLx
+
+diff --git app/src/main/res/drawable-hdpi/pass.png app/src/main/res/drawable-hdpi/pass.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..dc9fcadde914f35967ff513eb6fa2a780a2284ff
+GIT binary patch
+literal 431
+zc$@*R0Z{&lP)<h;3K|Lk000e1NJLTq001Na001Ni1^@s6;Q*MJ0004YNkl<Zc-muN
+z7zLwX6d-`Jkc5`2fJBq4p!iBK2C_k7ba#j`0|ToIzt~h)0r9^;{2vYf1<8Tb(91oH
+zZUPc(kR0$1h&Ms;JD4~~4M;7`UE?Mw7L9O>*n9_3Q688ahz$~hI|`_l<_-c{bP{YK
+zzxeS61_mZ{d5{=L4(h0rG<A%Ff&vH7l7EmW5l_Myia<H2gZ_c^&@Q@!q-0^y;UXk%
+zflD1o4jyelJv4KWlYpc=JpJ%Xn&6C9pd3scNDpnIOH@?CRZz?tkzmDrJp?2auwjrK
+z+~GhyAiY#`h`Wf0B+%e9Sjrnx@fna=RLJJyv#8)0Sg6jTUN)x=K1mG+ou;CLPLDch
+zFgR#}JD-dY2!q%I?Vyt+W&+we$VE_mCPuXZ6dSk@;upV$+z<n?L1F`)hBi41iCKa$
+zw2?NN%SIi9?x3SobkI?X9poY?)<rD`fy|;t!;Hs`UwkRhz|Ryo<}=6)<Q~c>7zHB+
+Z001ME6m!{^0b>9F002ovPDHLkV1ns!sa600
+
+diff --git app/src/main/rakna-web.png app/src/main/rakna-web.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..d132756ac922dbdaf70c77503d5dcc014d17d5d4
+GIT binary patch
+literal 29482
+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
+
+diff --git app/src/main/res/mipmap-xxhdpi/textstyle.png app/src/main/res/mipmap-xxhdpi/textstyle.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..91860d8abdb787ee14efe3f39d2a308ae1c5b76c
+GIT binary patch
+literal 1842
+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
+AZ2$lO
+
+diff --git app/src/main/textstyle-web.png app/src/main/textstyle-web.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..117b5665affbadea35aea97496532c600ae4da05
+GIT binary patch
+literal 10092
+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
+P_k3H=<QDR#OXU9mIVDpc
+
+diff --git app/src/main/res/mipmap-xhdpi/textstyle.png app/src/main/res/mipmap-xhdpi/textstyle.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..0a1d82df64d188756a282864d8471b83f3d1acb8
+GIT binary patch
+literal 1112
+zc%17D@N?(olHy`uVBq!ia0vp^2_VeD1|%QND7Ro>V3GH9aSW-r^>#*OMt>s1@%q`x
+z?~?ljZ*vG1^%*L*h~+wa=Izuyob*g?=liLXic}}boV72SIzi^-Pxd0W%%Hvik!QcJ
+zd|$hKdHQYtx6^g+``2c@|7{0CpKI6McT!Yr5pd!lL}<+2Rlp|`#rG;`zmn-4iwXw0
+zCg}${JH*#D^&YBmW3LbrJ2>zEkLsv{)&{GTS~pDZ4evi5Tv_u=f8N9hKc)!g`orHu
+zH5<O>?2)or$76r6y8dI&v!@CTULS;*BVs2q8`w17o>QdzP-KUoT<ZGotQREoT24PS
+znsM&6_XEvo=BeKf?>4wv>CYp>X>7UGm+P~2P~<h6&l`(%rM^AR@P8s=$|!a~cZ1pK
+zt*O;K&kMQse^tm4e#!8tB1fzE?yN~pIVYIR`Xm+4KRhMmc0l3>58uP%d?}CZpH^?O
+z@SW2xzUFyJ3xA?ezxcsJ2G76LZcuABD}9+1>z&xH^=Ovq^wK#T_J@)U<kAkmFEEoi
+z*4xVYn6ZX)wYyP6cY%1!o1307o2nWlUwz-1@tes&e$(C0Ju*MI^tMWs81G4(DtWe=
+zIjzuYO~@(p8G=*K?~gtl@AsGIZNzckm^IE}C+rh-`nfHGF0C;-xyM|0662S2*S?BV
+zXOb7EZdkroL#@FlY+u)NNlP8$3s%qBF3eU``*7=~0rQD8|K7#?mR^f(8J}2xSNm9F
+zt=&+4ZiVst|2*k#RlFyj-*=v4)N9cayhiXL_ko^8`ZCY<G1yr=+`;HlC~hVn*1Y%-
+zheFro+a;%)*Z6NzZ`e04_ly6(X`D<E?<&t%XXkcAFqA&XK6mxtqMUPgpIs43I$Wcp
+z#vpvb^2do^3f2wM=Pb<|VrHbv=JP5u7-wCxd@i&@`qn$n1&zUGb7j?2SPd>|UY@{s
+zrOSmuI%4C4hmtn;4km9F*t@Z9^G(jZk82IzT>N-V>O#Ze|2*s2XKZ~6biwSf4fh{#
+z$eAZvI5Hfq{gZg@=2NMf)6Z`)ntZu)|1xL7lwh^VmkVYlOTFXLo|d}yllqP3PdkD&
+zlA349-JIH6HuZPz<_g_}nWk@k&V3j@&GT8cUcr+ukNi$;XfMv@kC?jn{0?cq=E)EF
+zcTBUrdpD|YyV#wG^ZlEY`kExP8y?>Ynr(HaA$jiaCR2sh%eNV}IhUv~y*T{SZo|r}
+z((E5&Y`$NQoYU77Xw)e`@qx|a-mOb{&V4OC#q#^zziT@s&K=iID38lOmYce0`Mb0y
+zyxZQre-`sTF}8av(~Ps_Gvw|b`Wz#C!0%mO(al5`NdcCCTl+P+BqwPk?=ot5r#hwc
+znaRwx&$Obg3g78J`E_mQ4Ef^Ok<Y~HIk}0+nE!<TF=Pq9o|^77!2?)gFnGH9xvX<a
+GXaWHBQTZSM
+
+diff --git app/src/main/res/mipmap-xxxhdpi/textstyle.png app/src/main/res/mipmap-xxxhdpi/textstyle.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..37432a60367126a2597a16f3f46c52257607c227
+GIT binary patch
+literal 2732
+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
+O>~I?=Yx)JRxc>pufF4Ew
+
+diff --git app/src/main/res/mipmap-mdpi/textstyle.png app/src/main/res/mipmap-mdpi/textstyle.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..37afad2376b3cd916205eddbb5ce2a4b38021c1d
+GIT binary patch
+literal 459
+zc$@*t0W|)JP)<h;3K|Lk000e1NJLTq001xm001xu1^@s6R|5Hm0004!Nkl<Zc-rlh
+z%_~Gv9ER`A#6<F$VxeYC6jAaqY7~;>tCU7E8)TvEMl7d9Hi}uW6Uld0Bo>OArG>Sv
+zKgE0MojTp_EN(Yt@jmr5bI(2Zob&$9xz}-o5JCtcgb+dqVKWS;;TTMK+^>emurA;{
+zqkk1(3hu!c_+6sUIjjsYM=ksbI7Ugv;XW*bhiqGbBXF13XRrYt!4%wr8G6D#vv3IJ
+zJ?5BWk<z?ghf93^7Pi4l{^sDe-vA%*9!A)fW`GAPz>Iao<{8FtXFW3jUp(e83+=bY
+zn}DbMzsiD{dxLCy^&7xc`icXaomk_Uw*%b3q!nP%6<`@Q!bjKm-Q0m*_z9~x&x*C%
+zDb8OkVBSxF46D%$zqqgqI0@gmtxvEMKC{Xj3>kuNFvhBxg%w~2$BuAe^}ODJS@ttU
+zt6*@$HEgH8UicV~Mmf)U6YPUw*u@tw!FKaSio;eK=Dix&1EUODtYp-B*5UYZ2FS4(
+zA!{d-{FwZEHsJva;PAK>STG@k5JCtcgb+fw_yuA4I&6&f4lw`#002ovPDHLkV1gwZ
+B(69gi
+
+diff --git app/src/main/res/mipmap-hdpi/textstyle.png app/src/main/res/mipmap-hdpi/textstyle.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..b6ca31feca3786d16a4679c3a0d1df7462d50584
+GIT binary patch
+literal 872
+zc$@)f1DE`XP)<h;3K|Lk000e1NJLTq002k;002k`1^@s6RqeA!0009oNkl<Zc-rlk
+z=}S~m7{>2Rg)>%`)wEcYW=UpLSW-%X+JvK7Sxp;J(1$=OBHCz0i0D(aFBC$H?O(E}
+zpgu@@78XPceW{3`f1rP$=Y?nBaG6nX6e*t{{K&b>Ip;p-J?Gv$PY5A|5JCtcgb+dq
+zA%qY@2qA<JLj1c7gOlh)SO5oiaL*vP8190Z-8{ajFw~O)jewWnRX7bEhD~sM2LT;|
+z*I=+4$JQU-faN`1MMvNj{yh%<fi=$g04pWKIku{ufWo}i?#oV6Wy#u0#w_>_Ho|_s
+z`xEyD8DzjYpQyM#JlCZGS;rq?5r2<_E8!Y=lojU&lm+*|3$T`2TP3gpUW5mokRohv
+zH9P@FwKJ~ea34d;=P_IUyLsHg-v;lnJ!^Y2+|T|RU^9%TTj>^1D_qD2oWtWeEO8rD
+zU)Tm`Ckbc^mqCC7dCt%#Gtf3Z;BdA#l<l=TefhB}*uiT2$q6zB!1eGk$7_3N41R}s
+za2<TYaIJb~!Y}+ct$^;rH}JG`+#YBd_oIzT0(u1NdEPDYmuxe!Us(lAU@$AVjO*E6
+zs(_+!0juOTyzHE-gTL5L;ziTKwyNP*SnMpv7rrf{(@U(19hdTWCI?f)nSA97=o24u
+zp09*k_;CJ!!cLWjS!u}vvVIS+4RbI2?Yv!WOb?vvv-mrY0p0WMd$(X&R|I4wd6sKB
+z!oZI6nkn#`FQA)n5rZpo+G}<m+zqG_p5d(8=fsZ`0TpvENs!Mr;!Z$~&iMlFXF&$k
+z<V;wI`{0nyhGRio=d9;&mTWL5;U-qeT0Wdr%XWs<z?rh;wG}>P<rTuWa03TtoA3u#
+z!cy)BwolB5ui;LZ>x^e0JP(g?NqXF`&cTQ5ua0e&bDxW|UylL3XMcqpdu}?_6JbYD
+z2IR5RN`5#l;p;YoORa<@UB>&y^0!sO3=S&FdqS+BC_nhJ`GHx=b5*>~^95vm&vgO{
+za#AWdMhoZ}m-cix+SvoES<x|m*Ny3oU;p;vxS!%&Eh{_Z^->~Sf}dH5?%UJ8*-mkZ
+y$MnBQA%qY@2qA<JLI@#*5JCtcgb+fA|AD_OVTHew$=7WF0000<MNUMnLSTYiTbI`W
+
+diff --git app/src/main/res/drawable-xhdpi/emaill.png app/src/main/res/drawable-xhdpi/emaill.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..53db104bee78b6de3867f47499d5a59f59234276
+GIT binary patch
+literal 392
+zc$@)<0eAk1P)<h;3K|Lk000e1NJLTq001xm001xu1^@s6R|5Hm0003`Nkl<Zc-rlm
+zyN$w75JfE_GCw{VBO;_tXkjx1e$EJ}V1q4VgQW=?Af^ci+W-|%04Wgx%t)Azgz*E$
+zzttV-NC?L7-JAFXcpe6W!KBTkO`k$7!$+-PYE7^c<a52k`@uH{-!q33d-<*w;loz&
+za~1ps`K_|S=bqOHeOjc2KbPPg*{xLg(O}SwOmCGHK0$WnnQDYL##lqKYxoNk%d@41
+zx7}`^!>peVe`YObl=G(P^oJZ^^G5iDjht1up!njgLimJjVZyr-)Ipj2g?C3#+T<s^
+zM}pEuRd}v~QZJz)yk`Za&0E5IT~OM*AUp*@Y2z+DML}tkExa5ArA@l<auig#!i#*e
+zrM-ptZUy_I016aY;E(P3^$6LiaDm=3Q<A)c0w{n2D1ZVefC4B`mjYv-K0-skE?7ge
+m>;g1%Jx}h&U!@q#Kc6Gl?%6lTcDE1!0000<MNUMnLSTYspR8a2
+
+diff --git app/src/main/res/drawable-xxhdpi/emaill.png app/src/main/res/drawable-xxhdpi/emaill.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..ad4526e486bd2ce6053052f59a0476c208747a19
+GIT binary patch
+literal 492
+zc%17D@N?(olHy`uVBq!ia0vp^9w5xY1|&n@Zgyv2VBGBK;uunK>+N)Zufq;9Zp`cM
+zyfC@oIkAGtKcL{c+OCqvk~R+f3UUY6O0R#QSk*dj!R&RrG)qD+{A|<|3YeUB>*wU}
+z2iX-*o=K78+@r#&*dpM>Q8>@3H*U#<6;BO4&z*Ao7PjI|u-5S+J|nfqHun0V-vSTb
+zbT)eaBx?P`JF!nzHX5!!{PW_@JD0sJQmaaH8Fc<N1eYp)|MvQ<r@MLUrPFK$`&Lgk
+zS|(nwtoh;En_qTW&Z)g_WcKd7*Gu-z7vC}#tjbI6vygorWIvPloz;PryC&~c5;<@#
+zA*<Ix<26&pZb$B?`AiwIK^;yv9T;-WWftZrHf(#nKVX}<!|ksT8rB>O-u_abBF1u|
+z?606#H&Da7)=w5p5{&_J(G1OEr-C^XCOExxU^p!3)z0){f50wrhyK<}%8Xz9HEcy3
+z>RT=)GnVL2N#t0-ypYG2!C!C6<dFX5UiSaPjc=+sFw9n~7G@LscW_f^LqnMQA5T_+
+z1_l-d23H=B^S9QoOlM$%@EJKA(3v9Y3&KAic;8+&iSPaGb(+b$)@Yue0}NWlmI=px
+aGF{oWJ^N4o>`lN}WbkzLb6Mw<&;$Tm>C0~b
+
+diff --git app/src/main/res/drawable-hdpi/emaill.png app/src/main/res/drawable-hdpi/emaill.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..867b98e1a3291673939e06661232010372bba78f
+GIT binary patch
+literal 352
+zc$@)X0iXVfP)<h;3K|Lk000e1NJLTq001Na001Ni1^@s6;Q*MJ0003eNkl<Zc-muN
+z7zLwX5CB(x@iq`1aECZBFtE4^h|PBu5dROsV)H>_1L7DradB>7sBA?z28w}VAUXPm
+z46l@ktDyJ^49CDQP!6PqE{^dKkWg?D6uW`bF;EOr15!&<$G8iK=>si$M#wQp_!&qK
+zO&sGQAmISC-~$Pcf#DAzy;RQD5}`nYe~{rA82$k=gGwPIo(nYaF9nW);lCiWC@=6R
+zcL;j1&_;y<kJ^}o0u*O~NBxi@T!0cR@TiUP6`;fxc+|#N3s4t9L4IHmE(0pq55sN(
+z;&*7}2&ma`yFhk>+<-ra35XTbFi{tip5;d!M5%)W#dqS=3zQpm(5Qn(9W?5oVdo$h
+ye(_YG=KHv@#3J0DkywOJFUaiC0f<pRD*ymLyt)60+u_>)0000<MNUMnLSTZ;8H;iN
+
+diff --git app/src/main/res/drawable-mdpi/emaill.png app/src/main/res/drawable-mdpi/emaill.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..a999e0348f9025043188431c5336350bf295e3c5
+GIT binary patch
+literal 306
+zc$@(;0nPr2P)<h;3K|Lk000e1NJLTq000;O000;W1^@s6;CDUv0002_Nkl<Zc-muN
+z7*W7eNQe)FX=1p8sHlXifcSY32C=DXxHGSa8qnZ-K>Qzy?}5aqVz@h>gc;DlS4f7#
+z@GFoUMTWZxN_YYd`hvx982$oMLzdw#0%CDM1AgN%9EN{`)RJVlE5AfJP~$%$42R)=
+zAUy;PZeU<w0xF(Jg2Cu`BFGG^hKDj}v$+V0ub{wiFb0_cG7BRE0VVfRYB&<!i;^MT
+z1jGV>5mgVuK*<Xf7<>U{4#-UG5iB6Fh<pnq77<QC*e!VLDj+r=6@$d6XTb$bb=ZP(
+z)Phk9z?n{1O2b7!!T}k(@=Kav7KoB2=;}avhhIYh0FHY;c()S)1poj507*qoM6N<$
+Ef_`vw@&Et;
+
+diff --git .idea/caches/build_file_checksums.ser .idea/caches/build_file_checksums.ser
+index b693397dfdbc4c1ce158180ed631e2a0d248ee92..ef661286e00a8268f69b2c630e3d7372ad2c84f4
+GIT binary patch
+literal 536
+zc${1FmVvdnh`~NNKUXg?FQq6yGexf?KR>5fFEb@IQ7^qHF(oHeub?PDD>b=9F91S2
+zm1gFoxMk*~I%lLNXBU^|7Q2L-Ts|(GuF1r}<i#MFTj`TnT;dMa8(f)}9Fm!vT3nKt
+zTj0aMpIeEdv4nx&Co8cmQNOe#Ge_SyvB0{bfPsNA<MRFa&w=g|1j*@v<n%lei!*@o
+ztn9ZA9u`Zu$jrdx#=w=6pP1s7m|T)y<jKHUl2MdeoROcCQc+;<zyJa~<s3j#0EpR2
+z7z7dv3SyE#PKSD{w1|Nz+G)*a@gHm)ArF`s7(iAt2weGf%}nQP$-~!^ETX5YT$>Jb
+zVsUCoNoHPpF-&72LmdMfNbS6v3HxmBv*+n1=t+e;9bQ<%z=L7~T%kl*dkxpAkKr#E
+z7WlsVR{R9$oSgjR#2ir27Ni!HWTqA)6f?~6>0Z<N^7*mpyJo)EQd25nP<OV92`x@7
+zDvoiiN-c_k8Xtp*9t<<C$oAaqXV}E@vVn8Pn;%YfB@BXiRDbSeUbQD-soy5sG~;Jy
+H1(GTNQAEF<
+
+diff --git app/src/main/res/drawable-xhdpi/password.png app/src/main/res/drawable-xhdpi/password.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..7b93af7c43bc1859ea75eea381010e5fce1aed5d
+GIT binary patch
+literal 492
+zc$@+30Tcd-P)<h;3K|Lk000e1NJLTq001xm001xu1^@s6R|5Hm0005ANkl<Zc-rln
+zyJ`YK6o$PZzJUnZ1UtcCWot?;Yy~^f&dygzDlbT|5)@2rX|NMgr^p)w#41bdQiKq}
+z$-i)l<sh4NM|Wmr4t&k*oXZEU>kdXDCax@m5GC*cR^W|T(OOC8!OP%P{2%t7vQC3X
+z!96$#?{T1<s15=X;Xfv-hwmI2Y7d@34crhlTH7Dl-%&Mu3Vg9)-a)}7r$Bq0Vb@5h
+z5E!sQK0ww(UY7PcW1vD{%Z6y2klSFn+n|TfvjHp+J0U+tInKxjDNtd}7d~n%SdB`M
+z0!`L@?4!n*)o2DO&}Pj?K5C3ujkXcEY5_DzgFB+nZ(_$aukf3=@3@ve_uxwrd@Q9!
+zP$2H{C-SAj?j4sAs0;N`mk}6hATX2>m}?*~Hv&e$2pEBr<C9+aZ;1}Ag+gF+>?NHJ
+z0XAU}sJhgv>MrmD5-#-;v`1S3%R@~|_m5D<rCufs_rT1h-YhI%qdkyx)Jf7>s2*fH
+z@J#H?lh_Ct0VCi`V5)(@R7Rkyfk0PAAP2q`4sZ9)$)3)&z^{Vg?Vhc3osSm5BUpo%
+i3$vzPMf1mvFvK4alt@@fq?dvK0000<MNUMnLSTZpP}6t-
+
+diff --git app/src/main/res/drawable-xxhdpi/password.png app/src/main/res/drawable-xxhdpi/password.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..b1cf256883e796f0e7fb90be3eaf8f721f38527b
+GIT binary patch
+literal 691
+zc$@*V0!;mhP)<h;3K|Lk000e1NJLTq002k;002k`1^@s6RqeA!0007dNkl<Zc-rln
+zKS)AR6voY{DXA@JagK%-7onk`p`k5YB8;%z!NJ;^+8m{ZK!O}<sV#zNvrUk22$z;x
+z1YHfIZs*d08a%J3-D{qE&j;V~{+#dJAH1jcz8i^%L?TzEl$rr=fe*nY@Ey8@$Mm@w
+zAHi&ZZ^2#lySjMoh7Vwt!1ro!>3f%4g|iQSSAUnTvF{R?N${C6FI{ue1wbdto=&*K
+z$%Yu@1NZ>E23|z3;jxDh_h-4nnFqfG4D1oS9-_`VUQ0=5%yR^E88E0T@KhhQrtlt0
+zm)zha0|s*q9v`6QINnPs$qCRgF^FgI^dIU@V~t)q<^pF7{6Y+3*FgPUqPET);{Yf@
+z44@63Fi?L2YxPos1E5W!`Le-`GLf;#0Z@);K5sB1Ph{jc04fm8rwwMLiHrgVKt-bY
+zl);P?kx>*t0!RP}AOR$RLN&Pxz5qX|(bW_7xH{}5)KkSzr$bqy#cx(zRk96dS@GAh
+zO+aM_0F`Y5YB&I>VG~fx0YELAfZ7fKY6~C%B!C2v01`j~NC1r(pgQ;*T^B&#x&bfr
+z$XdX2UIWsrkI{g<Xut}k^MER0w!z@Gmx_;oR{F?Y@eNQb=+Pn`wU$qSssm(KeF9V;
+zAiM4pppNQ)6KBV_mvp9&+>DREVtP;EY>3QRMeliZ{*R)5@y-S0%^7?-vz=<_pYJ_z
+z{6|h4kJ<Q0z<M_Sik8{DEO!VX0VIF~kN^@u0*D!)rUQVQHUZTf093OHsNevgf=xhi
+zg9}&xq0Y}qu`NhD;17mybk94(+Dx8e_QKY^rXs@>1jfMI;3M_5xqK9TggwS0B9Ukm
+Z^$Ax)oh%%8EZzVB002ovPDHLkV1j{~F!%rf
+
+diff --git app/src/main/res/drawable-hdpi/password.png app/src/main/res/drawable-hdpi/password.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..b6064a44cd94882ed1a9d32233d7ff40f2ff453a
+GIT binary patch
+literal 407
+zc$@*30cie-P)<h;3K|Lk000e1NJLTq001Na001Ni1^@s6;Q*MJ0004ANkl<Zc-rlk
+zp^8F56owT{7L(0nFlZ1&*ybbHZxD+h2o{TRlh#c}!3Wr;Ws_BW2TfvAqaf_g{s)e5
+za4&af#B)dF9{50J{+aWE&fIG%^-5)o$$&QyF!VX&LnH@A;9&mNf#-5@$&|sy{9lwQ
+zYs(bC{-*I3d@|dcIm#9^g%+aO3A92oEuOp9LQAGDntX#sM7F`1Yt=P`#-hR0B0m-R
+zv4+rGGzcv6fymD_gjS+K)goUN`IUyyS~RFw<SQb-eoY}hSp)D6cA~+A$D){s{Eo*4
+zcb_=E{<Ui4DpLbLibAw^%|)nh^sDb8G>k!Lm<T08TuabnmcE5%AT8FVdCZFt-6i>u
+zwRy`s?BPPki1kNbUs*9^ZPDj%=nG`Ux-5@*J!SNF=Y!cK_fR7AtU}!wgt{(5C2&!c
+zp}kA4udy9)R*<1RJNLfm({rf_+7F@`_WXP5`UL??7w;mVOB4VA002ovPDHLkV1lj#
+Bxhenv
+
+diff --git app/src/main/res/drawable-mdpi/password.png app/src/main/res/drawable-mdpi/password.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..c669b2cb69916c202fa3f4c500def34c27a92a3a
+GIT binary patch
+literal 286
+zc$@(q0pb3MP)<h;3K|Lk000e1NJLTq000;O000;W1^@s6;CDUv0002xNkl<Zc-muN
+z7!2V5|Nl-vybg%(LotZ$L@mSH{^JI1lo}obHRuNrR|2sb6jwsUKp=(^3vNRVNx&kP
+z0F}E<uHiCJ1K#3M^A@T`h8znFp_)(NQF8*S#*iEfjG&s2;Zbu8s>X;EgN=cBDiCji
+zYJLgC^KsypP&J#NdW;DfE(XLO|C0|udd2Wr;QgO+;Em4$e=1nuKWHuZ1;k6C_!liK
+z@F!IrDHePOVn!r&j8HME`al;+oh~hc=phhiL-E5QnTm#n1*$;&mjc5<dQ}M(c*#I~
+k8L5IN7K8L8)4fFk03=<S1)3IP<^TWy07*qoM6N<$f++HCi2wiq
+
