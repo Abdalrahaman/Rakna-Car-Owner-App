@@ -1,9 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".View.hassan.MapsActivity" />
+    android:layout_height="match_parent">
+
+    <com.mapbox.mapboxsdk.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        mapbox:layout_constraintBottom_toBottomOf="parent"
+        mapbox:layout_constraintEnd_toEndOf="parent"
+        mapbox:layout_constraintStart_toStartOf="parent"
+        mapbox:layout_constraintTop_toTopOf="parent"
+        mapbox:mapbox_cameraTargetLat="38.9098"
+        mapbox:mapbox_cameraTargetLng="-77.0295"
+        mapbox:mapbox_cameraZoom="12" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/mapboxGrayLight"
+        android:enabled="false"
+        android:text="Start navigation"
+        android:textColor="@color/mapboxWhite"
+        mapbox:layout_constraintStart_toStartOf="parent"
+        mapbox:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

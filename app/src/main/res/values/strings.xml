@@ -51,7 +51,13 @@
     <string name="signup">SIGN UP</string>
     <string name="regester">Regester</string>
 
-    <!--        AZER          -->
+    <!--       hassan       -->
+
+
+    <string name="access_token" translatable="false">pk.eyJ1IjoiaGFzc2FuLXJhZ2FiIiwiYSI6ImNqczYyOXIzaTBlY200NXM4eWs2MnhpanMifQ.pOoYtAm8LYTPkHvhznkQvw</string>
+    <string name="user_location_permission_explanation">This app needs location permissions in order to show its functionality.</string>
+    <string name="user_location_permission_not_granted">You didn\'t grant location permissions.</string>
+
 
 
 </resources>

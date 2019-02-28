@@ -19,7 +19,14 @@
         <activity android:name=".View.azerCode.Login" />
         <activity android:name=".View.azerCode.RegestrationActivity" />
         <activity android:name=".View.azerCode.Main2Activityazer" />
-        <activity android:name=".View.hassan.Garag_Activity" />
+        <activity android:name=".View.hassan.Garag_Activity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity android:name=".View.hassan.MapsActivity" />
 
         <meta-data
@@ -29,11 +36,7 @@
         <activity android:name=".View.AbdoView.MainActivity" />
         <activity android:name=".View.AbdoView.PayActivity" />
         <activity android:name=".View.azerCode.FirstScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
