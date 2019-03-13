@@ -51,13 +51,202 @@
     <string name="signup">SIGN UP</string>
     <string name="regester">Regester</string>
 
+    <string name="input_emailorphone">E-mail address</string>
+
+    <string name="input_pwd">Input Password</string>
+    <string name="forget_pwd">Forgot Password ?</string>
+    <string name="main_register">Quick register</string>
+    <string name="rest_login">Or Login With </string>
+
+    <!--  CAR MODELS   -->
+
+    <string-array name="car_type">
+        <item>Alfa Romeo</item>
+        <item>Audi</item>
+        <item>BMW</item>
+        <item>Brilliance</item>
+        <item>Byd</item>
+        <item>Canghe</item>
+        <item>Chery</item>
+        <item>Chevrolet</item>
+        <item>Citroën</item>
+        <item>Daewoo</item>
+        <item>Daihatsu</item>
+        <item>Datsun</item>
+        <item>DFM</item>
+        <item>DFSK</item>
+        <item>Dodge</item>
+        <item>Domy</item>
+        <item>Emgrand</item>
+        <item>Faw</item>
+        <item>Ferrari</item>
+        <item>Fiat</item>
+        <item>Ford</item>
+        <item>Foton</item>
+        <item>GAC</item>
+        <item>Gaz</item>
+        <item>Geely</item>
+        <item>Gmc</item>
+        <item>Great Wall</item>
+        <item>Hafei</item>
+        <item>Haima</item>
+        <item>Haval</item>
+        <item>Hawtai</item>
+        <item>Honda</item>
+        <item>Hummer</item>
+        <item>Hyundai</item>
+        <item>Infiniti</item>
+        <item>Isuzu</item>
+        <item>Jac</item>
+        <item>Jaguar</item>
+        <item>Jeep</item>
+        <item>Jonway</item>
+        <item>Karry</item>
+        <item>Kenbo</item>
+        <item>Keyton</item>
+        <item>Kia</item>
+        <item>Lada</item>
+        <item>Lamborghini</item>
+        <item>Lancia</item>
+        <item> Land Rover</item>
+        <item>Landwind</item>
+        <item>Lexus</item>
+        <item>Lifan</item>
+        <item>Lincoln</item>
+        <item>Mahindra</item>
+        <item>Maserati</item>
+        <item>Mazda</item>
+        <item>Mercedes</item>
+        <item>Mercury</item>
+        <item>Morris Garage</item>
+        <item>Mini</item>
+        <item>Mitsubishi</item>
+        <item>Nissan</item>
+        <item>Opel</item>
+        <item>Peugeot</item>
+        <item>Pontiac</item>
+        <item>Porsche</item>
+        <item>Proton</item>
+        <item>Renault</item>
+        <item>Saab</item>
+        <item>Saipa</item>
+        <item>Scion</item>
+        <item>Seat</item>
+        <item>Senova</item>
+        <item>Skoda</item>
+        <item>Smart</item>
+        <item>Sokon</item>
+        <item>Soueast</item>
+        <item>Speranza</item>
+        <item>Ssang Yong</item>
+        <item>Subaru</item>
+        <item>uzuki</item>
+        <item>Tata</item>
+        <item>Tesla</item>
+        <item>Toyota</item>
+        <item>UFO</item>
+        <item>Victory</item>
+        <item>Volkswagen</item>
+        <item>Volvo</item>
+        <item>ZNA</item>
+        <item>Zotye</item>
+
+    </string-array>
+
+
+    <string-array name="car_model">
+        <item>One</item>
+        <item>Two</item>
+        <item>Three</item>
+        <item>Four</item>
+        <item>Five</item>
+    </string-array>
+
+    <string-array name="car_model_AlfaRomeo">
+        <item>Giulia</item>
+        <item>Giulietta</item>
+        <item>Mito</item>
+        <item>Stelvio</item>
+    </string-array>
+
+    <string-array name="car_model_Audi">
+        <item>A3</item>
+        <item>A4</item>
+        <item>A5</item>
+        <item>A6</item>
+        <item>Q2</item>
+        <item>Q3</item>
+        <item>Q5</item>
+        <item>Q7</item>
+    </string-array>
+
+    <string-array name="car_model_BMW">
+        <item>118</item>
+        <item>318</item>
+        <item>320</item>
+        <item>330</item>
+        <item>340</item>
+        <item>520</item>
+        <item>530</item>
+        <item>740</item>
+        <item>X1</item>
+        <item>X2</item>
+        <item>X3</item>
+        <item>X4</item>
+        <item>X5</item>
+        <item>X6</item>
+
+
+    </string-array>
+
+    <string-array name="car_model_Brilliance">
+        <item>V3</item>
+        <item>V4</item>
+    </string-array>
+
+    <string-array name="car_model_Byd">
+        <item>F3</item>
+        <item>S5</item>
+    </string-array>
+
+    <string-array name="car_model_Canghe">
+        <item>M50</item>
+        <item>Q35</item>
+        <item>Q7</item>
+    </string-array>
+
+    <string-array name="car_model_Chery">
+        <item>Arrizo 5</item>
+        <item>Envy</item>
+        <item>Tiggo</item>
+        <item>Tiggo 4</item>
+    </string-array>
+
+    <string-array name="car_model_Chevrolet">
+        <item>Aveo</item>
+        <item>Eqninox</item>
+        <item>Lanos</item>
+        <item>N300</item>
+        <item>Optra</item>
+        <item>Pickup</item>
+    </string-array>
+
+    <string-array name="car_model_Citroën">
+        <item>C Elysee</item>
+        <item>C4 Grand</item>
+        <item>C4 Picassa</item>
+        <item>DS3</item>
+        <item>DS4</item>
+        <item>DS7</item>
+    </string-array>
+
     <!--       hassan       -->
 
 
     <string name="access_token" translatable="false">pk.eyJ1IjoiaGFzc2FuLXJhZ2FiIiwiYSI6ImNqczYyOXIzaTBlY200NXM4eWs2MnhpanMifQ.pOoYtAm8LYTPkHvhznkQvw</string>
     <string name="user_location_permission_explanation">This app needs location permissions in order to show its functionality.</string>
     <string name="user_location_permission_not_granted">You didn\'t grant location permissions.</string>
-
+    <string name="user_protocol">the user agreement</string>
 
 
 </resources>

@@ -1,9 +1,14 @@
 package com.example.rakna.raknagraduationproject.View.azerCode;
 
 import android.content.Intent;
+import android.os.Build;
+import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -17,8 +22,12 @@ import com.example.rakna.raknagraduationproject.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 
 public class SignUp extends AppCompatActivity {
+
+    private  static int SPLASH_TIME=2000;
 
     EditText name;
     EditText phoneNum;
@@ -28,7 +37,7 @@ public class SignUp extends AppCompatActivity {
     EditText email;
     EditText pass1;
     EditText pass2;
-    private ProgressBar loding;
+    private Button loding;
 
     Button signup_butt;
 
@@ -50,6 +59,7 @@ public class SignUp extends AppCompatActivity {
         loding=findViewById(R.id.progress1);
 
         signup_butt.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
 //                if (name.getText().toString().isEmpty()) {
@@ -116,7 +126,21 @@ public class SignUp extends AppCompatActivity {
 //
 //        }
 
-                Regester();
+                loding.setVisibility(View.VISIBLE);
+                signup_butt.setVisibility(View.GONE);
+
+                final Animation animation= AnimationUtils.loadAnimation(SignUp.this,R.anim.rotate);
+                loding.startAnimation(animation);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Regester();
+
+                        finish();
+                    }
+                },SPLASH_TIME);
+
             }
         });
 
@@ -124,8 +148,8 @@ public class SignUp extends AppCompatActivity {
     }
 
     public void Regester() {
-        loding.setVisibility(View.VISIBLE);
-        signup_butt.setVisibility(View.GONE);
+//        loding.setVisibility(View.VISIBLE);
+//        signup_butt.setVisibility(View.GONE);
 
         final String r_name = name.getText().toString().trim();
         final String r_phonenumber = phoneNum.getText().toString().trim();

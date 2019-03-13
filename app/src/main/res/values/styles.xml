@@ -37,4 +37,45 @@
     </style>
 
 
+<style name="editext_gray">
+<item name="android:textSize">@dimen/text_size_15</item>
+<item name="android:textColor">@color/text_color_black</item>
+<item name="android:textColorHint">@color/light_gray</item>
+<item name="android:ellipsize">end</item>
+<item name="android:gravity">center|left</item>
+<item name="android:background">@color/white</item>
+<item name="android:paddingLeft">16.0dip</item>
+<item name="android:layout_width">fill_parent</item>
+<item name="android:layout_height">fill_parent</item>
+<item name="android:maxLines">1</item>
+</style>
+
+    <style name="blue_button_style">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/bg_buttom_button</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">45.0dip</item>
+        <item name="android:layout_marginLeft">12.0dip</item>
+        <item name="android:layout_marginRight">12.0dip</item>
+    </style>
+    <style name="button_style">
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:textColor">@color/text_color_white</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:background">@drawable/bg_button_style</item>
+        <item name="android:layout_width">@dimen/button_style_weight</item>
+        <item name="android:layout_height">@dimen/button_style_hight</item>
+        <item name="android:layout_marginLeft">@dimen/dialog_btn_margin_top</item>
+        <item name="android:layout_marginTop">@dimen/dialog_btn_margin_top</item>
+        <item name="android:layout_marginRight">@dimen/dialog_btn_margin_top</item>
+    </style>
+
+    <style name="view_line">
+        <item name="android:background">@color/light_gray</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">0.8dip</item>
+        <item name="android:layout_marginLeft">1.0px</item>
+        <item name="android:layout_marginRight">1.0px</item>
+    </style>
 </resources>

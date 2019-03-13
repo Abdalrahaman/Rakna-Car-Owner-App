@@ -14,12 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity android:name=".View.azerCode.WelcomeActivity"></activity>
         <activity android:name=".View.azerCode.SignUp" />
-        <activity android:name=".View.azerCode.Login" />
-        <activity android:name=".View.azerCode.RegestrationActivity" />
-        <activity android:name=".View.azerCode.Main2Activityazer" />
-        <activity android:name=".View.hassan.Garag_Activity" >
+        <activity android:name=".View.azerCode.Login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,6 +25,10 @@
             </intent-filter>
 
         </activity>
+        <activity android:name=".View.azerCode.Main2Activityazer" />
+        <activity android:name=".View.hassan.Garag_Activity" />
+
+
         <activity android:name=".View.hassan.MapsActivity" />
 
         <meta-data

@@ -6,5 +6,12 @@
     <dimen name="text_size_16sp">16sp</dimen>
 
     <dimen name="comment_Height">80dp</dimen>
+    <dimen name="text_size_15">15.0sp</dimen>
+    <dimen name="text_size_normal">13.0sp</dimen>
+    <dimen name="button_style_hight">44.0dip</dimen>
+    <dimen name="button_style_weight">303.0dip</dimen>
+    <dimen name="dialog_btn_margin_top">15.0dip</dimen>
+    <dimen name="dialog_info_title_height">35.0dip</dimen>
+    <dimen name="dialog_monitor_control_height">120.0dip</dimen>
 
 </resources>
