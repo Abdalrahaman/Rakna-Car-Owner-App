@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.rakna.raknagraduationproject">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -18,11 +19,6 @@
         <activity android:name=".View.azerCode.WelcomeActivity"></activity>
         <activity android:name=".View.azerCode.SignUp" />
         <activity android:name=".View.azerCode.Login" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity android:name=".View.azerCode.Main2Activityazer" />
@@ -30,6 +26,16 @@
 
 
         <activity android:name=".View.hassan.MapsActivity" />
+        <activity android:name=".View.hassan.ThemePickerActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

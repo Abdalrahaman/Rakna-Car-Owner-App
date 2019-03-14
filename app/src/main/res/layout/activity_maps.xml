@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map_activity_framelayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    tools:ignore="MissingPrefix"
+    android:layout_height="match_parent"
+    tools:context=".View.hassan.MapsActivity">
 
     <com.mapbox.mapboxsdk.maps.MapView
         android:id="@+id/mapView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        mapbox:layout_constraintBottom_toBottomOf="parent"
-        mapbox:layout_constraintEnd_toEndOf="parent"
-        mapbox:layout_constraintStart_toStartOf="parent"
-        mapbox:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
         mapbox:mapbox_cameraTargetLat="38.9098"
         mapbox:mapbox_cameraTargetLng="-77.0295"
-        mapbox:mapbox_cameraZoom="12" />
+        mapbox:mapbox_cameraZoom="12"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/map_layout_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="30dp"/>
+
 
     <Button
         android:id="@+id/startButton"
@@ -24,11 +37,13 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@color/mapboxGrayLight"
+        android:background="@color/colorPrimary_blue"
         android:enabled="false"
+        android:onClick="start"
         android:text="Start navigation"
-        android:textColor="@color/mapboxWhite"
+        android:textColor="@color/white"
         mapbox:layout_constraintStart_toStartOf="parent"
-        mapbox:layout_constraintTop_toTopOf="parent" />
+        mapbox:layout_constraintTop_toTopOf="parent"
+        tools:ignore="OnClick" />
 
-</android.support.constraint.ConstraintLayout>
+</FrameLayout>

@@ -30,7 +30,6 @@
     <!--        AZER          -->
 
     <string name="name">Name</string>
-    <string name="phone">Phone Number</string>
     <string name="License">License Number</string>
     <string name="DriverLicense">Driver\'s License</string>
     <string name="CareType">Care Type</string>
@@ -248,5 +247,20 @@
     <string name="user_location_permission_not_granted">You didn\'t grant location permissions.</string>
     <string name="user_protocol">the user agreement</string>
 
+
+    <string name="purple_map_style" translatable="false">mapbox://styles/mapbox/cj7bww7is2f4i2rnwyxkzpwu7</string>
+    <string name="blue_map_style" translatable="false">mapbox://styles/mapbox/cj7bwwv3caf7l2spgukxm8bwv</string>
+    <string name="terminal_map_style" translatable="false">mapbox://styles/mapbox/cj62n87yx3mvi2rp93sfp2w9z</string>
+    <string name="map_view">Map view</string>
+    <string name="failure_to_load_file">Failure to load the local file of locations. Please try reloading the app.</string>
+    <string name="mock_location_title">Fake device location</string>
+    <string name="select_a_theme">Tap on a theme</string>
+    <string name="no_internet_message">Route drawing not possible because there\'s no internet connection!</string>
+    <string name="failure_to_retrieve">Failure to retrieve the navigation route!</string>
+
+    <!-- Single card -->
+    <string name="hours">Hours</string>
+    <string name="phone">Phone</string>
+    <string name="distance">mi</string>
 
 </resources>

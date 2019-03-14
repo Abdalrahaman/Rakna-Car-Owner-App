@@ -41,7 +41,7 @@ public class Garag_Activity extends AppCompatActivity implements IGarageActivity
         reservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Garag_Activity.this, MainActivity.class));
+                startActivity(new Intent(Garag_Activity.this, ThemePickerActivity.class));
             }
         });
 
