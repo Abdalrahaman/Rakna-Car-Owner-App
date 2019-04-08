@@ -52,6 +52,7 @@ public class LocationRecyclerViewAdapter extends
   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     int singleRvCardToUse = R.layout.single_location_map_view_rv_card;
     View itemView = LayoutInflater.from(parent.getContext()).inflate(singleRvCardToUse, parent, false);
+
     return new ViewHolder(itemView);
   }
 

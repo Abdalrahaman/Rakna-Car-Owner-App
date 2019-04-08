@@ -12,15 +12,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.rakna.raknagraduationproject.Model.hassanModel.IndividualLocation;
@@ -122,6 +126,9 @@ public class MapsActivity extends AppCompatActivity implements
     private Button start;
     private String TAG = "MapsActivity";
     private static LatLng MOCK_DEVICE_LOCATION_LAT_LNG;
+    Point mockCurrentLocation;
+    CardView Card_Item_Location_layout;
+    RelativeLayout Card_Item_Location;
 
     @SuppressWarnings( {"MissingPermission"})
     @Override
@@ -138,6 +145,11 @@ public class MapsActivity extends AppCompatActivity implements
 
         // Inflate the layout with the the MapView. Always inflate this after the Mapbox access token is configured.
         setContentView(R.layout.activity_maps);
+
+//        Card_Item_Location_layout= LayoutInflater.from(this).inflate(R.layout.single_location_map_view_rv_card,null);
+////        Card_Item_Location=Card_Item_Location_layout.findViewById(R.id.map_view_location_card);
+//        Card_Item_Location_layout.setVisibility(View.GONE);
+
 
         // Create a GeoJSON feature collection from the GeoJSON file in the assets folder.
         try {
@@ -207,6 +219,8 @@ public class MapsActivity extends AppCompatActivity implements
             locationComponent = mapboxMap.getLocationComponent();
             locationComponent.activateLocationComponent(this, loadedMapStyle);
             locationComponent.setLocationComponentEnabled(true);
+
+
             // Set the component's camera mode
             locationComponent.setCameraMode(CameraMode.TRACKING);
         } else {
@@ -226,6 +240,9 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public boolean onMapClick(@NonNull LatLng point) {
+
+
+
         handleClickIcon(mapboxMap.getProjection().toScreenLocation(point));
         return true;
     }
@@ -264,10 +281,14 @@ public class MapsActivity extends AppCompatActivity implements
                     setFeatureSelectState(featureList.get(i), false);
                 }
             }
+
+
             return true;
         } else {
             return false;
         }
+
+
     }
 
     /**
@@ -275,6 +296,8 @@ public class MapsActivity extends AppCompatActivity implements
      *
      * @param position the clicked card's position/index in the overall list of cards
      */
+    @SuppressWarnings( {"MissingPermission"})
+
     @Override
     public void onItemClick(int position) {
         // Get the selected individual location via its card's position in the recyclerview of cards
@@ -306,8 +329,11 @@ public class MapsActivity extends AppCompatActivity implements
         if (deviceHasInternetConnection()) {
             // Start call to the Mapbox Directions API
             if (selectedLocation != null) {
+
+                MOCK_DEVICE_LOCATION_LAT_LNG = new LatLng(locationComponent.getLastKnownLocation().getLongitude(),locationComponent.getLastKnownLocation().getLatitude());
+
                 // Set up origin and destination coordinates for the call to the Mapbox Directions API
-                Point mockCurrentLocation = Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(),
+                 mockCurrentLocation = Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(),
                         MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude());
 
                 getRoute(mockCurrentLocation,selectedLocationPoint);
@@ -316,6 +342,10 @@ public class MapsActivity extends AppCompatActivity implements
         } else {
             Toast.makeText(this, R.string.no_internet_message, Toast.LENGTH_LONG).show();
         }
+
+
+
+
     }
 
     /**
@@ -377,7 +407,7 @@ public class MapsActivity extends AppCompatActivity implements
      * Checks whether a Feature's boolean "selected" property is true or false
      *
      * @param index the specific Feature's index position in the FeatureCollection's list of Features.
-     * @return true if "selected" is true. False if the boolean property is false.
+     * @return true if "selected" is true. False if the boolean property is false.https://hassan-elkhadrawy.000webhostapp.com/list_of_locations.geojson
      */
     private boolean featureSelectStatus(int index) {
         if (featureCollection == null) {
@@ -794,7 +824,7 @@ public class MapsActivity extends AppCompatActivity implements
         protected void onPreExecute() {
             super.onPreExecute();
 
-            JsonUrl = "https://hassan-elkhadrawy.000webhostapp.com/list_of_locations.geojson";
+            JsonUrl = "https://rakna-app.000webhostapp.com/show_garage_location.php";
 
 
 
@@ -869,8 +899,11 @@ public class MapsActivity extends AppCompatActivity implements
 
                     // Get the single location's String properties to place in its map marker
                     String singleLocationName = singleLocation.getStringProperty("name");
-                    String singleLocationHours = singleLocation.getStringProperty("hours");
-                    String singleLocationDescription = singleLocation.getStringProperty("description");
+//                    String singleLocationHours = singleLocation.getStringProperty("hours");
+//                    String singleLocationDescription = singleLocation.getStringProperty("description");
+
+                    String singleLocationHours = "jjjjj";
+                    String singleLocationDescription ="hhhh";
                     String singleLocationPhoneNum = singleLocation.getStringProperty("phone");
 
 
@@ -879,6 +912,7 @@ public class MapsActivity extends AppCompatActivity implements
 
                     // Get the single location's LatLng coordinates
                     Point singleLocationPosition = (Point) singleLocation.geometry();
+                    Toast.makeText(MapsActivity.this, ""+singleLocationPosition.latitude(), Toast.LENGTH_SHORT).show();
 
                     // Create a new LatLng object with the Position object created above
                     LatLng singleLocationLatLng = new LatLng(singleLocationPosition.latitude(),

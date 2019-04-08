@@ -44,7 +44,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.github.ybq:Android-SpinKit:1.2.0'
       // Mapbox Maps SDK dependency
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.0.1'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.1.2'
 
     // Mapbox Services SDK dependency to retrieve direction routes
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:4.3.0'

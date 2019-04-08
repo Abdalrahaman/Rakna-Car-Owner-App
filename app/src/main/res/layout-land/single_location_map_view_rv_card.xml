@@ -11,7 +11,8 @@
     android:layout_marginTop="8dp"
     android:background="?attr/colorPrimary"
     app:cardCornerRadius="3dp"
-    tools:ignore="MissingPrefix">
+    tools:ignore="MissingPrefix"
+    android:visibility="gone">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraint_upper_color"
