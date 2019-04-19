@@ -3,8 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/color_noti_background"
-    android:padding="10dp">
+    android:background="#646f73"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    android:layout_marginBottom="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,11 +47,11 @@
                 android:id="@+id/tv_noti_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/noti_message"
+                android:text="There is one approaching your car, please see it in Garage Owner."
                 android:textSize="15sp"
                 android:fontFamily="sans-serif"
                 android:padding="10dp"
-                android:textColor="#020202"/>
+                android:textColor="#f1f0f0"/>
 
 
             <TextView
@@ -58,7 +61,7 @@
                 android:text="1 hour ago"
                 android:gravity="end|center"
                 android:paddingLeft="10dp"
-                android:textColor="@color/color_time_ago"/>
+                android:textColor="@color/timer_color"/>
 
         </LinearLayout>
 

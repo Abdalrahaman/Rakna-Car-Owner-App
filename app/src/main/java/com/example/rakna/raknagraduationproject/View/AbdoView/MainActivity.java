@@ -1,41 +1,85 @@
 package com.example.rakna.raknagraduationproject.View.AbdoView;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.example.rakna.raknagraduationproject.R;
-import com.example.rakna.raknagraduationproject.Model.AbdoModel.OwnerPreviewAdapter;
-
 
 public class MainActivity extends AppCompatActivity {
+
+    private BottomNavigationView navigationView ;
+    private FloatingActionButton floatingActionButton;
+
+    Fragment selectedFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Find the view pager that will allow the user to swipe between fragments
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        initWidgets();
+        actionWidgets();
+    }
 
-        // Create an adapter that knows which fragment should be shown on each page
-        OwnerPreviewAdapter adapter = new OwnerPreviewAdapter(this , getSupportFragmentManager());
 
-        // Set the adapter onto the view pager
-        viewPager.setAdapter(adapter);
+    public void initWidgets(){
 
-        // Find the tab layout that shows the tabs
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        navigationView = findViewById(R.id.bottom_navigation);
+        floatingActionButton = findViewById(R.id.fab_exit_rakna);
 
-        /* Connect the tab layout with the view pager. This will
-         *  1. Update the tab layout when the view pager is swiped
-         *  2. Update the view pager when a tab is selected
-         *  3. Set the tab layout's tab names with the view pager's adapter's titles
-         *     by calling onPageTitle().
-         */
+        selectedFragment = new RaknaGarageFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                selectedFragment).commit();
+    }
 
-        tabLayout.setupWithViewPager(viewPager);
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navigationListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    selectedFragment = null;
+
+                    switch (item.getItemId()){
+                        case R.id.action_rakna:
+                            selectedFragment = new RaknaGarageFragment();
+                            break;
+                        case R.id.action_notification:
+                            selectedFragment = new OwnerNotificationFragment();
+                            break;
+                        case R.id.action_camera:
+                            selectedFragment = new OwnerPreviewFragment();
+                            break;
+                        case R.id.action_chat:
+                            selectedFragment = new ChatHomeFragment();
+                            break;
+                    }
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                            selectedFragment).commit();
+
+                    return true;
+                }
+            };
+
+
+    public void actionWidgets(){
+
+        navigationView.setOnNavigationItemSelectedListener(navigationListener);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, LockConnectionActivity.class);
+//                startActivity(intent);
+            }
+        });
 
     }
 }

@@ -263,4 +263,24 @@
     <string name="phone">Phone</string>
     <string name="distance">mi</string>
 
+
+    <!--Abdo String-->
+
+    <string name="garage_details">Garage Size  : 200 x 150 \nService : Washing - Repairing\nLocation
+        : Sea Street - melig - menofia  </string>
+
+    <string name="text_description_connection">QRCode this method to open \nNFC Mobile</string>
+
+    <string name="menu_rakna">Rakna</string>
+    <string name="menu_notification">Notification</string>
+    <string name="menu_history_garage">Favorite</string>
+    <string name="menu_chat">Chatting</string>
+    <string name="menu_camera">Camera</string>
+
+
+    <string name="message">message</string>
+    <string name="turn_off_flashlight">turn off flashlight</string>
+    <string name="turn_on_flashlight">turn on flashlight</string>
+
+
 </resources>

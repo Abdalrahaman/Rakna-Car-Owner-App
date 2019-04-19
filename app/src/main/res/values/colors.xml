@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#673AB7</color>
-    <color name="colorPrimaryDark">#512DA8</color>
+    <color name="colorPrimary">#2f4a81</color>
+    <color name="colorPrimaryDark">#0B121D</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="colorbackground">#37acd4</color>
@@ -89,7 +89,17 @@
     <color name="cardHourAndPhoneTextColor_gray">#696969</color>
 
 
+    // Abdo Background
+    <color name="rakna_background">#111c2d</color>
+    <color name="background">#8f8f8f</color>
+    <color name="card_garage_info">#3d4354</color>
+    <color name="communicate_layout_color">#343948</color>
+    <color name="communicate_text_color">#c8d4c8</color>
+    <color name="timer_color">#D1C4E9</color>
+    <color name="transparent_blue">#8b5f74d1</color>
 
+    // basic colors
+    <color name="grey">#b8c0b8</color>
 
 
 </resources>

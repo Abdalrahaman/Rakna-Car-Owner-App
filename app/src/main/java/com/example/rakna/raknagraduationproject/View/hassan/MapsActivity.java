@@ -25,6 +25,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rakna.raknagraduationproject.Model.hassanModel.IndividualLocation;
@@ -64,6 +65,7 @@ import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
 
 import com.mapbox.turf.TurfConstants;
 import com.mapbox.turf.TurfConversion;
+import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -97,7 +99,7 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineWidth;
  * Activity with a Mapbox map and recyclerview to view various locations
  */
 public class MapsActivity extends AppCompatActivity implements
-        LocationRecyclerViewAdapter.ClickListener, MapboxMap.OnMapClickListener, PermissionsListener {
+        MapboxMap.OnMapClickListener, PermissionsListener {
 
 
     private static final LatLngBounds LOCKED_MAP_CAMERA_BOUNDS = new LatLngBounds.Builder()
@@ -123,12 +125,13 @@ public class MapsActivity extends AppCompatActivity implements
     private PermissionsManager permissionsManager;
     private LocationComponent locationComponent;
     NavigationMapRoute navigationMapRoute;
-    private Button start;
     private String TAG = "MapsActivity";
     private static LatLng MOCK_DEVICE_LOCATION_LAT_LNG;
-    Point mockCurrentLocation;
-    CardView Card_Item_Location_layout;
-    RelativeLayout Card_Item_Location;
+    Point mockCurrentLocation, selectedFeaturePoint;
+    private CardView card_Item_info_Location;
+    private AnchorBottomSheetBehavior mAnchorBottomSheetBehavior;
+    private Button reserveGarageButton, shareGarageButton;
+    private TextView garageNameTextview, garageRateTextview, garageaddressTextview, garageStateTextview;
 
     @SuppressWarnings( {"MissingPermission"})
     @Override
@@ -140,16 +143,21 @@ public class MapsActivity extends AppCompatActivity implements
         Mapbox.getInstance(this, getString(R.string.access_token));
 
         // Hide the status bar for the map to fill the entire screen
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // Inflate the layout with the the MapView. Always inflate this after the Mapbox access token is configured.
         setContentView(R.layout.activity_maps);
+
+        initWidgets();
+
+        actionWidgets();
 
 //        Card_Item_Location_layout= LayoutInflater.from(this).inflate(R.layout.single_location_map_view_rv_card,null);
 ////        Card_Item_Location=Card_Item_Location_layout.findViewById(R.id.map_view_location_card);
 //        Card_Item_Location_layout.setVisibility(View.GONE);
 
+        cardVisibility(0);
 
         // Create a GeoJSON feature collection from the GeoJSON file in the assets folder.
         try {
@@ -163,10 +171,13 @@ public class MapsActivity extends AppCompatActivity implements
         listOfIndividualLocations = new ArrayList<>();
 
         // Initialize the theme that was selected in the previous activity. The blue theme is set as the backup default.
-        chosenTheme = getIntent().getIntExtra(StringConstants.SELECTED_THEME, R.style.AppTheme_Blue);
+//        chosenTheme = getIntent().getIntExtra(StringConstants.SELECTED_THEME, R.style.AppTheme_Blue);
+        chosenTheme = R.style.AppTheme_Neutral;
 
-        // Set up the Mapbox map
-        mapView = findViewById(R.id.mapView);
+        // bottom sheet
+        View bottomSheet = findViewById(R.id.bottom_sheet);
+        mAnchorBottomSheetBehavior = AnchorBottomSheetBehavior.from(bottomSheet);
+
         mapView.onCreate(savedInstanceState);
 
         mapView.getMapAsync(new OnMapReadyCallback() {
@@ -194,9 +205,6 @@ public class MapsActivity extends AppCompatActivity implements
                         // show the icons for each store location
                         enableLocationComponent(style);
 
-
-                        start=findViewById(R.id.startButton);
-
                         new JsonUtils().execute();
                     }
 
@@ -205,8 +213,50 @@ public class MapsActivity extends AppCompatActivity implements
             }
         });
 
+    }
 
 
+    public void initWidgets(){
+
+        reserveGarageButton = findViewById(R.id.btn_reserve);
+        shareGarageButton = findViewById(R.id.btn_share);
+        card_Item_info_Location = findViewById(R.id.garage_info_loca_card);
+
+        garageNameTextview = findViewById(R.id.tv_garage_name);
+        garageRateTextview = findViewById(R.id.tv_garage_rate);
+        garageaddressTextview = findViewById(R.id.tv_garage_address);
+        garageStateTextview = findViewById(R.id.tv_garage_state);
+
+        // Set up the Mapbox map
+        mapView = findViewById(R.id.mapView);
+    }
+
+
+    public void actionWidgets(){
+
+        card_Item_info_Location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                expandedBottomSheetBehavior();
+            }
+        });
+
+        reserveGarageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                onItemClick(selectedFeaturePoint);
+            }
+        });
+
+        shareGarageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Toast.makeText(MapsActivity.this, "share don't coding ?!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
 
@@ -223,6 +273,9 @@ public class MapsActivity extends AppCompatActivity implements
 
             // Set the component's camera mode
             locationComponent.setCameraMode(CameraMode.TRACKING);
+
+            Toast.makeText(this, ""+ locationComponent.getLastKnownLocation().getLongitude()+"-"+
+                    locationComponent.getLastKnownLocation().getLatitude(), Toast.LENGTH_SHORT).show();
         } else {
             permissionsManager = new PermissionsManager(this);
             permissionsManager.requestLocationPermissions(this);
@@ -241,8 +294,6 @@ public class MapsActivity extends AppCompatActivity implements
     @Override
     public boolean onMapClick(@NonNull LatLng point) {
 
-
-
         handleClickIcon(mapboxMap.getProjection().toScreenLocation(point));
         return true;
     }
@@ -259,7 +310,7 @@ public class MapsActivity extends AppCompatActivity implements
             for (int i = 0; i < featureList.size(); i++) {
 
                 if (featureList.get(i).getStringProperty("name").equals(name)) {
-                    Point selectedFeaturePoint = (Point) featureList.get(i).geometry();
+                    selectedFeaturePoint = (Point) featureList.get(i).geometry();
 
                     if (featureSelectStatus(i)) {
                         setFeatureSelectState(featureList.get(i), false);
@@ -273,7 +324,16 @@ public class MapsActivity extends AppCompatActivity implements
                                 // Scroll the recyclerview to the selected marker's card. It's "x-1" below because
                                 // the mock device location marker is part of the marker list but doesn't have its own card
                                 // in the actual recyclerview.
-                                locationsRecyclerView.smoothScrollToPosition(x);
+
+//                                locationsRecyclerView.smoothScrollToPosition(x);
+                                updateGarageInfoCard(listOfIndividualLocations.get(x).getName().toString(),
+                                        "3.4",
+                                        listOfIndividualLocations.get(x).getAddress().toString(),
+                                        "Online Now");
+
+                                cardVisibility(1);
+
+                                break;
                             }
                         }
                     }
@@ -288,64 +348,82 @@ public class MapsActivity extends AppCompatActivity implements
             return false;
         }
 
+    }
 
+    public void cardVisibility(int flag){
+
+        if (flag == 0){
+            card_Item_info_Location.setVisibility(View.GONE);
+        }else{
+            card_Item_info_Location.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void updateGarageInfoCard(String garageName, String garageRate,
+                                     String garageAddress, String garageState){
+
+        garageNameTextview.setText(garageName);
+        garageRateTextview.setText(garageRate);
+        garageaddressTextview.setText(garageAddress);
+        garageStateTextview.setText(garageState);
+
+    }
+
+    public void expandedBottomSheetBehavior() {
+        // Expanding the bottom sheet
+        mAnchorBottomSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_EXPANDED);
     }
 
     /**
      * The LocationRecyclerViewAdapter's interface which listens to clicks on each location's card
      *
-     * @param position the clicked card's position/index in the overall list of cards
+     * @param selectedPoint the clicked card's position/index in the overall list of cards
      */
     @SuppressWarnings( {"MissingPermission"})
 
-    @Override
-    public void onItemClick(int position) {
+    public void onItemClick(Point selectedPoint) {
         // Get the selected individual location via its card's position in the recyclerview of cards
-        IndividualLocation selectedLocation = listOfIndividualLocations.get(position);
+//        IndividualLocation selectedLocation = listOfIndividualLocations.get(position);
 
         // Evaluate each Feature's "select state" to appropriately style the location's icon
-        List<Feature> featureList = featureCollection.features();
-        Point selectedLocationPoint = (Point) featureCollection.features().get(position).geometry();
-        for (int i = 0; i < featureList.size(); i++) {
-            if (featureList.get(i).getStringProperty("name").equals(selectedLocation.getName())) {
-                if (featureSelectStatus(i)) {
-                    setFeatureSelectState(featureList.get(i), false);
-                } else {
-                    setSelected(i);
-                }
-            } else {
-                setFeatureSelectState(featureList.get(i), false);
-            }
-        }
+//        List<Feature> featureList = featureCollection.features();
+//        Point selectedLocationPoint = (Point) featureCollection.features().get(position).geometry();
+//        for (int i = 0; i < featureList.size(); i++) {
+//            if (featureList.get(i).getStringProperty("name").equals(selectedLocation.getName())) {
+//                if (featureSelectStatus(i)) {
+//                    setFeatureSelectState(featureList.get(i), false);
+//                } else {
+//                    setSelected(i);
+//                }
+//            } else {
+//                setFeatureSelectState(featureList.get(i), false);
+//            }
+//        }
 
 
 
         // Reposition the map camera target to the selected marker
-        if (selectedLocation != null) {
-            repositionMapCamera(selectedLocationPoint);
+        if (selectedPoint != null) {
+            repositionMapCamera(selectedPoint);
         }
 
         // Check for an internet connection before making the call to Mapbox Directions API
         if (deviceHasInternetConnection()) {
             // Start call to the Mapbox Directions API
-            if (selectedLocation != null) {
 
                 MOCK_DEVICE_LOCATION_LAT_LNG = new LatLng(locationComponent.getLastKnownLocation().getLongitude(),locationComponent.getLastKnownLocation().getLatitude());
 
                 // Set up origin and destination coordinates for the call to the Mapbox Directions API
-                 mockCurrentLocation = Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(),
-                        MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude());
+                 mockCurrentLocation = Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude(),
+                         MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude());
 
-                getRoute(mockCurrentLocation,selectedLocationPoint);
+                 Toast.makeText(this, ""+ mockCurrentLocation, Toast.LENGTH_SHORT).show();
+
+                getRoute(mockCurrentLocation,selectedPoint);
 //                getInformationFromDirectionsApi(selectedLocationPoint, true, null);
-            }
         } else {
             Toast.makeText(this, R.string.no_internet_message, Toast.LENGTH_LONG).show();
         }
-
-
-
-
     }
 
     /**
@@ -503,10 +581,6 @@ public class MapsActivity extends AppCompatActivity implements
     }
 
 
-
-
-
-
     private void getRoute(Point origin, Point destination) {
         NavigationRoute.builder(this)
                 .accessToken(Mapbox.getAccessToken())
@@ -614,17 +688,17 @@ public class MapsActivity extends AppCompatActivity implements
         }
     }
 
-    private void setUpRecyclerViewOfLocationCards(int chosenTheme) {
-        // Initialize the recyclerview of location cards and a custom class for automatic card scrolling
-        locationsRecyclerView = findViewById(R.id.map_layout_rv);
-        locationsRecyclerView.setHasFixedSize(true);
-        locationsRecyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this));
-        styleRvAdapter = new LocationRecyclerViewAdapter(listOfIndividualLocations,
-                getApplicationContext(), this, chosenTheme);
-        locationsRecyclerView.setAdapter(styleRvAdapter);
-        SnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(locationsRecyclerView);
-    }
+//    private void setUpRecyclerViewOfLocationCards() {
+//        // Initialize the recyclerview of location cards and a custom class for automatic card scrolling
+//        locationsRecyclerView = findViewById(R.id.map_layout_rv);
+//        locationsRecyclerView.setHasFixedSize(true);
+//        locationsRecyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this));
+//        styleRvAdapter = new LocationRecyclerViewAdapter(listOfIndividualLocations,
+//                getApplicationContext(), this);
+//        locationsRecyclerView.setAdapter(styleRvAdapter);
+//        SnapHelper snapHelper = new LinearSnapHelper();
+//        snapHelper.attachToRecyclerView(locationsRecyclerView);
+//    }
 
     private void drawNavigationPolylineRoute(DirectionsRoute route) {
         // Retrieve and update the source designated for showing the store location icons
@@ -722,19 +796,6 @@ public class MapsActivity extends AppCompatActivity implements
         return activeNetwork != null && activeNetwork.isConnected();
     }
 
-    public void start(View view) {
-        Toast.makeText(this, "a7a", Toast.LENGTH_SHORT).show();
-        boolean simulateRoute = true;
-        NavigationLauncherOptions options = NavigationLauncherOptions.builder()
-                .directionsRoute(currentRoute)
-                .shouldSimulateRoute(simulateRoute)
-                .build();
-        // Call this method with Context from within an Activity
-        NavigationLauncher.startNavigation(MapsActivity.this, options);
-
-    }
-
-
     /**
      * Custom class which creates marker icons and colors based on the selected theme
      */
@@ -815,7 +876,6 @@ public class MapsActivity extends AppCompatActivity implements
     }
 
 
-
     class JsonUtils extends AsyncTask<Void, Void, String> {
 
         String JsonUrl = null;
@@ -826,14 +886,11 @@ public class MapsActivity extends AppCompatActivity implements
 
             JsonUrl = "https://rakna-app.000webhostapp.com/show_garage_location.php";
 
-
-
         }
 
         @Override
         protected String doInBackground(Void... voids) {
             try {
-
 
                 URL url = new URL(JsonUrl);
                 HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
@@ -867,11 +924,7 @@ public class MapsActivity extends AppCompatActivity implements
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-
             featureCollection = FeatureCollection.fromJson(s);
-
-
-
 
             // Set up the SymbolLayer which will show the icons for each store location
             initStoreLocationIconSymbolLayer();
@@ -902,8 +955,8 @@ public class MapsActivity extends AppCompatActivity implements
 //                    String singleLocationHours = singleLocation.getStringProperty("hours");
 //                    String singleLocationDescription = singleLocation.getStringProperty("description");
 
-                    String singleLocationHours = "jjjjj";
-                    String singleLocationDescription ="hhhh";
+                    String singleLocationHours = "1h 20m";
+                    String singleLocationDescription ="Sea Street , Cairo Governorate";
                     String singleLocationPhoneNum = singleLocation.getStringProperty("phone");
 
 
@@ -912,7 +965,7 @@ public class MapsActivity extends AppCompatActivity implements
 
                     // Get the single location's LatLng coordinates
                     Point singleLocationPosition = (Point) singleLocation.geometry();
-                    Toast.makeText(MapsActivity.this, ""+singleLocationPosition.latitude(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MapsActivity.this, ""+singleLocationPosition.latitude(), Toast.LENGTH_SHORT).show();
 
                     // Create a new LatLng object with the Position object created above
                     LatLng singleLocationLatLng = new LatLng(singleLocationPosition.latitude(),
@@ -936,25 +989,18 @@ public class MapsActivity extends AppCompatActivity implements
                 // the device location's puck
 
 
-                setUpRecyclerViewOfLocationCards(chosenTheme);
+//                setUpRecyclerViewOfLocationCards();
 
                 mapboxMap.addOnMapClickListener(MapsActivity.this);
 
-                Toast.makeText(MapsActivity.this, "Click on a card", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MapsActivity.this, "Click on a card", Toast.LENGTH_SHORT).show();
 
                 // Show 3d buildings if the blue theme is being used
                 if (customThemeManager.getNavigationLineColor() == R.color.navigationRouteLine_blue) {
                     showBuildingExtrusions();
                 }
             }
-
-
-
-
-
         }
     }
-
-
 
 }

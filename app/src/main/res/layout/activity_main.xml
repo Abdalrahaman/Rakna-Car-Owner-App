@@ -1,23 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".View.AbdoView.AbdoView.MainActivity">
+    android:background="@color/background"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".View.AbdoView.MainActivity">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            style="@style/CategoryTab"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#673AB7"/>
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/rakna_background"
+        android:layout_above="@id/bottom_navigation"/>
 
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:elevation="16dp"
+        app:itemIconTint="@drawable/bottom_navigation_colors"
+        app:itemTextColor="@drawable/bottom_navigation_colors"
+        app:menu="@menu/bottom_navigation_menu"
+        android:background="@color/rakna_background"
+        android:layout_marginTop="0.1dp">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    </android.support.design.widget.BottomNavigationView>
 
-    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_exit_rakna"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_above="@id/bottom_navigation"
+        android:layout_margin="16dp"
+        app:backgroundTint="#ffffff"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        android:src="@drawable/ic_exit_to_rakna" />
+
+</RelativeLayout>

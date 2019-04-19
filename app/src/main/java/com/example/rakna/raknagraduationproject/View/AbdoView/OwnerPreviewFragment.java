@@ -29,16 +29,19 @@ public class OwnerPreviewFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_owner_preview, container, false);
 
-        FloatingActionButton parkingFinishedButton = (FloatingActionButton)rootView.findViewById(R.id.fab);
-
-        parkingFinishedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intentPay = new Intent(getActivity() , PayActivity.class);
-                startActivity(intentPay);
-            }
-        });
+//        FloatingActionButton parkingFinishedButton = (FloatingActionButton)rootView.findViewById(R.id.fab);
+//
+//        parkingFinishedButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+////                Intent intentPay = new Intent(getActivity() , PayActivity.class);
+////                startActivity(intentPay);
+//
+////                Intent intentPay = new Intent(getActivity() , HistoryActivity.class);
+////                startActivity(intentPay);
+//            }
+//        });
 
         return rootView ;
     }
