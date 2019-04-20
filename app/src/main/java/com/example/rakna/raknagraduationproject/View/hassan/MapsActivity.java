@@ -1,16 +1,20 @@
 package com.example.rakna.raknagraduationproject.View.hassan;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PointF;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearSnapHelper;
@@ -32,17 +36,21 @@ import com.example.rakna.raknagraduationproject.Model.hassanModel.IndividualLoca
 import com.example.rakna.raknagraduationproject.Model.hassanModel.util.LinearLayoutManagerWithSmoothScroller;
 import com.example.rakna.raknagraduationproject.Model.hassanModel.util.StringConstants;
 import com.example.rakna.raknagraduationproject.R;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.api.directions.v5.DirectionsCriteria;
 import com.mapbox.api.directions.v5.MapboxDirections;
 import com.mapbox.api.directions.v5.models.DirectionsResponse;
 import com.mapbox.api.directions.v5.models.DirectionsRoute;
+import com.mapbox.api.geocoding.v5.models.CarmenFeature;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.LineString;
 import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.annotations.Marker;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -55,6 +63,7 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.plugins.building.BuildingPlugin;
+import com.mapbox.mapboxsdk.plugins.places.autocomplete.PlaceAutocomplete;
 import com.mapbox.mapboxsdk.style.layers.LineLayer;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
@@ -132,6 +141,10 @@ public class MapsActivity extends AppCompatActivity implements
     private AnchorBottomSheetBehavior mAnchorBottomSheetBehavior;
     private Button reserveGarageButton, shareGarageButton;
     private TextView garageNameTextview, garageRateTextview, garageaddressTextview, garageStateTextview;
+    private FloatingActionButton Fab_Search;
+    private int REQUEST_CODE_AUTOCOMPLETE=11;
+    GeoJsonSource source;
+    Marker marker;
 
     @SuppressWarnings( {"MissingPermission"})
     @Override
@@ -229,10 +242,27 @@ public class MapsActivity extends AppCompatActivity implements
 
         // Set up the Mapbox map
         mapView = findViewById(R.id.mapView);
+        Fab_Search=findViewById(R.id.fab);
+
     }
 
 
     public void actionWidgets(){
+
+
+
+        Fab_Search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new PlaceAutocomplete.IntentBuilder()
+                        .accessToken(getString(R.string.access_token))
+                        .build(MapsActivity.this);
+                startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
+            }
+        });
+
+
+
 
         card_Item_info_Location.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -520,7 +550,7 @@ public class MapsActivity extends AppCompatActivity implements
      * Updates the display of data on the map after the FeatureCollection has been modified
      */
     private void refreshSource() {
-        GeoJsonSource source = mapboxMap.getStyle().getSourceAs("store-location-source-id");
+         source = mapboxMap.getStyle().getSourceAs("store-location-source-id");
         if (source != null && featureCollection != null) {
             source.setGeoJson(featureCollection);
         }
@@ -1001,6 +1031,43 @@ public class MapsActivity extends AppCompatActivity implements
                 }
             }
         }
+    }
+
+    @SuppressWarnings( {"MissingPermission"})
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_AUTOCOMPLETE) {
+            CarmenFeature feature = PlaceAutocomplete.getPlace(data);
+            String PLACE_NAME= PlaceAutocomplete.getPlace(data).placeName();
+
+            Point singleLocationPosition = (Point) feature.geometry();
+
+            Point destinationPoint = Point.fromLngLat(singleLocationPosition.longitude(), singleLocationPosition.latitude());
+           Point originPoint = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
+                    locationComponent.getLastKnownLocation().getLatitude());
+
+            repositionMapCamerasearch(singleLocationPosition,PLACE_NAME);
+
+
+        }
+    }
+
+     void repositionMapCamerasearch(Point newTarget,String P_Name) {
+
+        CameraPosition newCameraPosition = new CameraPosition.Builder()
+                .target(new LatLng(newTarget.latitude(), newTarget.longitude()))
+                .build();
+        if (marker!=null){
+            marker.remove();
+            marker=mapboxMap.addMarker(new MarkerOptions().setTitle(P_Name).position(new LatLng(newTarget.latitude(),newTarget.longitude())));
+
+        }else {
+            marker=mapboxMap.addMarker(new MarkerOptions().setTitle(P_Name).position(new LatLng(newTarget.latitude(),newTarget.longitude())));
+
+        }
+        mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCameraPosition), 1200);
     }
 
 }

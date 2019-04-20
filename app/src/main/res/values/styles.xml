@@ -97,14 +97,14 @@
     </style>
 
     <!-- Green theme -->
-    <style name="AppTheme.Green" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Green" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary_green</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_green</item>
         <item name="colorAccent">@color/colorAccent_green</item>
     </style>
 
     <!-- Neutral theme -->
-    <style name="AppTheme.Neutral" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Neutral" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="colorPrimary">@color/colorPrimary_neutral</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_neutral</item>
         <item name="colorAccent">@color/colorAccent_neutral</item>
