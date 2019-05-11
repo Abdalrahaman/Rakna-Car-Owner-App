@@ -8,34 +8,69 @@ android:layout_height="match_parent"
 android:orientation="vertical"
 android:padding="15dp"
 tools:context=".View.azerCode.FirstScreen"
-    android:background="@color/color_login_background"
+android:background="#c5dddc"
     >
-    <TextView
+<!--<TextView-->
+<!--android:layout_marginTop="50dp"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:textColor="@color/colorPrimaryDark"-->
+<!--android:textSize="30dp"-->
+<!--android:text="RAKNA  APP"-->
+<!--android:textStyle="bold"-->
+<!--android:layout_gravity="center"/>-->
+
+<!--<ImageView-->
+    <!--android:layout_marginTop="40dp"-->
+    <!--android:layout_width="220dp"-->
+    <!--android:layout_height="180dp"-->
+    <!--android:src="@drawable/log00"-->
+    <!--android:layout_gravity="center"/>-->
+
+
+
+    <com.airbnb.lottie.LottieAnimationView
         android:layout_marginTop="50dp"
+        android:id="@+id/animation_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="30dp"
-       android:text="RAKNA  APP"
-        android:textStyle="bold"
-        android:layout_gravity="center"/>
-
-    <ImageView
-        android:layout_marginTop="40dp"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:src="@drawable/car"
-        android:layout_gravity="center"/>
+        app:lottie_scale="6"
+        app:lottie_fileName="fastcar.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
 
 
-    <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/spin_kit"
-        style="@style/SpinKitView.Large.ThreeBounce"
-        android:layout_width="wrap_content"
+
+<RelativeLayout
+    android:id="@+id/ll_thirdlogin"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="visible">
+
+
+    <LinearLayout
+        android:id="@+id/iv_thirdparty"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        app:SpinKit_Color="@color/white" />
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
 
+
+        <ImageView
+            android:id="@+id/imagefirst"
+            android:layout_width="130dp"
+            android:layout_height="100dp"
+            android:src="@drawable/u1"
+            android:layout_gravity="center"/>
+
+
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>
 
 </LinearLayout>

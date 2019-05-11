@@ -8,10 +8,6 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Azer on 2/2/2019.
- */
-
 public class SendDataLogin extends StringRequest {
     private static final String SENDDATAURL="https://rakna-app.000webhostapp.com/car_owner_login.php";
     private Map<String,String> MapData;

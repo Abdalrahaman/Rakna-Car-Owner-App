@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.example.rakna.raknagraduationproject.R;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeServiceActivity extends AppCompatActivity {
 
     private BottomNavigationView navigationView ;
     private FloatingActionButton floatingActionButton;
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home_service);
 
         initWidgets();
         actionWidgets();
@@ -76,8 +76,10 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, LockConnectionActivity.class);
+//                Intent intent = new Intent(HomeServiceActivity.this, LockConnectionActivity.class);
 //                startActivity(intent);
+                Intent intent = getPackageManager().getLaunchIntentForPackage("com.yoosee");
+                startActivity(intent);
             }
         });
 

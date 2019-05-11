@@ -18,8 +18,8 @@ public class SendDataRegesteration extends StringRequest {
     private Map<String,String> MapData;
 
 
-    public SendDataRegesteration(int r_driver_licence,String r_name,String r_phonenumber,int r_car_licence ,
-                                 String r_email,String r_password,int r_car_type,Response.Listener<String> listener) {
+    public SendDataRegesteration(int r_driver_licence, String r_name, String r_phonenumber, int r_car_licence ,
+                                 String r_email, String r_password, int r_car_type, Response.Listener<String> listener) {
         super(Method.POST,SENDDATAURL, listener, null);
 
         Log.d("tag", "SendDataLogin:ssssssssssss "+String.valueOf(r_driver_licence)+
@@ -33,7 +33,7 @@ public class SendDataRegesteration extends StringRequest {
         MapData.put("car_licence",String.valueOf(r_car_licence));
         MapData.put("email",r_email);
         MapData.put("password",r_password);
-        MapData.put("car_type",String.valueOf(r_car_type));
+        MapData.put("car_id",String.valueOf(r_car_type));
     }
 
     @Override

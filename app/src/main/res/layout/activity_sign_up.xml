@@ -44,7 +44,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="@string/name"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                />
         </android.support.design.widget.TextInputLayout>
 
 
@@ -59,7 +60,6 @@
                 android:layout_marginTop="10dp"
                 android:hint="@string/phone"
                 android:inputType="number"
-
                 android:textSize="20sp" />
         </android.support.design.widget.TextInputLayout>
 
@@ -75,7 +75,8 @@
                 android:layout_marginTop="10dp"
                 android:hint="@string/E_mail"
                 android:inputType="textEmailAddress"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+               />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -91,7 +92,8 @@
                 android:layout_marginTop="10dp"
                 android:hint="@string/Password"
                 android:inputType="textPassword"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -106,7 +108,8 @@
                 android:layout_marginTop="10dp"
                 android:hint="@string/ConfirmPassword"
                 android:inputType="textPassword"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                />
 
 
         </android.support.design.widget.TextInputLayout>
@@ -123,7 +126,8 @@
                 android:layout_marginTop="10dp"
                 android:hint="@string/License"
                 android:inputType="number"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+               />
         </android.support.design.widget.TextInputLayout>
 
 
@@ -138,22 +142,67 @@
                 android:layout_marginTop="10dp"
                 android:hint="@string/DriverLicense"
                 android:inputType="number"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+               />
         </android.support.design.widget.TextInputLayout>
 
 
-        <android.support.design.widget.TextInputLayout
+        <!--<android.support.design.widget.TextInputLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/CareType"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:hint="@string/CareType"-->
+                <!--android:textSize="20sp"-->
+               <!--/>-->
+        <!--</android.support.design.widget.TextInputLayout>-->
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            >
+   <RelativeLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_weight="1"
+       android:background="@drawable/bg_button_white_style">
+       <Spinner
+           android:id="@+id/spinner_caretype"
+           android:layout_width="match_parent"
+           android:layout_height="35dp"
+           android:layout_weight="1"
+           />
+   </RelativeLayout>
 
-            <EditText
-                android:id="@+id/CareType"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:hint="@string/CareType"
-                android:textSize="20sp" />
-        </android.support.design.widget.TextInputLayout>
+
+            <View
+                android:layout_width="10.0dip"
+                android:layout_height="wrap_content" />
+
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:background="@drawable/bg_button_white_style">
+
+    <Spinner
+        android:id="@+id/spinner_carmodel"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_weight="1"
+
+        />
+</RelativeLayout>
+
+
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="fill_parent"

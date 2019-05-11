@@ -116,4 +116,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark_gray</item>
         <item name="colorAccent">@color/colorAccent_gray</item>
     </style>
+
+    <!-- Chat -->
+    <style name="menustyle" parent="Theme.AppCompat.Light">
+        <item name="android:background">#fff</item>
+    </style>
+
 </resources>
