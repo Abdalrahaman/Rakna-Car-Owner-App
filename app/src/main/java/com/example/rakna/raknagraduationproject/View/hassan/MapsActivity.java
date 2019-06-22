@@ -273,7 +273,6 @@ public class MapsActivity extends AppCompatActivity implements
         // Set up the Mapbox map
         mapView = findViewById(R.id.mapView);
         Fab_Search=findViewById(R.id.fab);
-
     }
 
 

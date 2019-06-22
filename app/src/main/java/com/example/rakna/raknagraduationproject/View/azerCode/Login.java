@@ -59,6 +59,10 @@ public class Login extends AppCompatActivity {
     TextView signup;
     TextView forgot;
 
+    private String id;
+    private String name;
+    private String rate;
+
     //ImageView login_facebock;
     LoginButton login_facebock;
     ImageView login_google;
@@ -180,10 +184,10 @@ public class Login extends AppCompatActivity {
                         for (int i = 0; i < jsonArray.length(); i++) {
 
                             JSONObject object = jsonArray.getJSONObject(i);
-                            String id = object.getString("driver_licence").trim();
-                            String name = object.getString("name").trim();
+                            id = object.getString("driver_licence").trim();
+                            name = object.getString("name").trim();
                             String email = object.getString("email").trim();
-                            String rate = object.getString("overall_rate").trim();
+                            rate = object.getString("overall_rate").trim();
 
                             sharedpref();
 
@@ -201,7 +205,6 @@ public class Login extends AppCompatActivity {
 
                     }
 
-
                 } catch (JSONException e) {
 
                     e.printStackTrace();
@@ -216,7 +219,6 @@ public class Login extends AppCompatActivity {
             }
         };
         SendDataLogin sendDataLogin = new SendDataLogin(signEmail, signPassword, responselistner);
-
         RequestQueue requestQueue = Volley.newRequestQueue(Login.this);
         requestQueue.add(sendDataLogin);
 
@@ -227,6 +229,9 @@ public class Login extends AppCompatActivity {
                 .edit().
                 putString("email", emailsign.getText().toString()).
                 putString("pass", passwordsign.getText().toString()).
+                putString("ownerId", id).
+                putString("ownerName", name).
+                putString("ownerRate", rate).
                 commit();
     }
 

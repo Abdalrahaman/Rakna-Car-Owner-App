@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.rakna.raknagraduationproject.R;
+import com.example.rakna.raknagraduationproject.View.hassan.MapsActivity;
 
 public class FirstScreen extends AppCompatActivity {
     private static int SPLASH_TIME = 4000;
@@ -23,8 +24,14 @@ public class FirstScreen extends AppCompatActivity {
         SharedPreferences sharedPrefs = getSharedPreferences("mydata", MODE_PRIVATE);
         String PrefsEmail = sharedPrefs.getString("email", null);
         String PrefsPass = sharedPrefs.getString("pass", null);
+        String ownerId = sharedPrefs.getString("ownerId", null);
+        String ownerName = sharedPrefs.getString("ownerName", null);
+        String ownerRate = sharedPrefs.getString("ownerRate", null);
         if (PrefsEmail != null && PrefsPass != null) {
-            Intent intent = new Intent(FirstScreen.this, WelcomeActivity.class);
+            Intent intent = new Intent(FirstScreen.this, MapsActivity.class);
+            intent.putExtra("ownerId",ownerId);
+            intent.putExtra("ownerName",ownerName);
+            intent.putExtra("ownerRate",ownerRate);
             startActivity(intent);
 
             finish();
