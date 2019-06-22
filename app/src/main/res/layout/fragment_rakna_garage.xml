@@ -40,7 +40,7 @@
         android:layout_marginBottom="10dp"
         card_view:cardBackgroundColor="@color/card_garage_info"
         card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="8dp">
+        card_view:cardElevation="2dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -114,6 +114,7 @@
                     android:background="@color/communicate_layout_color">
 
                     <TextView
+                        android:id="@+id/bt_call_garage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="?android:attr/selectableItemBackground"
@@ -121,7 +122,6 @@
                         android:gravity="center"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:src="@drawable/ic_call_phone"
                         android:text="Call"
                         android:textColor="@color/communicate_text_color"
                         android:clickable="true"/>
@@ -144,7 +144,6 @@
                         android:gravity="center"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:src="@drawable/ic_call_phone"
                         android:text="Chat"
                         android:textColor="@color/communicate_text_color"
                         android:clickable="true"/>
@@ -166,7 +165,6 @@
                         android:gravity="center"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:src="@drawable/ic_call_phone"
                         android:text="Website"
                         android:textColor="@color/communicate_text_color"
                         android:clickable="true"/>
@@ -187,7 +185,8 @@
                     android:layout_marginLeft="22dp"
                     android:layout_marginTop="25dp"
                     android:text="Garage Details"
-                    android:textColor="#d9d6d6" />
+                    android:textColor="#d9d6d6"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/details_info"

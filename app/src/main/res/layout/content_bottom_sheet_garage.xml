@@ -30,6 +30,7 @@
             android:paddingBottom="10dp">
 
             <TextView
+                android:id="@+id/bs_garage_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -45,6 +46,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/bs_garage_rate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="5dp"
@@ -66,6 +68,7 @@
                 android:layout_marginBottom="2dp">
 
                 <TextView
+                    android:id="@+id/bs_garage_service"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="No Service ." />
@@ -80,10 +83,11 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/bs_garage_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
-                android:text="Online Now"
+                android:text="Empty Now"
                 android:textColor="#139e0e" />
 
         </LinearLayout>
@@ -99,6 +103,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/bs_garage_reserve"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -109,6 +114,7 @@
                 android:textColor="@color/rakna_background" />
 
             <Button
+                android:id="@+id/bs_garage_call"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -119,6 +125,7 @@
                 android:textColor="@color/rakna_background" />
 
             <Button
+                android:id="@+id/bs_garage_chat"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -129,6 +136,7 @@
                 android:textColor="@color/rakna_background" />
 
             <Button
+                android:id="@+id/bs_garage_share"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -161,6 +169,7 @@
 
 
             <TextView
+                android:id="@+id/bs_garage_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"

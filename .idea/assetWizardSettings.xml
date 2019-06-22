@@ -24,7 +24,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="paddingPercent" value="-10" />
+                                                <entry key="paddingPercent" value="-5" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -35,7 +35,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_expand_less_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/toggle/ic_star_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -45,9 +45,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_expand_more" />
+                                      <entry key="outputName" value="ic_owner_rate" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="ababab" />
+                                      <entry key="themeColor" value="ffe12f" />
                                     </map>
                                   </option>
                                 </PersistentState>

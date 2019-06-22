@@ -10,6 +10,7 @@ import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -36,6 +37,7 @@ import com.example.rakna.raknagraduationproject.Model.hassanModel.IndividualLoca
 import com.example.rakna.raknagraduationproject.Model.hassanModel.util.LinearLayoutManagerWithSmoothScroller;
 import com.example.rakna.raknagraduationproject.Model.hassanModel.util.StringConstants;
 import com.example.rakna.raknagraduationproject.R;
+import com.example.rakna.raknagraduationproject.View.AbdoView.LockConnectionActivity;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
@@ -139,12 +141,21 @@ public class MapsActivity extends AppCompatActivity implements
     Point mockCurrentLocation, selectedFeaturePoint;
     private CardView card_Item_info_Location;
     private AnchorBottomSheetBehavior mAnchorBottomSheetBehavior;
-    private Button reserveGarageButton, shareGarageButton;
+    private Button reserveGarageButton, shareGarageButton, arriveGarageButton;
+    private Button reserveGarageBottomSheet, callGarageBottomSheet, shareGarageBottomSheet;
+    private TextView carOwnerNameTextview, carOwnerRateTextview;
     private TextView garageNameTextview, garageRateTextview, garageaddressTextview, garageStateTextview;
+    private TextView garageNameBottomSheet, garageRateBottomSheet, garageAddressBottomSheet, garageStateBottomSheet, garagePhoneBottomSheet;
     private FloatingActionButton Fab_Search;
     private int REQUEST_CODE_AUTOCOMPLETE=11;
     GeoJsonSource source;
     Marker marker;
+
+    private String ownerId;
+
+    String singleLocationPhoneNum;
+
+    private String selectedGarageId = "";
 
     @SuppressWarnings( {"MissingPermission"})
     @Override
@@ -163,6 +174,10 @@ public class MapsActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_maps);
 
         initWidgets();
+
+        savedInstanceState = getIntent().getExtras();
+        ownerId = savedInstanceState.getString("id");
+        showCarOwnerInfo(savedInstanceState.getString("name"), savedInstanceState.getString("rate"));
 
         actionWidgets();
 
@@ -231,14 +246,29 @@ public class MapsActivity extends AppCompatActivity implements
 
     public void initWidgets(){
 
+        carOwnerNameTextview = findViewById(R.id.tv_owner_name);
+        carOwnerRateTextview = findViewById(R.id.tv_owner_rate);
+
         reserveGarageButton = findViewById(R.id.btn_reserve);
         shareGarageButton = findViewById(R.id.btn_share);
+        arriveGarageButton = findViewById(R.id.btn_arrived);
+
+        reserveGarageBottomSheet = findViewById(R.id.bs_garage_reserve);
+        callGarageBottomSheet = findViewById(R.id.bs_garage_call);
+        shareGarageBottomSheet = findViewById(R.id.bs_garage_share);
+
         card_Item_info_Location = findViewById(R.id.garage_info_loca_card);
 
         garageNameTextview = findViewById(R.id.tv_garage_name);
         garageRateTextview = findViewById(R.id.tv_garage_rate);
         garageaddressTextview = findViewById(R.id.tv_garage_address);
         garageStateTextview = findViewById(R.id.tv_garage_state);
+
+        garageNameBottomSheet = findViewById(R.id.bs_garage_name);
+        garageRateBottomSheet = findViewById(R.id.bs_garage_rate);
+        garageAddressBottomSheet = findViewById(R.id.bs_garage_service);
+        garageStateBottomSheet = findViewById(R.id.bs_garage_status);
+        garagePhoneBottomSheet = findViewById(R.id.bs_garage_phone);
 
         // Set up the Mapbox map
         mapView = findViewById(R.id.mapView);
@@ -249,8 +279,6 @@ public class MapsActivity extends AppCompatActivity implements
 
     public void actionWidgets(){
 
-
-
         Fab_Search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -260,8 +288,6 @@ public class MapsActivity extends AppCompatActivity implements
                 startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
             }
         });
-
-
 
 
         card_Item_info_Location.setOnClickListener(new View.OnClickListener() {
@@ -276,10 +302,51 @@ public class MapsActivity extends AppCompatActivity implements
             public void onClick(View view) {
 
                 onItemClick(selectedFeaturePoint);
+                arriveGarageButton.setVisibility(View.VISIBLE);
             }
         });
 
         shareGarageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Toast.makeText(MapsActivity.this, "share don't coding ?!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        arriveGarageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MapsActivity.this, LockConnectionActivity.class);
+                intent.putExtra("ownerId",ownerId);
+                intent.putExtra("garageId", selectedGarageId);
+                intent.putExtra("isReserved",true);
+                startActivity(intent);
+
+                arriveGarageButton.setVisibility(View.INVISIBLE);
+            }
+        });
+
+
+        reserveGarageBottomSheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                CollapsedBottomSheetBehavior();
+                onItemClick(selectedFeaturePoint);
+            }
+        });
+
+        callGarageBottomSheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + singleLocationPhoneNum));
+                startActivity(intent);
+            }
+        });
+
+        shareGarageBottomSheet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -355,11 +422,21 @@ public class MapsActivity extends AppCompatActivity implements
                                 // the mock device location marker is part of the marker list but doesn't have its own card
                                 // in the actual recyclerview.
 
-//                                locationsRecyclerView.smoothScrollToPosition(x);
-                                updateGarageInfoCard(listOfIndividualLocations.get(x).getName().toString(),
-                                        "3.4",
-                                        listOfIndividualLocations.get(x).getAddress().toString(),
-                                        "Online Now");
+                                // get garage id to reserve in it
+                                selectedGarageId = listOfIndividualLocations.get(x).getGarageId();
+
+                                // show garage data in card map
+                                updateGarageInfoCard(listOfIndividualLocations.get(x).getName(),
+                                        listOfIndividualLocations.get(x).getRate(),
+                                        listOfIndividualLocations.get(x).getAddress(),
+                                        listOfIndividualLocations.get(x).getStatus()+" Now");
+
+                                // show garage data in bottom sheet layout
+                                updateGarageInfoBottomSheet(listOfIndividualLocations.get(x).getName(),
+                                        listOfIndividualLocations.get(x).getRate(),
+                                        listOfIndividualLocations.get(x).getAddress(),
+                                        listOfIndividualLocations.get(x).getPhoneNum(),
+                                        listOfIndividualLocations.get(x).getStatus()+" Now");
 
                                 cardVisibility(1);
 
@@ -389,13 +466,43 @@ public class MapsActivity extends AppCompatActivity implements
         }
     }
 
+    public void showCarOwnerInfo(String carOwnerName, String carOwnerRate){
+
+        carOwnerNameTextview.setText(carOwnerName);
+        carOwnerRateTextview.setText(carOwnerRate);
+    }
+
     public void updateGarageInfoCard(String garageName, String garageRate,
                                      String garageAddress, String garageState){
 
         garageNameTextview.setText(garageName);
         garageRateTextview.setText(garageRate);
         garageaddressTextview.setText(garageAddress);
+        if ("Empty Now".equals(garageState)){
+            garageStateTextview.setTextColor(Color.parseColor("#126115"));
+            reserveGarageButton.setEnabled(true);
+        }else{
+            garageStateTextview.setTextColor(Color.parseColor("#C20303"));
+            reserveGarageButton.setEnabled(false);
+        }
         garageStateTextview.setText(garageState);
+
+        arriveGarageButton.setVisibility(View.INVISIBLE);
+    }
+
+    public void updateGarageInfoBottomSheet(String garageName, String garageRate,
+                                     String garageAddress, String garagePhone, String garageState){
+
+        garageNameBottomSheet.setText(garageName);
+        garageRateBottomSheet.setText(garageRate);
+        garageAddressBottomSheet.setText(garageAddress);
+        garagePhoneBottomSheet.setText("+20 " + garagePhone);
+        if ("Empty Now".equals(garageState)){
+            garageStateBottomSheet.setTextColor(Color.parseColor("#126115"));
+        }else{
+            garageStateBottomSheet.setTextColor(Color.parseColor("#C20303"));
+        }
+        garageStateBottomSheet.setText(garageState);
 
     }
 
@@ -403,6 +510,25 @@ public class MapsActivity extends AppCompatActivity implements
         // Expanding the bottom sheet
         mAnchorBottomSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_EXPANDED);
     }
+
+    public void CollapsedBottomSheetBehavior() {
+        // Expanding the bottom sheet
+        mAnchorBottomSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_COLLAPSED);
+    }
+
+//    // Method to share either text or URL.
+//    private void shareTextUrl() {
+//        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+//        share.setType("text/plain");
+//        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+//
+//        // Add data to the intent, the receiving app will decide
+//        // what to do with it. http://maps.google.com/?q=35.17380831799959,-86.1328125
+//        share.putExtra(Intent.EXTRA_SUBJECT, "Title Of The Post");
+//        share.putExtra(Intent.EXTRA_TEXT, "http://www.codeofaninja.com");
+//
+//        startActivity(Intent.createChooser(share, "Share link!"));
+//    }
 
     /**
      * The LocationRecyclerViewAdapter's interface which listens to clicks on each location's card
@@ -914,7 +1040,7 @@ public class MapsActivity extends AppCompatActivity implements
         protected void onPreExecute() {
             super.onPreExecute();
 
-            JsonUrl = "https://rakna-app.000webhostapp.com/show_garage_location.php";
+            JsonUrl = "https://rakna-app.000webhostapp.com/show_garage_location.php?driver_licence="+ownerId;
 
         }
 
@@ -981,13 +1107,13 @@ public class MapsActivity extends AppCompatActivity implements
                     Feature singleLocation = featureList.get(x);
 
                     // Get the single location's String properties to place in its map marker
+                    String singleLocationId = singleLocation.getStringProperty("garage_id");
                     String singleLocationName = singleLocation.getStringProperty("name");
-//                    String singleLocationHours = singleLocation.getStringProperty("hours");
-//                    String singleLocationDescription = singleLocation.getStringProperty("description");
-
+                    String singleLocationStatus = singleLocation.getStringProperty("status");
+                    String singleLocationRate = singleLocation.getStringProperty("rate");
                     String singleLocationHours = "1h 20m";
                     String singleLocationDescription ="Sea Street , Cairo Governorate";
-                    String singleLocationPhoneNum = singleLocation.getStringProperty("phone");
+                    singleLocationPhoneNum = singleLocation.getStringProperty("phone");
 
 
                     // Add a boolean property to use for adjusting the icon of the selected store location
@@ -1003,11 +1129,14 @@ public class MapsActivity extends AppCompatActivity implements
 
                     // Add the location to the Arraylist of locations for later use in the recyclerview
                     listOfIndividualLocations.add(new IndividualLocation(
+                            singleLocationId,
                             singleLocationName,
                             singleLocationDescription,
                             singleLocationHours,
                             singleLocationPhoneNum,
-                            singleLocationLatLng
+                            singleLocationLatLng,
+                            singleLocationStatus,
+                            singleLocationRate
                     ));
 
                     // Call getInformationFromDirectionsApi() to eventually display the location's

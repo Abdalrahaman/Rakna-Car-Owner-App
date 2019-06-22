@@ -7,10 +7,10 @@
     <!-- Category name for restaurant [CHAR LIMIT=20] -->
     <string name="category_owner_notification">Notification</string>
 
-    <string name="number_of_hours">PhonezNumber :</string>
+    <string name="number_of_hours">Number Of Hours :</string>
     <string name="hours_calculated">3 H</string>
 
-    <string name="service_price">Service Price :</string>
+    <string name="price_of_hours">Price Of Hours :</string>
     <string name="service_calculated">30 LE</string>
 
     <string name="total_price">Total Price :</string>
@@ -28,6 +28,10 @@
 
 
     <!--        AZER          -->
+
+    <!--facebook-->
+    <string name="facebook_app_id">642299389617381</string>
+    <string name="fb_login_protocol_scheme">fb642299389617381</string>
 
     <string name="name">Name</string>
     <string name="License">License Number</string>
@@ -83,7 +87,6 @@
         <item>Volvo</item>
 
 
-
     </string-array>
 
     <!--       hassan       -->
@@ -115,14 +118,22 @@
 
     <string name="garage_details">Garage Size  : 200 x 150 \nService : Washing - Repairing\nLocation
         : Sea Street - melig - menofia  </string>
+    <string name="garage_measure">Garage Size  : </string>
+    <string name="garage_service">\nService : </string>
+    <string name="garage_location">\nLocation : </string>
+    <string name="wash">Washing</string>
+    <string name="maintenance">Maintenance</string>
+    <string name="lubrication">Lubrication</string>
+    <string name="oil_change">Oil Change</string>
 
     <string name="text_description_connection">QRCode this method to open \nNFC Mobile</string>
 
     <string name="menu_rakna">Rakna</string>
     <string name="menu_notification">Notification</string>
-    <string name="menu_history_garage">Favorite</string>
+    <string name="menu_profile">Profile</string>
     <string name="menu_chat">Chatting</string>
     <string name="menu_camera">Camera</string>
+    <string name="menu_history_garage">Favourite</string>
 
 
     <string name="message">message</string>

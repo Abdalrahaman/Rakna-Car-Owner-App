@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ECECF1"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/space_16dp"
@@ -12,85 +13,133 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginBottom="30dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/im_bill_background" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/number_of_hours"
-            android:textSize="@dimen/text_size_16sp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/hours_calculated" />
-
+            android:text="Rakna Bill"
+            android:textStyle="bold"/>
 
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/service_price"
-            android:textSize="@dimen/text_size_16sp" />
+            android:orientation="horizontal"
+            android:padding="5dp">
 
-        <TextView
-            android:layout_width="0dp"
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/number_of_hours"
+                android:textSize="@dimen/text_size_16sp"
+                android:gravity="center"
+                android:textColor="@color/rakna_background"/>
+
+            <TextView
+                android:id="@+id/tv_number_of_hours"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/hours_calculated" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/service_calculated" />
+            android:orientation="horizontal"
+            android:padding="5dp">
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/price_of_hours"
+                android:textSize="@dimen/text_size_16sp"
+                android:gravity="center"
+                android:textColor="@color/rakna_background"/>
+
+            <TextView
+                android:id="@+id/tv_price_of_hour"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/service_calculated" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/total_price"
+                android:textSize="@dimen/text_size_16sp"
+                android:gravity="center"
+                android:textColor="@color/rakna_background"/>
+
+            <TextView
+                android:id="@+id/tv_total_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/total_calculated" />
+
+
+        </LinearLayout>
 
     </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/total_price"
-            android:textSize="@dimen/text_size_16sp" />
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:text="@string/rate"
+            android:textSize="@dimen/text_size_16sp"
+            android:textColor="#B9A701"/>
 
-        <TextView
-            android:layout_width="0dp"
+        <RatingBar
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/total_calculated" />
-
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/space_16dp" />
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/space_16dp"
-        android:text="@string/rate"
-        android:textSize="@dimen/text_size_16sp" />
-
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/space_16dp" />
 
 
     <EditText
@@ -101,10 +150,17 @@
 
 
     <Button
+        android:id="@+id/btn_pay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/space_16dp"
+        android:textColor="@color/rakna_background"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/ic_credit_card"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:drawablePadding="10dp"
         android:text="@string/button_pay" />
 
 </LinearLayout>

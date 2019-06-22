@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/action_rakna"
         android:title="@string/menu_rakna"
-        android:icon="@drawable/ic_rakna_garage" />
+        android:icon="@drawable/ic_garage" />
     <item android:id="@+id/action_notification"
         android:title="@string/menu_notification"
         android:icon="@drawable/ic_notification" />

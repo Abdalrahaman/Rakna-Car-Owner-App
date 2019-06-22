@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".View.AbdoView.OwnerProfileFragment">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentLeft="true"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/linear_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:orientation="vertical">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="200dp"
+                android:orientation="vertical">
+
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    app:cardBackgroundColor="#3D5453"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0.7dp"
+                    app:cardMaxElevation="1dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:contentPadding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:drawableLeft="@drawable/profile_details"
+                            android:text=" User Details"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/user_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="15dp"
+                            android:drawableLeft="@drawable/profile_user_name"
+                            android:drawableRight="@drawable/ic_edit_profile"
+                            android:text="User name"
+                            android:drawablePadding="10dp"
+                            android:textColor="@color/grey"
+                            android:textSize="15sp"
+                            android:editable="true"
+                            android:singleLine="true"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:cursorVisible="true"
+                            android:gravity="center|left"/>
+
+
+                        <TextView
+                            android:id="@+id/phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginBottom="10dp"
+                            android:drawableLeft="@drawable/profile_phone"
+                            android:text="Phone"
+                            android:drawablePadding="10dp"
+                            android:textColor="@color/grey"
+                            android:textSize="15sp"
+                            android:editable="true"
+                            android:singleLine="true"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:cursorVisible="true"
+                            android:drawableRight="@drawable/ic_edit_profile"
+                            android:gravity="center|left"/>
+
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    app:cardBackgroundColor="#3D5453"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0.7dp"
+                    app:cardMaxElevation="1dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:contentPadding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:drawableLeft="@drawable/profile_details"
+                            android:text=" Change password"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/old_"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="15dp"
+                            android:drawableLeft="@drawable/password"
+                            android:text="Old password"
+                            android:textColor="@color/grey"
+                            android:textSize="15sp"
+                            android:editable="true"
+                            android:singleLine="true"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:drawablePadding="10dp"
+                            android:cursorVisible="true"
+                            android:drawableRight="@drawable/ic_edit_profile"
+                            android:gravity="center|left"/>
+
+
+                        <TextView
+                            android:id="@+id/new_"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="15dp"
+                            android:drawableLeft="@drawable/password"
+                            android:text="New password"
+                            android:drawablePadding="10dp"
+                            android:textColor="@color/grey"
+                            android:textSize="15sp"
+                            android:editable="true"
+                            android:singleLine="true"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:cursorVisible="true"
+                            android:drawableRight="@drawable/ic_edit_profile"
+                            android:gravity="center|left"/>
+
+                        <TextView
+                            android:id="@+id/confirm_"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginBottom="10dp"
+                            android:drawableLeft="@drawable/password"
+                            android:text="Confirm password"
+                            android:drawablePadding="10dp"
+                            android:textColor="@color/grey"
+                            android:textSize="15sp"
+                            android:editable="true"
+                            android:singleLine="true"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:cursorVisible="true"
+                            android:drawableRight="@drawable/ic_edit_profile"
+                            android:gravity="center|left"/>
+
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    app:cardBackgroundColor="#3D5453"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0.7dp"
+                    app:cardMaxElevation="1dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:contentPadding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:drawableLeft="@drawable/profile_details"
+                            android:text=" Car details"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/license_num"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="15dp"
+                            android:drawableLeft="@drawable/profile_license"
+                            android:text="License number"
+                            android:drawablePadding="10dp"
+                            android:textColor="@color/grey"
+                            android:textSize="15sp"
+                            android:editable="true"
+                            android:singleLine="true"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:cursorVisible="true"
+                            android:drawableRight="@drawable/ic_edit_profile"
+                            android:gravity="center|left"/>
+
+
+                        <TextView
+                            android:id="@+id/driver_license"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="15dp"
+                            android:drawableLeft="@drawable/profile_driver_number"
+                            android:text="Driver's license"
+                            android:drawablePadding="10dp"
+                            android:textColor="@color/grey"
+                            android:textSize="15sp"
+                            android:editable="true"
+                            android:singleLine="true"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:cursorVisible="true"
+                            android:drawableRight="@drawable/ic_edit_profile"
+                            android:gravity="center|left"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginBottom="10dp"
+                            android:drawableLeft="@drawable/profile_car_model"
+                            android:text="Car model :"
+                            android:drawablePadding="10dp"
+                            android:textColor="@color/grey"
+                            android:textSize="15sp"
+                            android:gravity="center|left"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center">
+
+                            <Spinner
+                                android:id="@+id/car_model"
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:layout_marginRight="-30dp"
+                                android:layout_marginLeft="95dp"
+                                android:background="@drawable/profile_spinner"
+                                android:spinnerMode="dropdown" />
+
+                            <Spinner
+                                android:id="@+id/car_type"
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:layout_marginLeft="40dp"
+                                android:layout_marginRight="25dp"
+                                android:background="@drawable/profile_spinner"
+                                android:spinnerMode="dropdown" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+
+                <Button
+                    android:id="@+id/save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/profile_button_action"
+                    android:text="SAVE"
+                    android:layout_gravity="end"
+                    android:textColor="#232324"
+                    android:textSize="15sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"/>
+
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageview_account_profile"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/profile"
+                    app:civ_border_color="#FFFFFF"
+                    app:civ_border_width="2dp" />
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imageview_account_profile"
+                    android:text="Email"
+                    android:textSize="15sp"
+                    android:textColor="#ddd"
+                    android:layout_centerHorizontal="true"
+                    android:paddingTop="10dp"/>
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+</FrameLayout>

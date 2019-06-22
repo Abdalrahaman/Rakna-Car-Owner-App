@@ -67,7 +67,7 @@ public class OwnerPreviewFragment extends Fragment implements IVLCVout.Callback 
 //        // Get URL
 //        Intent intent = getIntent();
 //        rtspUrl = intent.getExtras().getString(RTSP_URL);
-        rtspUrl = "rtsp://192.168.1.8:554/onvif1";
+        rtspUrl = "rtsp://192.168.43.25:554/onvif1";
         Log.d(TAG, "Playing back " + rtspUrl);
 
         mSurface = (SurfaceView) rootView.findViewById(R.id.surface);

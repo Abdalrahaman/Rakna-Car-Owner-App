@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -17,27 +18,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".View.AbdoView.NfcActivity"></activity>
+        <activity android:name=".View.azerCode.ResetPasswordcarowner"></activity>
+        <activity android:name=".View.azerCode.ForgotPasswordcarowner" />
+        <activity android:name=".View.AbdoView.PaymentProcessActivity" />
+        <activity android:name=".View.AbdoView.NfcActivity" />
         <activity android:name=".View.AbdoView.QRcodeActivity" />
-        <activity android:name=".View.AbdoView.LockConnectionActivity" >
-
-        </activity>
+        <activity android:name=".View.AbdoView.LockConnectionActivity" />
         <activity android:name=".View.azerCode.WelcomeActivity" />
         <activity android:name=".View.azerCode.SignUp" />
         <activity android:name=".View.azerCode.Login" />
         <activity android:name=".View.azerCode.Main2Activityazer" />
         <activity android:name=".View.hassan.Garag_Activity" />
-        <activity android:name=".View.hassan.MapsActivity"
-                  android:windowSoftInputMode="stateHidden">
+        <activity
+            android:name=".View.hassan.MapsActivity"
+            android:windowSoftInputMode="stateHidden" >
 
         </activity>
-        <activity android:name=".View.hassan.ThemePickerActivity"/>
+
+        <activity android:name=".View.hassan.ThemePickerActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".View.AbdoView.HomeServiceActivity" >
+        <activity android:name=".View.AbdoView.HomeServiceActivity">
 
         </activity>
         <activity android:name=".View.AbdoView.PayActivity" />
@@ -48,15 +52,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <activity android:name=".View.islamChat.StartActivity">
-
-        </activity>
+        <activity android:name=".View.islamChat.StartActivity" />
         <activity
             android:name=".View.islamChat.RegisterChatActivity"
             android:parentActivityName=".View.islamChat.StartActivity" />
-        <activity android:name=".View.islamChat.MainActivity" />
+        <activity
+            android:name=".View.islamChat.MainActivity"
+            android:parentActivityName=".View.AbdoView.HomeServiceActivity" />
         <activity
             android:name=".View.islamChat.LoginChatActivity"
             android:parentActivityName=".View.islamChat.StartActivity" />
@@ -65,21 +67,44 @@
             android:name=".View.islamChat.ResetPasswordActivity"
             android:parentActivityName=".View.islamChat.LoginChatActivity" />
 
-        <service android:name=".Model.islamModel.Notifications.MyFirebaseIdService"
+        <service
+            android:name=".Model.islamModel.Notifications.MyFirebaseIdService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".Model.islamModel.Notifications.MyFirebaseMessaging"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service android:name=".Model.islamModel.Notifications.MyFirebaseMessaging"
-            android:enabled="true"
+        <!-- Facebook -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
-        </service>
+        </activity>
     </application>
 
 </manifest>

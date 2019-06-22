@@ -38,13 +38,13 @@
     <color name="blue7">#ff6e9fff</color>
     <color name="blue8">#ffb6cfff</color>
     <color name="blue9">#ffedf1ff</color>
-    <color name="bg_btn_blue">#ff6e9fff</color>
+    <color name="bg_btn_blue">#61749E</color>
     <color name="text_gray2">#ff919191</color>
     <color name="bg_protocol_blue">#ff2e6dea</color>
 
     <color name="text_color_white">#ffffffff</color>
     <color name="btn_blue_unclick">#806e9fff</color>
-    <color name="btn_blue_p">#ff2e66e7</color>
+    <color name="btn_blue_p">#224BA5</color>
     <color name="radar_blue">#ff5586f6</color>
     <color name="gray_more">#ffe2e2e2</color>
 
@@ -100,5 +100,8 @@
 
     // basic colors
     <color name="grey">#b8c0b8</color>
+
+    // profile
+    <color name="alert">#009688</color>
 
 </resources>

@@ -7,19 +7,33 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
  */
 public class IndividualLocation {
 
+  private String garageId;
   private String name;
   private String address;
   private String hours;
   private String phoneNum;
   private String distance;
   private LatLng location;
+  private String status;
+  private String rate;
 
-  public IndividualLocation(String name, String address, String hours, String phoneNum, LatLng location) {
+  public IndividualLocation(String garageId, String name, String address, String hours, String phoneNum, LatLng location, String status, String rate) {
+    this.garageId = garageId;
     this.name = name;
     this.address = address;
     this.hours = hours;
     this.phoneNum = phoneNum;
     this.location = location;
+    this.status = status;
+    this.rate = rate;
+  }
+
+  public String getGarageId() {
+    return garageId;
+  }
+
+  public void setGarageId(String garageId) {
+    this.garageId = garageId;
   }
 
   public String getName() {
@@ -52,5 +66,21 @@ public class IndividualLocation {
 
   public LatLng getLocation() {
     return location;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+  public String getRate() {
+    return rate;
+  }
+
+  public void setRate(String rate) {
+    this.rate = rate;
   }
 }
