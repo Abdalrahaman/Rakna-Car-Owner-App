@@ -192,9 +192,9 @@ public class Login extends AppCompatActivity {
                             sharedpref();
 
                             Intent intent = new Intent(Login.this, MapsActivity.class);
-                            intent.putExtra("id",id);
-                            intent.putExtra("name",name);
-                            intent.putExtra("rate",rate);
+                            intent.putExtra("ownerId",id);
+                            intent.putExtra("ownerName",name);
+                            intent.putExtra("ownerRate",rate);
                             startActivity(intent);
 
                             finish();

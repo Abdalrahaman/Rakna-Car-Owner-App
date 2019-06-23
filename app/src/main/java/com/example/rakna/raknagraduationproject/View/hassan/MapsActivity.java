@@ -176,8 +176,9 @@ public class MapsActivity extends AppCompatActivity implements
         initWidgets();
 
         savedInstanceState = getIntent().getExtras();
-        ownerId = savedInstanceState.getString("id");
-        showCarOwnerInfo(savedInstanceState.getString("name"), savedInstanceState.getString("rate"));
+        ownerId = savedInstanceState.getString("ownerId");
+        showCarOwnerInfo(savedInstanceState.getString("ownerName"),
+                            savedInstanceState.getString("ownerRate"));
 
         actionWidgets();
 
