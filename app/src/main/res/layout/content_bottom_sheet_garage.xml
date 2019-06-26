@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="230dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/im_pro_abdo" />
+            android:src="@drawable/garage_background" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -2,42 +2,20 @@ package com.example.rakna.raknagraduationproject.View.AbdoView;
 
 import android.animation.Animator;
 import android.app.ProgressDialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Handler;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.rakna.raknagraduationproject.Model.hassanModel.IndividualLocation;
 import com.example.rakna.raknagraduationproject.R;
-import com.example.rakna.raknagraduationproject.View.azerCode.SignUp;
-import com.example.rakna.raknagraduationproject.View.hassan.MapsActivity;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.mapbox.geojson.Feature;
-import com.mapbox.geojson.FeatureCollection;
-import com.mapbox.geojson.Point;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,9 +28,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -135,7 +111,6 @@ public class LockConnectionActivity extends AppCompatActivity {
                 lottieAnimationView.loop(false);
                 lottieAnimationView.setProgress(0);
                 lottieAnimationView.playAnimation();
-
             }
 
             @Override
@@ -264,6 +239,11 @@ public class LockConnectionActivity extends AppCompatActivity {
 
                     JSONObject obj = jsonArray.getJSONObject(0);
 
+                    getSharedPreferences("reservedData", MODE_PRIVATE)
+                            .edit().
+                            putBoolean("isReserved", false).
+                            commit();
+
                     Intent intent = new Intent(LockConnectionActivity.this, PayActivity.class);
                     intent.putExtra("rakna_time", obj.getString("rakna_time"));
                     intent.putExtra("price", obj.getString("price"));
@@ -282,25 +262,58 @@ public class LockConnectionActivity extends AppCompatActivity {
 
                     JSONObject obj = jsonArray.getJSONObject(0);
 
+                    reservedDataSharedpref(ownerId, garageId,
+                            obj.getString("name"),
+                            obj.getString("phone"),
+                            obj.getString("rate"),
+                            obj.getString("garage_width"),
+                            obj.getString("garage_length"),
+                            obj.getString("wash"),
+                            obj.getString("lubrication"),
+                            obj.getString("maintenance"),
+                            obj.getString("oil_change"),
+                            true);
+
                     Intent intent = new Intent(LockConnectionActivity.this, HomeServiceActivity.class);
-                    intent.putExtra("ownerId", ownerId);
-                    intent.putExtra("garageId", garageId);
-                    intent.putExtra("name",obj.getString("name"));
-                    intent.putExtra("phone",obj.getString("phone"));
-                    intent.putExtra("rate",obj.getString("rate"));
-                    intent.putExtra("garage_width",obj.getString("garage_width"));
-                    intent.putExtra("garage_length",obj.getString("garage_length"));
-                    intent.putExtra("wash",obj.getString("wash"));
-                    intent.putExtra("lubrication",obj.getString("lubrication"));
-                    intent.putExtra("maintenance",obj.getString("maintenance"));
-                    intent.putExtra("oil_change",obj.getString("oil_change"));
-                    intent.putExtra("isReserved",true);
+//                    intent.putExtra("ownerId", ownerId);
+//                    intent.putExtra("garageId", garageId);
+//                    intent.putExtra("name",obj.getString("name"));
+//                    intent.putExtra("phone",obj.getString("phone"));
+//                    intent.putExtra("rate",obj.getString("rate"));
+//                    intent.putExtra("garage_width",obj.getString("garage_width"));
+//                    intent.putExtra("garage_length",obj.getString("garage_length"));
+//                    intent.putExtra("wash",obj.getString("wash"));
+//                    intent.putExtra("lubrication",obj.getString("lubrication"));
+//                    intent.putExtra("maintenance",obj.getString("maintenance"));
+//                    intent.putExtra("oil_change",obj.getString("oil_change"));
+//                    intent.putExtra("isReserved",true);
                     startActivity(intent);
                     progressDialog.dismiss();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+        }
+
+        public void reservedDataSharedpref(String ownerId, String garageId, String garageName,
+                                           String garagePhone, String garageRate, String garageWidth,
+                                           String garageLength, String wash, String lubrication,
+                                           String maintenance, String oil_change, boolean isReserved) {
+            getSharedPreferences("reservedData", MODE_PRIVATE)
+                    .edit().
+                    putString("ownerId", ownerId).
+                    putString("garageId", garageId).
+                    putString("name", garageName).
+                    putString("phone", garagePhone).
+                    putString("rate", garageRate).
+                    putString("garage_width", garageWidth).
+                    putString("garage_length", garageLength).
+                    putString("wash", wash).
+                    putString("lubrication", lubrication).
+                    putString("maintenance", maintenance).
+                    putString("oil_change", oil_change).
+                    putBoolean("isReserved", isReserved).
+                    commit();
         }
     }
 

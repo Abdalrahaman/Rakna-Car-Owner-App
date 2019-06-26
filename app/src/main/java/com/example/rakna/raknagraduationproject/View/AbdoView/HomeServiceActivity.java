@@ -2,6 +2,7 @@ package com.example.rakna.raknagraduationproject.View.AbdoView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -41,19 +42,36 @@ public class HomeServiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_service);
 
-        savedInstanceState = getIntent().getExtras();
-        ownerId = savedInstanceState.getString("ownerId");
-        garageId = savedInstanceState.getString("garageId");
-        garageName = savedInstanceState.getString("name");
-        garagePhone = savedInstanceState.getString("phone");
-        garageRate = savedInstanceState.getString("rate");
-        garageWidth = savedInstanceState.getString("garage_width");
-        garageLength = savedInstanceState.getString("garage_length");
-        serviceWash = savedInstanceState.getString("wash");
-        serviceLubrication = savedInstanceState.getString("lubrication");
-        serviceMaintenance = savedInstanceState.getString("maintenance");
-        serviceOilChange = savedInstanceState.getString("oil_change");
-        isReserved = savedInstanceState.getBoolean("isReserved");
+
+        SharedPreferences sharedPrefs = getSharedPreferences("reservedData", MODE_PRIVATE);
+
+        ownerId = sharedPrefs.getString("ownerId", null);
+        garageId = sharedPrefs.getString("garageId", null);
+        garageName = sharedPrefs.getString("name", null);
+        garagePhone = sharedPrefs.getString("phone", null);
+        garageRate = sharedPrefs.getString("rate", null);
+        garageWidth = sharedPrefs.getString("garage_width", null);
+        garageLength = sharedPrefs.getString("garage_length", null);
+        serviceWash = sharedPrefs.getString("wash", null);
+        serviceLubrication = sharedPrefs.getString("lubrication", null);
+        serviceMaintenance = sharedPrefs.getString("maintenance", null);
+        serviceOilChange = sharedPrefs.getString("oil_change", null);
+        isReserved = sharedPrefs.getBoolean("isReserved", false);
+
+
+//        savedInstanceState = getIntent().getExtras();
+//        ownerId = savedInstanceState.getString("ownerId");
+//        garageId = savedInstanceState.getString("garageId");
+//        garageName = savedInstanceState.getString("name");
+//        garagePhone = savedInstanceState.getString("phone");
+//        garageRate = savedInstanceState.getString("rate");
+//        garageWidth = savedInstanceState.getString("garage_width");
+//        garageLength = savedInstanceState.getString("garage_length");
+//        serviceWash = savedInstanceState.getString("wash");
+//        serviceLubrication = savedInstanceState.getString("lubrication");
+//        serviceMaintenance = savedInstanceState.getString("maintenance");
+//        serviceOilChange = savedInstanceState.getString("oil_change");
+//        isReserved = savedInstanceState.getBoolean("isReserved");
 
         Toast.makeText(this, ""+garageName, Toast.LENGTH_SHORT).show();
 
@@ -167,5 +185,13 @@ public class HomeServiceActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
     }
 }

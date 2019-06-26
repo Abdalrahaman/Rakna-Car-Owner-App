@@ -25,7 +25,6 @@ public class ChatHomeFragment extends Fragment {
         //pass : 123456789
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

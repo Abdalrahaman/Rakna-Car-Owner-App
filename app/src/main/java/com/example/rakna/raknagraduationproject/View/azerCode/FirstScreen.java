@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.rakna.raknagraduationproject.R;
+import com.example.rakna.raknagraduationproject.View.AbdoView.HomeServiceActivity;
 import com.example.rakna.raknagraduationproject.View.hassan.MapsActivity;
 
 public class FirstScreen extends AppCompatActivity {
@@ -22,12 +23,15 @@ public class FirstScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_screen);
         SharedPreferences sharedPrefs = getSharedPreferences("mydata", MODE_PRIVATE);
+        SharedPreferences sharedPrefsReserve = getSharedPreferences("reservedData", MODE_PRIVATE);
         String PrefsEmail = sharedPrefs.getString("email", null);
         String PrefsPass = sharedPrefs.getString("pass", null);
         String ownerId = sharedPrefs.getString("ownerId", null);
         String ownerName = sharedPrefs.getString("ownerName", null);
         String ownerRate = sharedPrefs.getString("ownerRate", null);
-        if (PrefsEmail != null && PrefsPass != null) {
+        boolean isReserved = sharedPrefsReserve.getBoolean("isReserved", false);
+        if (PrefsEmail != null && PrefsPass != null && !isReserved) {
+
             Intent intent = new Intent(FirstScreen.this, MapsActivity.class);
             intent.putExtra("ownerId",ownerId);
             intent.putExtra("ownerName",ownerName);
@@ -35,18 +39,26 @@ public class FirstScreen extends AppCompatActivity {
             startActivity(intent);
 
             finish();
-        } else {
+        } else if(PrefsEmail != null && PrefsPass != null && isReserved){
+
+            Intent intent = new Intent(FirstScreen.this, HomeServiceActivity.class);
+            startActivity(intent);
+            finish();
+
+        }else {
 
             LottieAnimationView lottieAnimationView = findViewById(R.id.animation_view);
-
-            Animation animation = AnimationUtils.loadAnimation(this, R.anim.moveup);
-
-            lottieAnimationView.setAnimation(animation);
+            lottieAnimationView.setAnimation("fastcar.json");
+            lottieAnimationView.loop(true);
+            lottieAnimationView.playAnimation();
 
 
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+
+                    lottieAnimationView.cancelAnimation();
+
                     Intent i = new Intent(FirstScreen.this, Login.class);
                     startActivity(i);
 
