@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PointF;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -18,27 +17,17 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rakna.raknagraduationproject.Model.hassanModel.IndividualLocation;
-import com.example.rakna.raknagraduationproject.Model.hassanModel.util.LinearLayoutManagerWithSmoothScroller;
-import com.example.rakna.raknagraduationproject.Model.hassanModel.util.StringConstants;
 import com.example.rakna.raknagraduationproject.R;
 import com.example.rakna.raknagraduationproject.View.AbdoView.LockConnectionActivity;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.api.directions.v5.DirectionsCriteria;
@@ -59,7 +48,6 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.modes.CameraMode;
-import com.mapbox.mapboxsdk.location.modes.RenderMode;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
@@ -76,6 +64,7 @@ import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
 
 import com.mapbox.turf.TurfConstants;
 import com.mapbox.turf.TurfConversion;
+import com.squareup.picasso.Picasso;
 import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
 import java.io.BufferedInputStream;
@@ -99,7 +88,6 @@ import static com.mapbox.core.constants.Constants.PRECISION_6;
 import static com.mapbox.mapboxsdk.style.expressions.Expression.eq;
 import static com.mapbox.mapboxsdk.style.expressions.Expression.get;
 import static com.mapbox.mapboxsdk.style.expressions.Expression.literal;
-import static com.mapbox.mapboxsdk.style.expressions.Expression.neq;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacement;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
@@ -141,11 +129,15 @@ public class MapsActivity extends AppCompatActivity implements
     Point mockCurrentLocation, selectedFeaturePoint;
     private CardView card_Item_info_Location;
     private AnchorBottomSheetBehavior mAnchorBottomSheetBehavior;
+
     private Button reserveGarageButton, shareGarageButton, arriveGarageButton;
     private Button reserveGarageBottomSheet, callGarageBottomSheet, shareGarageBottomSheet;
     private TextView carOwnerNameTextview, carOwnerRateTextview;
+    private ImageView carOwnerImageView;
     private TextView garageNameTextview, garageRateTextview, garageaddressTextview, garageStateTextview;
     private TextView garageNameBottomSheet, garageRateBottomSheet, garageAddressBottomSheet, garageStateBottomSheet, garagePhoneBottomSheet;
+    private ImageView garageImageView;
+
     private FloatingActionButton Fab_Search;
     private int REQUEST_CODE_AUTOCOMPLETE=11;
     GeoJsonSource source;
@@ -178,7 +170,8 @@ public class MapsActivity extends AppCompatActivity implements
         savedInstanceState = getIntent().getExtras();
         ownerId = savedInstanceState.getString("ownerId");
         showCarOwnerInfo(savedInstanceState.getString("ownerName"),
-                            savedInstanceState.getString("ownerRate"));
+                            savedInstanceState.getString("ownerRate"),
+                            savedInstanceState.getString("image_url"));
 
         actionWidgets();
 
@@ -249,6 +242,7 @@ public class MapsActivity extends AppCompatActivity implements
 
         carOwnerNameTextview = findViewById(R.id.tv_owner_name);
         carOwnerRateTextview = findViewById(R.id.tv_owner_rate);
+        carOwnerImageView = findViewById(R.id.im_profile);
 
         reserveGarageButton = findViewById(R.id.btn_reserve);
         shareGarageButton = findViewById(R.id.btn_share);
@@ -270,6 +264,7 @@ public class MapsActivity extends AppCompatActivity implements
         garageAddressBottomSheet = findViewById(R.id.bs_garage_service);
         garageStateBottomSheet = findViewById(R.id.bs_garage_status);
         garagePhoneBottomSheet = findViewById(R.id.bs_garage_phone);
+        garageImageView = findViewById(R.id.iv_garage_image);
 
         // Set up the Mapbox map
         mapView = findViewById(R.id.mapView);
@@ -421,9 +416,15 @@ public class MapsActivity extends AppCompatActivity implements
                                 // Scroll the recyclerview to the selected marker's card. It's "x-1" below because
                                 // the mock device location marker is part of the marker list but doesn't have its own card
                                 // in the actual recyclerview.
-
-                                // get garage id to reserve in it
-                                selectedGarageId = listOfIndividualLocations.get(x).getGarageId();
+                                if (selectedGarageId.equals(listOfIndividualLocations.get(x).getGarageId())) {
+                                    cardVisibility(0);
+                                    selectedGarageId = "";
+                                }
+                                else {
+                                    cardVisibility(1);
+                                    // get garage id to reserve in it
+                                    selectedGarageId = listOfIndividualLocations.get(x).getGarageId();
+                                }
 
                                 // show garage data in card map
                                 updateGarageInfoCard(listOfIndividualLocations.get(x).getName(),
@@ -436,9 +437,10 @@ public class MapsActivity extends AppCompatActivity implements
                                         listOfIndividualLocations.get(x).getRate(),
                                         listOfIndividualLocations.get(x).getAddress(),
                                         listOfIndividualLocations.get(x).getPhoneNum(),
-                                        listOfIndividualLocations.get(x).getStatus()+" Now");
+                                        listOfIndividualLocations.get(x).getStatus()+" Now",
+                                        listOfIndividualLocations.get(x).getImage());
 
-                                cardVisibility(1);
+//                                cardVisibility(1);
 
                                 break;
                             }
@@ -466,10 +468,14 @@ public class MapsActivity extends AppCompatActivity implements
         }
     }
 
-    public void showCarOwnerInfo(String carOwnerName, String carOwnerRate){
+    public void showCarOwnerInfo(String carOwnerName, String carOwnerRate, String image_url){
 
         carOwnerNameTextview.setText(carOwnerName);
         carOwnerRateTextview.setText(carOwnerRate);
+
+        Picasso.get()
+                .load(image_url)
+                .into(carOwnerImageView);
     }
 
     public void updateGarageInfoCard(String garageName, String garageRate,
@@ -491,7 +497,8 @@ public class MapsActivity extends AppCompatActivity implements
     }
 
     public void updateGarageInfoBottomSheet(String garageName, String garageRate,
-                                     String garageAddress, String garagePhone, String garageState){
+                                            String garageAddress, String garagePhone,
+                                            String garageState, String garageImage){
 
         garageNameBottomSheet.setText(garageName);
         garageRateBottomSheet.setText(garageRate);
@@ -504,6 +511,9 @@ public class MapsActivity extends AppCompatActivity implements
         }
         garageStateBottomSheet.setText(garageState);
 
+        Picasso.get()
+                .load(garageImage)
+                .into(garageImageView);
     }
 
     public void expandedBottomSheetBehavior() {
@@ -1111,6 +1121,7 @@ public class MapsActivity extends AppCompatActivity implements
                     String singleLocationName = singleLocation.getStringProperty("name");
                     String singleLocationStatus = singleLocation.getStringProperty("status");
                     String singleLocationRate = singleLocation.getStringProperty("rate");
+                    String singleLocationImage = singleLocation.getStringProperty("garage_image");
                     String singleLocationHours = "1h 20m";
                     String singleLocationDescription ="Sea Street , Cairo Governorate";
                     singleLocationPhoneNum = singleLocation.getStringProperty("phone");
@@ -1136,7 +1147,8 @@ public class MapsActivity extends AppCompatActivity implements
                             singleLocationPhoneNum,
                             singleLocationLatLng,
                             singleLocationStatus,
-                            singleLocationRate
+                            singleLocationRate,
+                            singleLocationImage
                     ));
 
                     // Call getInformationFromDirectionsApi() to eventually display the location's

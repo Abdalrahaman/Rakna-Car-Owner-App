@@ -59,9 +59,7 @@ public class Login extends AppCompatActivity {
     TextView signup;
     TextView forgot;
 
-    private String id;
-    private String name;
-    private String rate;
+    private String id, name, rate, image_url;
 
     //ImageView login_facebock;
     LoginButton login_facebock;
@@ -188,6 +186,7 @@ public class Login extends AppCompatActivity {
                             name = object.getString("name").trim();
                             String email = object.getString("email").trim();
                             rate = object.getString("overall_rate").trim();
+                            image_url = object.getString("image_url").trim();
 
                             sharedpref();
 
@@ -195,12 +194,11 @@ public class Login extends AppCompatActivity {
                             intent.putExtra("ownerId",id);
                             intent.putExtra("ownerName",name);
                             intent.putExtra("ownerRate",rate);
+                            intent.putExtra("image_url",image_url);
                             startActivity(intent);
 
                             finish();
                             lodin.setVisibility(View.GONE);
-
-
                         }
 
                     }
@@ -232,6 +230,7 @@ public class Login extends AppCompatActivity {
                 putString("ownerId", id).
                 putString("ownerName", name).
                 putString("ownerRate", rate).
+                putString("image_url", image_url).
                 commit();
     }
 

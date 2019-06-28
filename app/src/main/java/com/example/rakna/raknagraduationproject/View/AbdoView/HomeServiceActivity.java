@@ -29,6 +29,7 @@ public class HomeServiceActivity extends AppCompatActivity {
     private String garageRate = "";
     private String garageWidth = "";
     private String garageLength = "";
+    private String garageImage = "";
     private String serviceWash = "";
     private String serviceLubrication = "";
     private String serviceMaintenance = "";
@@ -52,26 +53,12 @@ public class HomeServiceActivity extends AppCompatActivity {
         garageRate = sharedPrefs.getString("rate", null);
         garageWidth = sharedPrefs.getString("garage_width", null);
         garageLength = sharedPrefs.getString("garage_length", null);
+        garageImage = sharedPrefs.getString("garage_image", null);
         serviceWash = sharedPrefs.getString("wash", null);
         serviceLubrication = sharedPrefs.getString("lubrication", null);
         serviceMaintenance = sharedPrefs.getString("maintenance", null);
         serviceOilChange = sharedPrefs.getString("oil_change", null);
         isReserved = sharedPrefs.getBoolean("isReserved", false);
-
-
-//        savedInstanceState = getIntent().getExtras();
-//        ownerId = savedInstanceState.getString("ownerId");
-//        garageId = savedInstanceState.getString("garageId");
-//        garageName = savedInstanceState.getString("name");
-//        garagePhone = savedInstanceState.getString("phone");
-//        garageRate = savedInstanceState.getString("rate");
-//        garageWidth = savedInstanceState.getString("garage_width");
-//        garageLength = savedInstanceState.getString("garage_length");
-//        serviceWash = savedInstanceState.getString("wash");
-//        serviceLubrication = savedInstanceState.getString("lubrication");
-//        serviceMaintenance = savedInstanceState.getString("maintenance");
-//        serviceOilChange = savedInstanceState.getString("oil_change");
-//        isReserved = savedInstanceState.getBoolean("isReserved");
 
         Toast.makeText(this, ""+garageName, Toast.LENGTH_SHORT).show();
 
@@ -92,6 +79,7 @@ public class HomeServiceActivity extends AppCompatActivity {
         data.putString("garage_rate", garageRate);
         data.putString("garage_width", garageWidth);
         data.putString("garage_length", garageLength);
+        data.putString("garage_image", garageImage);
         data.putString("wash", serviceWash);
         data.putString("lubrication", serviceLubrication);
         data.putString("maintenance", serviceMaintenance);
@@ -117,6 +105,7 @@ public class HomeServiceActivity extends AppCompatActivity {
                             data.putString("garage_rate", garageRate);
                             data.putString("garage_width", garageWidth);
                             data.putString("garage_length", garageLength);
+                            data.putString("garage_image", garageImage);
                             data.putString("wash", serviceWash);
                             data.putString("lubrication", serviceLubrication);
                             data.putString("maintenance", serviceMaintenance);

@@ -28,11 +28,15 @@ public class NfcActivity extends AppCompatActivity {
     Tag myTag;
     TextView tvNFCContent;
 
+    Intent intent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc);
+
+        intent = new Intent();
 
         context = this;
 
@@ -86,7 +90,9 @@ public class NfcActivity extends AppCompatActivity {
             Log.e("UnsupportedEncoding", e.toString());
         }
 
+        intent.putExtra("nfc_scaned",text);
         tvNFCContent.setText("NFC Content: " + text);
+        setResult(RESULT_OK, intent);
     }
     @Override
     protected void onNewIntent(Intent intent) {

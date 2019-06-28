@@ -16,8 +16,9 @@ public class IndividualLocation {
   private LatLng location;
   private String status;
   private String rate;
+  private String image;
 
-  public IndividualLocation(String garageId, String name, String address, String hours, String phoneNum, LatLng location, String status, String rate) {
+  public IndividualLocation(String garageId, String name, String address, String hours, String phoneNum, LatLng location, String status, String rate, String image) {
     this.garageId = garageId;
     this.name = name;
     this.address = address;
@@ -26,6 +27,7 @@ public class IndividualLocation {
     this.location = location;
     this.status = status;
     this.rate = rate;
+    this.image = image;
   }
 
   public String getGarageId() {
@@ -82,5 +84,13 @@ public class IndividualLocation {
 
   public void setRate(String rate) {
     this.rate = rate;
+  }
+
+  public String getImage() {
+    return image;
+  }
+
+  public void setImage(String image) {
+    this.image = image;
   }
 }

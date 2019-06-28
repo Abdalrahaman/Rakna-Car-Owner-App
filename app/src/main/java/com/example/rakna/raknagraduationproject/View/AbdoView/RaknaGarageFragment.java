@@ -9,11 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rakna.raknagraduationproject.R;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +23,7 @@ import com.example.rakna.raknagraduationproject.R;
 public class RaknaGarageFragment extends Fragment {
 
     private TextView garageNameTextView, garageRateTextView, garageDetailsTextView, textViewCallingGarage;
+    private ImageView garageImageView;
 
     private String phone ;
 
@@ -42,6 +45,7 @@ public class RaknaGarageFragment extends Fragment {
         garageNameTextView = rootView.findViewById(R.id.garage_name);
         garageRateTextView = rootView.findViewById(R.id.like_rate);
         garageDetailsTextView = rootView.findViewById(R.id.details_info);
+        garageImageView = rootView.findViewById(R.id.profile_image);
 
         // display garage info
         showGarageInfo();
@@ -81,6 +85,7 @@ public class RaknaGarageFragment extends Fragment {
         // DELETE FROM `car_owner_history` WHERE driver_licence = 552
         garageNameTextView.setText(getArguments().getString("garage_name"));
         garageRateTextView.setText(getArguments().getString("garage_rate"));
+        Picasso.get().load(getArguments().getString("garage_image")).into(garageImageView);
         garageDetailsTextView.setText(getString(R.string.garage_measure)
                 + getArguments().getString("garage_width") + " x " + getArguments().getString("garage_length")
                 + getString(R.string.garage_service)
