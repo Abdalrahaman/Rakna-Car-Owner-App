@@ -1,6 +1,8 @@
 package com.example.rakna.raknagraduationproject.View.hassan;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,19 +17,27 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rakna.raknagraduationproject.Model.hassanModel.IndividualLocation;
 import com.example.rakna.raknagraduationproject.R;
 import com.example.rakna.raknagraduationproject.View.AbdoView.LockConnectionActivity;
+import com.example.rakna.raknagraduationproject.View.AbdoView.OwnerHistoryFragment;
+import com.example.rakna.raknagraduationproject.View.azerCode.Login;
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.api.directions.v5.DirectionsCriteria;
@@ -128,7 +138,9 @@ public class MapsActivity extends AppCompatActivity implements
     private static LatLng MOCK_DEVICE_LOCATION_LAT_LNG;
     Point mockCurrentLocation, selectedFeaturePoint;
     private CardView card_Item_info_Location;
+//    private FrameLayout historyFrameLayout;
     private AnchorBottomSheetBehavior mAnchorBottomSheetBehavior;
+    private ImageView More;
 
     private Button reserveGarageButton, shareGarageButton, arriveGarageButton;
     private Button reserveGarageBottomSheet, callGarageBottomSheet, shareGarageBottomSheet;
@@ -175,10 +187,6 @@ public class MapsActivity extends AppCompatActivity implements
 
         actionWidgets();
 
-//        Card_Item_Location_layout= LayoutInflater.from(this).inflate(R.layout.single_location_map_view_rv_card,null);
-////        Card_Item_Location=Card_Item_Location_layout.findViewById(R.id.map_view_location_card);
-//        Card_Item_Location_layout.setVisibility(View.GONE);
-
         cardVisibility(0);
 
         // Create a GeoJSON feature collection from the GeoJSON file in the assets folder.
@@ -192,8 +200,6 @@ public class MapsActivity extends AppCompatActivity implements
         // Initialize a list of IndividualLocation objects for future use with recyclerview
         listOfIndividualLocations = new ArrayList<>();
 
-        // Initialize the theme that was selected in the previous activity. The blue theme is set as the backup default.
-//        chosenTheme = getIntent().getIntExtra(StringConstants.SELECTED_THEME, R.style.AppTheme_Blue);
         chosenTheme = R.style.AppTheme_Neutral;
 
         // bottom sheet
@@ -239,6 +245,9 @@ public class MapsActivity extends AppCompatActivity implements
 
 
     public void initWidgets(){
+
+//        historyFrameLayout = findViewById(R.id.fragment_container);
+        More = findViewById(R.id.btn_menu);
 
         carOwnerNameTextview = findViewById(R.id.tv_owner_name);
         carOwnerRateTextview = findViewById(R.id.tv_owner_rate);
@@ -349,6 +358,44 @@ public class MapsActivity extends AppCompatActivity implements
 
             }
         });
+
+
+        More.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                PopupMenu popupMenu = new PopupMenu(MapsActivity.this, v);
+
+                popupMenu.inflate(R.menu.more_profile);
+                popupMenu.show();
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        switch (item.getItemId()){
+                            case R.id.logout:
+                                Clearsharedpref();
+                                break;
+                            case R.id.history:
+//                                FragmentManager fm = getFragmentManager();
+//                                FragmentTransaction ft = fm.beginTransaction();
+//                                Fragment his = new OwnerHistoryFragment();
+//                                Bundle data = new Bundle();
+//                                data.putString("driver_licence", ownerId);
+//                                his.setArguments(data);
+//                                ft.add(R.id.fragment_container, his);
+//                                ft.commit();
+//                                historyFrameLayout.setVisibility(View.VISIBLE);
+                                break;
+                        }
+
+                        return false;
+                    }
+
+                });
+            }
+        });
     }
 
 
@@ -413,9 +460,7 @@ public class MapsActivity extends AppCompatActivity implements
                         for (int x = 0; x < featureCollection.features().size(); x++) {
 
                             if (listOfIndividualLocations.get(x).getLocation().getLatitude() == selectedFeaturePoint.latitude()) {
-                                // Scroll the recyclerview to the selected marker's card. It's "x-1" below because
-                                // the mock device location marker is part of the marker list but doesn't have its own card
-                                // in the actual recyclerview.
+
                                 if (selectedGarageId.equals(listOfIndividualLocations.get(x).getGarageId())) {
                                     cardVisibility(0);
                                     selectedGarageId = "";
@@ -439,8 +484,6 @@ public class MapsActivity extends AppCompatActivity implements
                                         listOfIndividualLocations.get(x).getPhoneNum(),
                                         listOfIndividualLocations.get(x).getStatus()+" Now",
                                         listOfIndividualLocations.get(x).getImage());
-
-//                                cardVisibility(1);
 
                                 break;
                             }
@@ -511,9 +554,7 @@ public class MapsActivity extends AppCompatActivity implements
         }
         garageStateBottomSheet.setText(garageState);
 
-        Picasso.get()
-                .load(garageImage)
-                .into(garageImageView);
+        Picasso.get().load(garageImage).into(garageImageView);
     }
 
     public void expandedBottomSheetBehavior() {
@@ -526,19 +567,15 @@ public class MapsActivity extends AppCompatActivity implements
         mAnchorBottomSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_COLLAPSED);
     }
 
-//    // Method to share either text or URL.
-//    private void shareTextUrl() {
-//        Intent share = new Intent(android.content.Intent.ACTION_SEND);
-//        share.setType("text/plain");
-//        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-//
-//        // Add data to the intent, the receiving app will decide
-//        // what to do with it. http://maps.google.com/?q=35.17380831799959,-86.1328125
-//        share.putExtra(Intent.EXTRA_SUBJECT, "Title Of The Post");
-//        share.putExtra(Intent.EXTRA_TEXT, "http://www.codeofaninja.com");
-//
-//        startActivity(Intent.createChooser(share, "Share link!"));
-//    }
+    public void Clearsharedpref() {
+        getSharedPreferences("mydata", MODE_PRIVATE)
+                .edit().
+                clear().
+                commit();
+        Intent i = new Intent(getApplicationContext(), Login.class);
+        startActivity(i);
+        finish();
+    }
 
     /**
      * The LocationRecyclerViewAdapter's interface which listens to clicks on each location's card
@@ -548,25 +585,6 @@ public class MapsActivity extends AppCompatActivity implements
     @SuppressWarnings( {"MissingPermission"})
 
     public void onItemClick(Point selectedPoint) {
-        // Get the selected individual location via its card's position in the recyclerview of cards
-//        IndividualLocation selectedLocation = listOfIndividualLocations.get(position);
-
-        // Evaluate each Feature's "select state" to appropriately style the location's icon
-//        List<Feature> featureList = featureCollection.features();
-//        Point selectedLocationPoint = (Point) featureCollection.features().get(position).geometry();
-//        for (int i = 0; i < featureList.size(); i++) {
-//            if (featureList.get(i).getStringProperty("name").equals(selectedLocation.getName())) {
-//                if (featureSelectStatus(i)) {
-//                    setFeatureSelectState(featureList.get(i), false);
-//                } else {
-//                    setSelected(i);
-//                }
-//            } else {
-//                setFeatureSelectState(featureList.get(i), false);
-//            }
-//        }
-
-
 
         // Reposition the map camera target to the selected marker
         if (selectedPoint != null) {
@@ -853,18 +871,6 @@ public class MapsActivity extends AppCompatActivity implements
             return null;
         }
     }
-
-//    private void setUpRecyclerViewOfLocationCards() {
-//        // Initialize the recyclerview of location cards and a custom class for automatic card scrolling
-//        locationsRecyclerView = findViewById(R.id.map_layout_rv);
-//        locationsRecyclerView.setHasFixedSize(true);
-//        locationsRecyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this));
-//        styleRvAdapter = new LocationRecyclerViewAdapter(listOfIndividualLocations,
-//                getApplicationContext(), this);
-//        locationsRecyclerView.setAdapter(styleRvAdapter);
-//        SnapHelper snapHelper = new LinearSnapHelper();
-//        snapHelper.attachToRecyclerView(locationsRecyclerView);
-//    }
 
     private void drawNavigationPolylineRoute(DirectionsRoute route) {
         // Retrieve and update the source designated for showing the store location icons

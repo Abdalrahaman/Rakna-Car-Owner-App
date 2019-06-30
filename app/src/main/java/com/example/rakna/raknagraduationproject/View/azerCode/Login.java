@@ -201,6 +201,11 @@ public class Login extends AppCompatActivity {
                             lodin.setVisibility(View.GONE);
                         }
 
+                    }else {
+                        lodin.setVisibility(View.GONE);
+                        Signin.setVisibility(View.VISIBLE);
+
+                        Toast("Check Email and Password");
                     }
 
                 } catch (JSONException e) {
