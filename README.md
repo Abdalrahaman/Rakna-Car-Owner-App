@@ -102,8 +102,14 @@ Determine that is the car owner who actually reserve this garage and start timer
 	**Chat Tab:** the function of this tab to provide a user the ability to connecting with garage owner via messaging.
 
 	**Camera Tap:** the function of this tab to display live stream of a user car to the owner to strengthen the security issues.
+	
+	<p float="left">
+	  <img src="https://user-images.githubusercontent.com/35526918/66874241-dd6e8f80-efaa-11e9-8929-4b2107830d85.png" width=250>
+	  <img src="https://user-images.githubusercontent.com/35526918/66874470-76050f80-efab-11e9-8153-01944b1feba9.png" width=250>
+	  <img src="https://user-images.githubusercontent.com/35526918/66874469-76050f80-efab-11e9-986d-616f7395947b.png" width=250>
+	</p>
 
-	<img src="https://user-images.githubusercontent.com/35526918/66874241-dd6e8f80-efaa-11e9-8929-4b2107830d85.png" width=300>
+	
 
 
 
