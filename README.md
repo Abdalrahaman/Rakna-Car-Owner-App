@@ -40,7 +40,7 @@ We can subdivide the project into 9 main features, Details of each of the follow
   * Rakna (Server)
 
 # Main User Interface
-•	_Map Screen:_
+•	**_Map Screen:_**
   In the map activity user will find his profile image, name and rate in the header of the screen.
   The map screen detects his/her current location and find nearest garage around him/her or search to find a garage in another destination       
   he/she want to go. 
@@ -53,7 +53,7 @@ We can subdivide the project into 9 main features, Details of each of the follow
   <img src="https://user-images.githubusercontent.com/35526918/66872732-f412e780-efa6-11e9-8e0f-b9c91d8a17a3.png" width=250>
   </p>
 
-•	_Garage Info Screen_
+•	**_Garage Info Screen_**
   The user will find: -
   -	Garage name
   -	Garage Images
@@ -76,11 +76,11 @@ We can subdivide the project into 9 main features, Details of each of the follow
 - **Arrive Button**
   Determine the actual car owner arriving to a garage and stop map from tracking the car.
   
-•	_QR Code & NFC Screen_
+•	**_QR Code & NFC Screen:_**
 Determine that is the car owner who actually reserve this garage and start timer to count the amount of time car in stayed garage.
 
 
-•	_Main Stage:_
+•	**_Main Stage:_**
 
 - Contains some tabs like:
 
