@@ -34,10 +34,10 @@ We can subdivide the project into 9 main features, Details of each of the follow
   </p>
   
 # System users (stakeholders)
-•	Car owners
-•	Banks.
-•	Garage owners
-•	Rakna (Server)
+  * Car owners
+  * Banks.
+  * Garage owners
+  * Rakna (Server)
 
 # Main User Interface
 •	Map Screen:
@@ -61,19 +61,19 @@ We can subdivide the project into 9 main features, Details of each of the follow
   -	Garage location
 
                     There would be several buttons: -
-- Reserve Button
+- **Reserve Button**
   Draw the best route to a garage with the voice telling a user direction.
 
-- Call Button
+- **Call Button**
   It gets the contact number of the garage owner and call him.
   
-- Chat Button
+- **Chat Button**
   Create connection between car owner and garage owner using messaging.
   
-- Share location Button
+- **Share location Button**
 	Send garage location to anyone to facilitate finding way to the garage.
   
--	Arrive Button
+- **Arrive Button**
   Determine the actual car owner arriving to a garage and stop map from tracking the car.
 
 
