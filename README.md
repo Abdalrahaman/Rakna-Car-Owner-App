@@ -103,9 +103,7 @@ Determine that is the car owner who actually reserve this garage and start timer
 
 	**Camera Tap:** the function of this tab to display live stream of a user car to the owner to strengthen the security issues.
 
-
-
-
+	<img src="https://user-images.githubusercontent.com/35526918/66874241-dd6e8f80-efaa-11e9-8929-4b2107830d85.png" width=300>
 
 
 
