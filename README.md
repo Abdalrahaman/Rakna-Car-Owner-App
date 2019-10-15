@@ -60,21 +60,22 @@ We can subdivide the project into 9 main features, Details of each of the follow
   -	Garage rate
   -	Garage location
 
-                    There would be several buttons: -
-• **Reserve Button**
-  Draw the best route to a garage with the voice telling a user direction.
+			    There would be several buttons: -
+	• **Reserve Button**
+	  Draw the best route to a garage with the voice telling a user direction.
 
-• **Call Button**
-  It gets the contact number of the garage owner and call him.
+	• **Call Button**
+	  It gets the contact number of the garage owner and call him.
+
+	• **Chat Button**
+	  Create connection between car owner and garage owner using messaging.
+
+	• **Share location Button**
+		Send garage location to anyone to facilitate finding way to the garage.
+
+	• **Arrive Button**
+	  Determine the actual car owner arriving to a garage and stop map from tracking the car.
   
-• **Chat Button**
-  Create connection between car owner and garage owner using messaging.
-  
-• **Share location Button**
-	Send garage location to anyone to facilitate finding way to the garage.
-  
-• **Arrive Button**
-  Determine the actual car owner arriving to a garage and stop map from tracking the car.
   
 *	**_QR Code & NFC Screen:_**
 Determine that is the car owner who actually reserve this garage and start timer to count the amount of time car in stayed garage.
@@ -82,22 +83,25 @@ Determine that is the car owner who actually reserve this garage and start timer
 
 *	**_Main Stage:_**
 
-• Contains some tabs like:
+	• Contains some tabs like:
 
-**Rakna Screen Tab:** the function of this tab is to display all information about a garage that car owner parking its car and display a live timer that count the amount of time of parking.
+	**Rakna Screen Tab:** the function of this tab is to display all information about a garage that car owner parking its car and 
+	display a live timer that count the amount of time of parking.
 
-**Notification Tab:**  the function of this tab to make user always connecting with live events that performed/occurring at the garage such as:
--	A Warning Message/Notification telling user security issues about his/her vehicle.
--	A notification telling user he/she has a message. 
+	**Notification Tab:**  the function of this tab to make user always connecting with live events that performed/occurring at the 
+	garage such as:
+	-	A Warning Message/Notification telling user security issues about his/her vehicle.
+	-	A notification telling user he/she has a message. 
 
 
-**Profile Tab:** the function of this tab to display all information about a user and provide ability to make changes to user information such as reset password edit/update photo, car license, car model, driver license, user name and phone number.
--	Logout Menu Item: that the user can log out of the system himself optionally.
--	History Menu Item: View all parked user garages in order to quickly select one of them.
+	**Profile Tab:** the function of this tab to display all information about a user and provide ability to make changes to user 
+	information such as reset password edit/update photo, car license, car model, driver license, user name and phone number.
+	-	Logout Menu Item: that the user can log out of the system himself optionally.
+	-	History Menu Item: View all parked user garages in order to quickly select one of them.
 
-**Chat Tab:** the function of this tab to provide a user the ability to connecting with garage owner via messaging.
+	**Chat Tab:** the function of this tab to provide a user the ability to connecting with garage owner via messaging.
 
-**Camera Tap:** the function of this tab to display live stream of a user car to the owner to strengthen the security issues.
+	**Camera Tap:** the function of this tab to display live stream of a user car to the owner to strengthen the security issues.
 
 
 
