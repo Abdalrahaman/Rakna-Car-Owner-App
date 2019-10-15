@@ -48,9 +48,9 @@ We can subdivide the project into 9 main features, Details of each of the follow
   selected garage.
   
   <p float="left">
-  <img src="https://user-images.githubusercontent.com/35526918/66872731-f412e780-efa6-11e9-8b7b-e70e5eb7159a.png" width=200>
-  <img src="https://user-images.githubusercontent.com/35526918/66872733-f4ab7e00-efa6-11e9-866a-be7b87e37640.png" width=200>
-  <img src="https://user-images.githubusercontent.com/35526918/66872732-f412e780-efa6-11e9-8e0f-b9c91d8a17a3.png" width=200>
+  <img src="https://user-images.githubusercontent.com/35526918/66872731-f412e780-efa6-11e9-8b7b-e70e5eb7159a.png" width=250>
+  <img src="https://user-images.githubusercontent.com/35526918/66872733-f4ab7e00-efa6-11e9-866a-be7b87e37640.png" width=250>
+  <img src="https://user-images.githubusercontent.com/35526918/66872732-f412e780-efa6-11e9-8e0f-b9c91d8a17a3.png" width=250>
   </p>
 
 •	Garage Info Screen
